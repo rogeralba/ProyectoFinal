@@ -5,8 +5,6 @@ public class Internet extends Servicio{
 	private int velBajada;
 	private int velSubida;
 	
-
-	
 	public Internet(String codServicio, int impuestos, float precioInstalacion, float tarifa, int velocidad, int velBajada, int velSubida) {
 		super(codServicio, impuestos, precioInstalacion, tarifa);
 		this.velocidad = velocidad;

@@ -13,10 +13,7 @@ public class Plan {
 	//En caso de que alguno de los servicios no se incluya en el plan, su valor será NULL
 	
 	
-	
-	
-	public Plan(String codPlan, String nombre, float impuestos, float tarifaMensual, int duracionPlan,
-			Servicio internet, Servicio telefono, Servicio cable, String descripcion) {
+	public Plan(String codPlan, String nombre, float impuestos, float tarifaMensual, int duracionPlan, Servicio internet, Servicio telefono, Servicio cable, String descripcion) {
 		super();
 		this.codPlan = codPlan;
 		this.nombre = nombre;
@@ -27,6 +24,18 @@ public class Plan {
 		this.telefono = telefono;
 		this.cable = cable;
 		this.descripcion = descripcion;
+	}
+	
+	public void setTarifa()
+	{
+		tarifaMensual = 0;
+		if(internet != null)
+			tarifaMensual += internet.getTarifa() + internet.getImpuestos();
+		if(telefono != null)
+			tarifaMensual += telefono.getTarifa() + telefono.getImpuestos();
+		if(cable != null)
+			tarifaMensual += cable.getTarifa() + cable.getImpuestos();
+		
 	}
 	
 	public String getCodPlan() {

@@ -6,7 +6,7 @@ public class Telefono extends Servicio{
 	private boolean dobleLinea;
 	private boolean desvioLlamadas;
 	private boolean minutosAdicionales;
-	private AparatoTelefonico equipo;
+	private AparatoTelefonico equipo; //Será NULL si no se incluye el aparato
 	
 	
 	public Telefono(String codServicio, int impuestos, float precioInstalacion,float tarifa, int minutos, boolean interLlamadas, boolean dobleLinea, boolean desvioLlamadas, boolean minutosAdicionales, AparatoTelefonico equipo) {

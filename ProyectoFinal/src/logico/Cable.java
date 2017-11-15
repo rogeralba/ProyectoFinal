@@ -10,8 +10,7 @@ public class Cable extends Servicio{
 	private ArrayList<Paquete> misPaquetes;
 	private boolean cajaHD;
 	
-	public Cable(String codServicio, int impuestos, float precioInstalacion, float tarifa, int cantCanales, int locales,
-			int internacionales, int cantCanalesHD, ArrayList<Paquete> misPaquetes, boolean cajaHD) {
+	public Cable(String codServicio, int impuestos, float precioInstalacion, float tarifa, int cantCanales, int locales, int internacionales, int cantCanalesHD, ArrayList<Paquete> misPaquetes, boolean cajaHD) {
 		super(codServicio, impuestos, precioInstalacion, tarifa);
 		this.cantCanales = cantCanales;
 		this.locales = locales;
@@ -19,6 +18,16 @@ public class Cable extends Servicio{
 		this.cantCanalesHD = cantCanalesHD;
 		this.misPaquetes = misPaquetes;
 		this.cajaHD = cajaHD;
+	}
+	
+	public int precioMisPaquetes()
+	{
+		int precio = 0;
+		for(Paquete paq: misPaquetes)
+		{
+			precio = paq.getPrecio();
+		}
+		return precio;
 	}
 	
 	
