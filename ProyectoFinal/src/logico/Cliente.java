@@ -1,10 +1,10 @@
 package logico;
 
 public class Cliente {
-	private String id;
-	private String nombreC; //nombre Completo
-	private String direccion;
-	private String telefono;
+	protected String id;
+	protected String nombreC; //nombre Completo
+	protected String direccion;
+	protected String telefono;
 	
 	public Cliente(String id, String nombreC, String direccion, String telefono){
 		this.id = id;
