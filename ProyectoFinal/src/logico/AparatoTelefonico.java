@@ -5,8 +5,6 @@ public class AparatoTelefonico {
 	private boolean inalambrico;
 	private int precio;
 	
-	
-	
 	public AparatoTelefonico(boolean callerID, boolean inalambrico, int precio) {
 		super();
 		this.callerID = callerID;
