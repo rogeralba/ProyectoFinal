@@ -1,6 +1,12 @@
 package logico;
 
-public class Plan {
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Plan implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String codPlan;
 	private String nombre;
 	private float impuestos;
@@ -13,17 +19,16 @@ public class Plan {
 	//En caso de que alguno de los servicios no se incluya en el plan, su valor será NULL
 	
 	
-	public Plan(String codPlan, String nombre, float impuestos, float tarifaMensual, int duracionPlan, Servicio internet, Servicio telefono, Servicio cable, String descripcion) {
+	public Plan(String codPlan, String nombre, int duracionPlan, Servicio internet, Servicio telefono, Servicio cable, String descripcion) {
 		super();
 		this.codPlan = codPlan;
 		this.nombre = nombre;
-		this.impuestos = impuestos;
-		this.tarifaMensual = tarifaMensual;
 		this.duracionPlan = duracionPlan;
 		this.internet = internet;
 		this.telefono = telefono;
 		this.cable = cable;
 		this.descripcion = descripcion;
+		setTarifa();
 	}
 	
 	public void setTarifa()
@@ -35,8 +40,20 @@ public class Plan {
 			tarifaMensual += telefono.getTarifa() + telefono.getImpuestos();
 		if(cable != null)
 			tarifaMensual += cable.getTarifa() + cable.getImpuestos();
-		
 	}
+	
+	public void setImpuestos()
+	{
+		impuestos = 0;
+		if(internet != null)
+			impuestos += internet.getImpuestos();
+		if(telefono != null)
+			tarifaMensual += telefono.getImpuestos();
+		if(cable != null)
+			tarifaMensual += cable.getImpuestos();
+	}
+	
+	
 	
 	public String getCodPlan() {
 		return codPlan;
