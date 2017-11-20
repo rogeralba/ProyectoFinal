@@ -110,12 +110,30 @@ public class Tricom {
 			if(misPlanes.get(i).getCodPlan().equalsIgnoreCase(codPlan))
 			{
 				plan = misPlanes.get(i);
+				encontrado = true;
 			}
 			i++;
 		}
 		return plan;
 	}
 	
+	public void ingresarCliente(Cliente c){
+		misClientes.add(c);
+	}
+	
+	public Cliente buscarCliente(String id){
+		boolean encontrado = false;
+		int i = 0;
+		Cliente c = null;
+		while(i < misClientes.size() && !encontrado){
+			if(misClientes.get(i).getId().equalsIgnoreCase(id)){
+				c = misClientes.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return c;
+	}
 	
 	public boolean validarCedula(String cedula)
 	{
