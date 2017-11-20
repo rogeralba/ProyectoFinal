@@ -11,6 +11,7 @@ public class Tricom {
 	private ArrayList<Empleados> misEmpleados;
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Plan> misPlanes;
+	private ArrayList<Servicio> misServicios;
 	private static Tricom tricom;
 	
 	private Tricom()
@@ -71,6 +72,22 @@ public class Tricom {
 			}
 			i++;
 		}
+	}
+	
+	public void eliminarServicio(String codServicio)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		while(i < misServicios.size() && encontrado == false)
+		{
+			if(misServicios.get(i).getCodServicio().equalsIgnoreCase(codServicio))
+			{
+				misServicios.remove(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		
 	}
 	
 
