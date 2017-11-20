@@ -5,11 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Tricom {
 	private ArrayList<Empleados> misEmpleados;
+	private ArrayList<Cliente> misClientes;
 	private ArrayList<Plan> misPlanes;
 	private static Tricom tricom;
 	
@@ -73,9 +73,12 @@ public class Tricom {
 		}
 	}
 	
-	public void ingresarPlan(Plan plan)
+
+	
+	public void ingresarPlan(Plan plan) throws IOException
 	{
 		misPlanes.add(plan);
+		saveData();
 	}
 	
 	
@@ -94,6 +97,36 @@ public class Tricom {
 			i++;
 		}
 		return plan;
+	}
+	
+	
+	public boolean validarCedula(String cedula)
+	{
+		int i=0;
+		boolean resultado = false;
+		if(cedula.length() != 13 || cedula.charAt(3) != '-' || cedula.charAt(11) != '-')
+		{
+			return true;
+		}
+		while(i < cedula.length() && resultado == false)
+		{
+			if((int)cedula.charAt(i) >= 48 && (int)cedula.charAt(i) <= 57) //Si es un numero
+			{
+			    if(Integer.parseInt(cedula.charAt(i)+"") < 0 || Integer.parseInt(cedula.charAt(i)+"") > 9)//Si no se encuentra en ese rango
+			    {
+			    	resultado = true;
+			    }
+			}else if(i == 3 || i == 11)
+			{
+				resultado = false;
+			}
+			else
+			{
+				resultado = true;
+			}
+		    i++;
+		}
+		return resultado;
 	}
 	
 	
