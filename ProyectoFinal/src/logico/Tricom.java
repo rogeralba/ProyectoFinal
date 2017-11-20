@@ -1,5 +1,11 @@
 package logico;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Tricom {
@@ -22,7 +28,58 @@ public class Tricom {
 		return tricom;
 	}
 	
-	private Plan buscarPlan(String codPlan)
+	public void saveData() throws IOException
+	{
+		FileOutputStream planStream = new FileOutputStream("Planes.dat");
+		ObjectOutputStream oos = new ObjectOutputStream(planStream);
+
+		oos.writeInt(misPlanes.size());
+		for(int i=0;i<misPlanes.size();i++)
+		{
+			oos.writeObject(misPlanes.get(i));
+		}
+		
+		planStream.close();//Fichero
+	}
+	
+	public void readData() throws IOException, ClassNotFoundException
+	{
+		int cantPlanes;
+		FileInputStream planStream = new FileInputStream("Planes.dat");
+		ObjectInputStream ois = new ObjectInputStream(planStream);
+		
+		cantPlanes = ois.readInt();
+		
+		for(int i=0; i < cantPlanes; i++)
+		{
+			misPlanes.add(i, (Plan)ois.readObject());	
+		}
+		planStream.close();
+	}
+	
+	
+	public void eliminarPlan(String codPlan)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		while(i < misPlanes.size() && encontrado == false)
+		{
+			if(misPlanes.get(i).getCodPlan().equalsIgnoreCase(codPlan))
+			{
+				misPlanes.remove(i);
+				encontrado = true;
+			}
+			i++;
+		}
+	}
+	
+	public void ingresarPlan(Plan plan)
+	{
+		misPlanes.add(plan);
+	}
+	
+	
+	public Plan buscarPlan(String codPlan)
 	{
 		boolean encontrado = false;
 		int i = 0;
