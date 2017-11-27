@@ -126,7 +126,7 @@ public class Tricom {
 		int i = 0;
 		Cliente c = null;
 		while(i < misClientes.size() && !encontrado){
-			if(misClientes.get(i).getId().equalsIgnoreCase(id)){
+			if(misClientes.get(i).getCedula().equalsIgnoreCase(id)){
 				c = misClientes.get(i);
 				encontrado = true;
 			}
