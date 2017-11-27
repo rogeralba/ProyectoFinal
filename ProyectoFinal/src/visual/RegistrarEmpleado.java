@@ -233,7 +233,7 @@ public class RegistrarEmpleado extends JDialog {
 								
 	
 								
-								Empleados vend = new Empleados(nombreUser.getText(),apellidoUser.getText(),cedulaUser.getText(),direccionUser.getText(),telefonoUser.getText(),txtnotam.getText(), spnsal.getValue(),contraUser.getText());
+								//Empleados vend = new Empleados(nombreUser.getText(),apellidoUser.getText(),cedulaUser.getText(),direccionUser.getText(),telefonoUser.getText(),txtnotam.getText(), spnsal.getValue(),contraUser.getText());
 								
 								String m = correoUser.getText();
 								
