@@ -41,6 +41,7 @@ public class RegistrarCliente extends JDialog {
 	}
 
 	/**
+	 * 
 	 * Create the dialog.
 	 */
 	public RegistrarCliente() {
