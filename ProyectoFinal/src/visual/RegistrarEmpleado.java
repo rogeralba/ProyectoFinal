@@ -14,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
-import logico.Cliente;
 import logico.Empleados;
+import logico.Tricom;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -231,10 +231,11 @@ public class RegistrarEmpleado extends JDialog {
 							if(!(nombreUser.getText().equalsIgnoreCase("")) && !(contraUser.getText().equalsIgnoreCase("")) && (cedulaUser.getText().length() == 13) && !(direccionUser.getText().equalsIgnoreCase("") && !(apellidoUser.getText().equalsIgnoreCase("")) && !(correoUser.getText().equalsIgnoreCase("")) && !(telefonoUser.getText().equalsIgnoreCase("")) && combosexoUser.getSelectedIndex()!= 0) )
 							{
 								
-	
 								
-								//Empleados vend = new Empleados(nombreUser.getText(),apellidoUser.getText(),cedulaUser.getText(),direccionUser.getText(),telefonoUser.getText(),txtnotam.getText(), spnsal.getValue(),contraUser.getText());
 								
+								Empleados vend = new Empleados(nombreUser.getText(),apellidoUser.getText(),cedulaUser.getText(),direccionUser.getText(),telefonoUser.getText(),txtnotam.getText(), spnsal.getValue(),contraUser.getText());
+								
+								Tricom.getInstance().crearempleado(vend);
 								String m = correoUser.getText();
 								
 								
