@@ -180,5 +180,10 @@ public class Tricom {
 	public void setMisPlanes(ArrayList<Plan> misPlanes) {
 		this.misPlanes = misPlanes;
 	}
+	//Roger creacion y manejo de usuarios(Empleados)
 	
+public void crearempleado(Empleados emp){
+	misEmpleados.add(emp);
+	
+}
 }

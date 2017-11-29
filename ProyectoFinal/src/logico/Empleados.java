@@ -3,26 +3,28 @@ package logico;
 import java.util.Date;
 
 public abstract class Empleados{
+	private static int code = 0;
 	private String Nombre;
 	private String Apellido;
 	private String cedula;
-	private Date fechanacim;
 	private String direccion;
 	private String telefono;
-	private String codigointerno;
+	private int codigointerno;
 	private String notamedica;
+	private String contrasena;
 	private float salario;
 	
 
-	public Empleados(String nombre,String apellido,String cedula,String direccion,String telefono,String codigoint,String notamedia,Date fechan,float salario) {
+	public Empleados(String nombre,String apellido,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase) {
 		// TODO Auto-generated constructor stubl
+		code++;
+		this.codigointerno = code;
 		this.Nombre = nombre;
 		this.Apellido = apellido;
 		this.cedula = cedula;
-		this.fechanacim = fechan;
+		this.contrasena = contrase;
 		this.direccion = direccion;
 		this.telefono = telefono;
-		this.codigointerno = codigoint;
 		this.notamedica = notamedia;
 		this.salario = salario;
 		
@@ -53,13 +55,7 @@ public abstract class Empleados{
 		this.cedula = cedula;
 	}
 
-	public Date getFechanacim() {
-		return fechanacim;
-	}
-
-	public void setFechanacim(Date fechanacim) {
-		this.fechanacim = fechanacim;
-	}
+	
 
 	public String getDireccion() {
 		return direccion;
@@ -77,11 +73,11 @@ public abstract class Empleados{
 		this.telefono = telefono;
 	}
 
-	public String getCodigointerno() {
+	public int getCodigointerno() {
 		return codigointerno;
 	}
 
-	public void setCodigointerno(String codigointerno) {
+	public void setCodigointerno(int codigointerno) {
 		this.codigointerno = codigointerno;
 	}
 
