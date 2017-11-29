@@ -171,6 +171,18 @@ public class RegistrarCliente extends JDialog {
 		label_12.setBounds(252, 111, 11, 14);
 		panel_1.add(label_12);
 		
+		JLabel label = new JLabel("*");
+		label.setForeground(Color.RED);
+		label.setBounds(402, 11, 11, 14);
+		panel_1.add(label);
+		
+		JLabel lblObligatorioDeLlenar = new JLabel("Obligatorio de llenar");
+		lblObligatorioDeLlenar.setForeground(Color.DARK_GRAY);
+		lblObligatorioDeLlenar.setBackground(Color.GRAY);
+		lblObligatorioDeLlenar.setFont(new Font("Tahoma", Font.ITALIC, 8));
+		lblObligatorioDeLlenar.setBounds(415, 12, 85, 14);
+		panel_1.add(lblObligatorioDeLlenar);
+		
 		JButton btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -190,6 +202,7 @@ public class RegistrarCliente extends JDialog {
 		contentPanel.add(btnCancelar);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(245, 245, 220));
 		panel.setBounds(10, 0, 514, 95);
 		contentPanel.add(panel);
 		panel.setLayout(null);
