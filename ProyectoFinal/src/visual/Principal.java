@@ -8,10 +8,7 @@ import javax.swing.JMenuBar;
 public class Principal {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
+//gg
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
