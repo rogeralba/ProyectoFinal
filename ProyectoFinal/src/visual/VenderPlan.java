@@ -304,7 +304,7 @@ public class VenderPlan extends JDialog {
 		label_1.setBounds(12, 180, 25, 25);
 		panel.add(label_1);
 		
-		JLabel lblMinsAdicionales = new JLabel("Min. Adicionales:");
+		JLabel lblMinsAdicionales = new JLabel("Min. adicionales:");
 		lblMinsAdicionales.setForeground(Color.DARK_GRAY);
 		lblMinsAdicionales.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblMinsAdicionales.setBackground(Color.GRAY);
@@ -485,7 +485,7 @@ public class VenderPlan extends JDialog {
 		label_7.setBounds(215, 95, 91, 25);
 		panel_3.add(label_7);
 		
-		JButton btnNewButton = new JButton("Equipo");
+		JButton btnNewButton = new JButton("M\u00F3dem");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(244, 164, 96));
@@ -569,12 +569,12 @@ public class VenderPlan extends JDialog {
 		label_12.setBounds(219, 96, 91, 25);
 		panel_4.add(label_12);
 		
-		JButton button = new JButton("Equipo");
-		button.setForeground(Color.WHITE);
-		button.setFont(new Font("Tahoma", Font.BOLD, 14));
-		button.setBackground(new Color(244, 164, 96));
-		button.setBounds(219, 220, 91, 40);
-		panel_4.add(button);
+		JButton btnHd = new JButton("HD");
+		btnHd.setForeground(Color.WHITE);
+		btnHd.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnHd.setBackground(new Color(244, 164, 96));
+		btnHd.setBounds(219, 220, 91, 40);
+		panel_4.add(btnHd);
 		
 		JLabel lblInstalacin = new JLabel("Instalaci\u00F3n:");
 		lblInstalacin.setForeground(Color.DARK_GRAY);
@@ -640,6 +640,10 @@ public class VenderPlan extends JDialog {
 		lblDireccin.setBackground(Color.GRAY);
 		lblDireccin.setBounds(734, 176, 71, 25);
 		getContentPane().add(lblDireccin);
+		
+		JLabel label_8 = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
+		label_8.setBounds(26, 702, 291, 16);
+		getContentPane().add(label_8);
 		
 		
 		
