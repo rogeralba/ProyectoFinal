@@ -3,17 +3,21 @@ package logico;
 import java.util.ArrayList;
 
 public class Cliente {
-	protected String id;
-	protected String nombreC; //nombre Completo
+	protected String cedula;
+	protected String nombre;
+	protected String apellido; 
 	protected String direccion;
 	protected String telefono;
+	protected String email;
 	protected ArrayList<Plan> misPlanes;
 	
-	public Cliente(String id, String nombreC, String direccion, String telefono){
-		this.id = id;
-		this.nombreC = nombreC;
+	public Cliente(String cedula, String nombre,String apellido, String direccion, String telefono, String email){
+		this.cedula = cedula;
+		this.nombre = nombre;
+		this.apellido = apellido;
 		this.direccion = direccion;
 		this.telefono = telefono;
+		this.email = email;
 		misPlanes = new ArrayList<Plan>();
 	}
 	
@@ -31,21 +35,31 @@ public class Cliente {
 	}
 	
 
-	public String getId() {
-		return id;
+	public String getCedula() {
+		return cedula;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 
-	public String getNombreC() {
-		return nombreC;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setNombreC(String nombreC) {
-		this.nombreC = nombreC;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
+	
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
 
 	public String getDireccion() {
 		return direccion;
@@ -61,6 +75,14 @@ public class Cliente {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

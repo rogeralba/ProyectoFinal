@@ -1,17 +1,17 @@
 package logico;
 
 public class ClienteComun extends Cliente {
-	private String cedula;
-	public ClienteComun(String id, String nombreC, String direccion, String telefono, String cedula) {
-		super(id, nombreC, direccion, telefono);
-		this.cedula = cedula;
+	private String id;
+	public ClienteComun(String cedula, String nombre, String apellido, String direccion, String telefono, String email, String id) {
+		super(cedula, nombre, apellido, direccion, telefono, email);
+		this.id = cedula;
 	}
 	
-	public String getCedula() {
-		return cedula;
+	public String getId() {
+		return id;
 	}
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	
