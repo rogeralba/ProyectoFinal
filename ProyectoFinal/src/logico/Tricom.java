@@ -19,6 +19,8 @@ public class Tricom {
 		super();
 		this.misEmpleados = new ArrayList<>();
 		this.misPlanes = new ArrayList<>();
+		this.misClientes = new ArrayList<>();
+		
 	}
 	
 	public static Tricom getInstance()
@@ -41,6 +43,33 @@ public class Tricom {
 		}
 		
 		planStream.close();//Fichero
+		
+		
+		
+		//Clientes
+		FileOutputStream clStream = new FileOutputStream("Clientes.dat");
+		ObjectOutputStream clo = new ObjectOutputStream(clStream);
+
+		clo.writeInt(misClientes.size());
+		for(int i=0;i<misClientes.size();i++)
+		{
+			oos.writeObject(misClientes.get(i));
+		}
+		
+		clStream.close();
+				
+				//Empleados
+				
+		FileOutputStream empStream = new FileOutputStream("Empleado.dat");
+		ObjectOutputStream elo = new ObjectOutputStream(empStream);
+
+		elo.writeInt(misEmpleados.size());
+		for(int i=0;i<misEmpleados.size();i++)
+		{
+			elo.writeObject(misEmpleados.get(i));
+		}
+		
+		empStream.close();
 	}
 	
 	public void readData() throws IOException, ClassNotFoundException
@@ -56,6 +85,33 @@ public class Tricom {
 			misPlanes.add(i, (Plan)ois.readObject());	
 		}
 		planStream.close();
+		
+		//Clientes
+		int cantClientes;
+		FileInputStream clienteStream = new FileInputStream("Clientes.dat");
+		ObjectInputStream clo = new ObjectInputStream(clienteStream);
+		
+		cantClientes = clo.readInt();
+		
+		for(int i=0; i < cantClientes; i++)
+		{
+			misClientes.add(i, (Cliente)clo.readObject());	
+		}
+		clienteStream.close();
+		
+		//Empleados
+		
+		int cantEmpleados;
+		FileInputStream empleadoSteam = new FileInputStream("Empleado.dat");
+		ObjectInputStream empo = new ObjectInputStream(empleadoSteam);
+		
+		cantEmpleados = empo.readInt();
+		
+		for(int i=0; i < cantEmpleados; i++)
+		{
+			misEmpleados.add(i, (Empleados)empo.readObject());	
+		}
+		empleadoSteam.close();
 	}
 	
 	
