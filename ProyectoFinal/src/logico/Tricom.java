@@ -182,9 +182,19 @@ public class Tricom {
 		int i = 0;
 		Cliente c = null;
 		while(i < misClientes.size() && !encontrado){
-			if(misClientes.get(i).getCedula().equalsIgnoreCase(id)){
-				c = misClientes.get(i);
-				encontrado = true;
+			if(misClientes.get(i) instanceof ClienteComun)
+			{
+			    if(((ClienteComun)misClientes.get(i)).getCedula().equalsIgnoreCase(id)){
+				   c = misClientes.get(i);
+				   encontrado = true;
+			    }
+			}
+			if(misClientes.get(i) instanceof ClienteEmpresa)
+			{
+			    if(((ClienteEmpresa)misClientes.get(i)).getRnc().equalsIgnoreCase(id)){
+				   c = misClientes.get(i);
+				   encontrado = true;
+			    }
 			}
 			i++;
 		}
