@@ -401,12 +401,12 @@ public class VenderPlan extends JDialog {
 		lblImpuestos_1.setBounds(216, 150, 91, 25);
 		panel.add(lblImpuestos_1);
 		
-		JButton button_1 = new JButton("Equipo");
-		button_1.setForeground(Color.WHITE);
-		button_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		button_1.setBackground(new Color(244, 164, 96));
-		button_1.setBounds(216, 220, 91, 40);
-		panel.add(button_1);
+		JButton btnTelfono = new JButton("Tel.");
+		btnTelfono.setForeground(Color.WHITE);
+		btnTelfono.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnTelfono.setBackground(new Color(244, 164, 96));
+		btnTelfono.setBounds(216, 220, 91, 40);
+		panel.add(btnTelfono);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "Internet", TitledBorder.LEADING, TitledBorder.TOP, null, null));

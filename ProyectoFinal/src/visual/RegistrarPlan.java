@@ -51,6 +51,7 @@ public class RegistrarPlan extends JDialog {
 	 * Create the dialog.
 	 */
 	public RegistrarPlan() {
+		setResizable(false);
 		getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		setBounds(100, 100, 756, 609);
 		getContentPane().setLayout(null);
@@ -59,7 +60,7 @@ public class RegistrarPlan extends JDialog {
 		panel.setLayout(null);
 		panel.setForeground(Color.WHITE);
 		panel.setBackground(new Color(250, 240, 230));
-		panel.setBounds(0, 0, 1097, 82);
+		panel.setBounds(0, 0, 738, 82);
 		getContentPane().add(panel);
 		
 		String path0 = "./Imagenes/tricom.png";
