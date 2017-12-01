@@ -12,10 +12,10 @@ public class Tricom {
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Plan> misPlanes;
 	private ArrayList<Servicio> misServicios;
-	private static Tricom tricom;
+	private static Tricom tricom = null;
 	private Empleados actual;
 	
-	public Tricom()
+	private Tricom()
 	{
 		super();
 		this.misEmpleados = new ArrayList<>();
@@ -260,5 +260,29 @@ public Empleados getActual() {
 
 public void setActual(Empleados actual) {
 	this.actual = actual;
+}
+
+public ArrayList<Cliente> getMisClientes() {
+	return misClientes;
+}
+
+public void setMisClientes(ArrayList<Cliente> misClientes) {
+	this.misClientes = misClientes;
+}
+
+public ArrayList<Servicio> getMisServicios() {
+	return misServicios;
+}
+
+public void setMisServicios(ArrayList<Servicio> misServicios) {
+	this.misServicios = misServicios;
+}
+
+public static Tricom getTricom() {
+	return tricom;
+}
+
+public static void setTricom(Tricom tricom) {
+	Tricom.tricom = tricom;
 }
 }

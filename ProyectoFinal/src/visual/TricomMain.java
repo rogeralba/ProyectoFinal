@@ -6,12 +6,17 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import logico.Cliente;
+
 import javax.swing.JInternalFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -19,18 +24,22 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.SystemColor;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
-public class Tricom extends JFrame {
+public class TricomMain extends JFrame {
 	
 
 	private JPanel contentPane;
 	private Dimension dim;
-
+	private JTable tableClientes;
+	private static DefaultTableModel model;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Tricom frame = new Tricom();
+					TricomMain frame = new TricomMain();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +48,7 @@ public class Tricom extends JFrame {
 		});
 	}
 
-	public Tricom() {
+	public TricomMain() {
 		setTitle("Tricom");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -214,6 +223,54 @@ public class Tricom extends JFrame {
 		lblFueraDeAqu.setBackground(Color.WHITE);
 		lblFueraDeAqu.setBounds(147, 84, 406, 40);
 		panel_1.add(lblFueraDeAqu);
+		
+		JPanel panelClientes = new JPanel();
+		panelClientes.setBackground(SystemColor.text);
+		panelClientes.setBounds(147, 192, 1214, 727);
+		contentPane.add(panelClientes);
+		panelClientes.setLayout(null);
+		
+		JScrollPane scrollPaneCli = new JScrollPane();
+		scrollPaneCli.setBounds(42, 78, 830, 229);
+		panelClientes.add(scrollPaneCli);
+		
+		/*tableClientes = new JTable();
+		String[] columnNames = {"Seleccionar","Codigo", "Nombre", "Apellido", "Cedula", "Direccion", "Telefono","Cantidad de cuentas"};
+		model = new DefaultTableModel(loadData(),columnNames);
+		tableClientes = new JTable(model)
+		{
+	        public Class getColumnClass(int column) 
+	        {
+	           switch (column) 
+	           {
+	              case 0:
+	            	  return Boolean.class;
+	              case 1:
+	                  return String.class;
+	              case 2:
+	            	  return String.class;
+	              case 3:
+	            	  return String.class;
+	              case 4:
+	            	  return String.class;
+	              case 5:
+	            	  return String.class;
+	              case 6:
+	            	  return String.class;
+	              case 7:
+	            	  return Integer.class;
+	              default:
+	            	  return Boolean.class;
+	            }
+	         }
+	      };
+		scrollPaneCli.setViewportView(tableClientes);*/
+		
+		JLabel lblTitulo = new JLabel("Clientes");
+		lblTitulo.setForeground(SystemColor.windowBorder);
+		lblTitulo.setFont(new Font("Calibri", Font.BOLD, 30));
+		lblTitulo.setBounds(147, 150, 227, 38);
+		contentPane.add(lblTitulo);
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width, dim.height-50);
 		setLocationRelativeTo(null);
@@ -226,4 +283,28 @@ public class Tricom extends JFrame {
 		
 		
 	}
+	/*
+	public Object[][] loadData() {
+		int i = 0;
+		try {
+			Tricom
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		Object[][] fila = new Object[Banco.getInstance().getMisCliente().size()][8];
+		for (Cliente cli: Banco.getInstance().getMisCliente()) 
+		{
+			fila[i][0] = false;
+			fila[i][1] = cli.getCodigo();
+			fila[i][2] = cli.getNombre();
+			fila[i][3] = cli.getApellidos();
+			fila[i][4] = cli.getCedula();
+			fila[i][5] = cli.getDireccion();
+			fila[i][6] = cli.getTelefono();
+			fila[i][7] = cli.getMisCuentasCli().size();
+			i++;
+		}
+		return fila;
+	}*/
 }
