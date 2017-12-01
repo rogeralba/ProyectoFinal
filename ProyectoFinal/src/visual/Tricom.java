@@ -57,7 +57,7 @@ public class Tricom extends JFrame {
 		
 		JLabel userImg = new JLabel("");
 		userImg.setBounds(18, 18, 81, 81);
-		String path2 = "./Imagenes/user2.png";
+		String path2 = "./Imagenes/User2.png";
 		ImageIcon userLogo = new ImageIcon(path2);
 		ImageIcon icono2 = new ImageIcon(userLogo.getImage().getScaledInstance(userImg.getWidth(), userImg.getHeight(), Image.SCALE_DEFAULT));
 		userImg.setIcon(icono2);
@@ -76,7 +76,7 @@ public class Tricom extends JFrame {
 		btnClientes.setBackground(Color.DARK_GRAY);
 		btnClientes.setBounds(0, 137, 118, 91);
 		btnClientes.setMargin(new Insets(0, 0, 10, 0));
-		String path = "./Imagenes/user3.png";
+		String path = "./Imagenes/User3.png";
 		ImageIcon img = new ImageIcon(path);
 		ImageIcon icono = new ImageIcon(img.getImage().getScaledInstance(40, 35, Image.SCALE_DEFAULT));
 		btnClientes.setIcon(icono);
@@ -95,7 +95,7 @@ public class Tricom extends JFrame {
 		btnEmpleados.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnEmpleados.setBounds(0, 226, 118, 91);
 		btnEmpleados.setMargin(new Insets(0, 0, 10, 0));
-		String path3 = "./Imagenes/empleado.png";
+		String path3 = "./Imagenes/empleado1.png";
 		img = new ImageIcon(path3);
 		icono = new ImageIcon(img.getImage().getScaledInstance(45, 40, Image.SCALE_DEFAULT));
 		btnEmpleados.setIcon(icono);
@@ -112,7 +112,7 @@ public class Tricom extends JFrame {
 		btnVentas.setFocusable(false);
 		btnVentas.setBackground(Color.DARK_GRAY);
 		btnVentas.setBounds(0, 315, 118, 91);
-		String path4 = "./Imagenes/ventas.png";
+		String path4 = "./Imagenes/Ventas1.png";
 		img = new ImageIcon(path4);
 		icono = new ImageIcon(img.getImage().getScaledInstance(40, 35, Image.SCALE_DEFAULT));
 		btnVentas.setIcon(icono);
@@ -130,7 +130,7 @@ public class Tricom extends JFrame {
 		btnPlanes.setFocusable(false);
 		btnPlanes.setBackground(Color.DARK_GRAY);
 		btnPlanes.setBounds(0, 405, 118, 91);
-		String path5 = "./Imagenes/Planes.png";
+		String path5 = "./Imagenes/Planes1.png";
 		img = new ImageIcon(path5);
 		icono = new ImageIcon(img.getImage().getScaledInstance(40, 35, Image.SCALE_DEFAULT));
 		btnPlanes.setIcon(icono);
@@ -148,7 +148,7 @@ public class Tricom extends JFrame {
 		btnServicios.setFocusable(false);
 		btnServicios.setBackground(Color.DARK_GRAY);
 		btnServicios.setBounds(0, 495, 118, 91);
-		String path6 = "./Imagenes/Servicios.png";
+		String path6 = "./Imagenes/Servicios1.png";
 		img = new ImageIcon(path6);
 		icono = new ImageIcon(img.getImage().getScaledInstance(40, 35, Image.SCALE_DEFAULT));
 		btnServicios.setIcon(icono);
@@ -166,7 +166,7 @@ public class Tricom extends JFrame {
 		btnPagos.setFocusable(false);
 		btnPagos.setBackground(Color.DARK_GRAY);
 		btnPagos.setBounds(0, 585, 118, 91);
-		String path7 = "./Imagenes/Pagos.png";
+		String path7 = "./Imagenes/pagos1.png";
 		img = new ImageIcon(path7);
 		icono = new ImageIcon(img.getImage().getScaledInstance(40, 35, Image.SCALE_DEFAULT));
 		btnPagos.setIcon(icono);
@@ -174,6 +174,7 @@ public class Tricom extends JFrame {
 		btnPagos.setVerticalTextPosition( SwingConstants.BOTTOM );
 		panel.add(btnPagos);
 		
+		//
 		JButton btnAcercaDe = new JButton("Acerca de");
 		btnAcercaDe.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnAcercaDe.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -184,7 +185,7 @@ public class Tricom extends JFrame {
 		btnAcercaDe.setFocusable(false);
 		btnAcercaDe.setBackground(Color.DARK_GRAY);
 		btnAcercaDe.setBounds(0, 675, 118, 91);
-		String path8 = "./Imagenes/acerca.png";
+		String path8 = "./Imagenes/Acerca1.png";
 		img = new ImageIcon(path8);
 		icono = new ImageIcon(img.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
 		btnAcercaDe.setIcon(icono);
