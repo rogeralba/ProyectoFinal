@@ -55,6 +55,7 @@ public class RegistrarPlan extends JDialog {
 		getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		setBounds(100, 100, 756, 609);
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
