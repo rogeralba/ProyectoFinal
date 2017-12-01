@@ -65,7 +65,7 @@ public class RegistrarCliente extends JDialog {
 	public RegistrarCliente() {
 		setResizable(false);
 		setTitle("Registrar Cliente");
-		setBounds(100, 100, 681, 608);
+		setBounds(100, 100, 667, 608);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,6 +17,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import logico.Cliente;
+import logico.ClienteComun;
+import logico.ClienteEmpresa;
+import logico.Tricom;
 
 import javax.swing.JInternalFrame;
 import java.awt.Color;
@@ -33,6 +37,7 @@ public class TricomMain extends JFrame {
 	private JPanel contentPane;
 	private Dimension dim;
 	private JTable tableClientes;
+	private JTable tableClientes_1;
 	private static DefaultTableModel model;
 	
 	public static void main(String[] args) {
@@ -224,20 +229,30 @@ public class TricomMain extends JFrame {
 		lblFueraDeAqu.setBounds(147, 84, 406, 40);
 		panel_1.add(lblFueraDeAqu);
 		
+		JButton btnSingOut = new JButton("Cerrar Sesi\u00F3n");
+		btnSingOut.setFont(new Font("Calibri", Font.BOLD, 17));
+		btnSingOut.setForeground(Color.WHITE);
+		btnSingOut.setBackground(new Color(255, 99, 71));
+		btnSingOut.setBounds(1627, 84, 145, 34);
+		btnSingOut.setFocusable(false);
+		btnSingOut.setBorder(null);
+		panel_1.add(btnSingOut);
+		
 		JPanel panelClientes = new JPanel();
 		panelClientes.setBackground(SystemColor.text);
-		panelClientes.setBounds(147, 192, 1214, 727);
+		panelClientes.setBounds(147, 192, 1179, 668);
 		contentPane.add(panelClientes);
 		panelClientes.setLayout(null);
 		
 		JScrollPane scrollPaneCli = new JScrollPane();
-		scrollPaneCli.setBounds(42, 78, 830, 229);
+		scrollPaneCli.setBounds(42, 68, 1091, 323);
+		scrollPaneCli.setBackground(SystemColor.text);
 		panelClientes.add(scrollPaneCli);
 		
-		/*tableClientes = new JTable();
-		String[] columnNames = {"Seleccionar","Codigo", "Nombre", "Apellido", "Cedula", "Direccion", "Telefono","Cantidad de cuentas"};
+		tableClientes = new JTable();
+		String[] columnNames = {"Seleccionar","Codigo", "ID", "Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
 		model = new DefaultTableModel(loadData(),columnNames);
-		tableClientes = new JTable(model)
+		tableClientes_1 = new JTable(model)
 		{
 	        public Class getColumnClass(int column) 
 	        {
@@ -256,21 +271,60 @@ public class TricomMain extends JFrame {
 	              case 5:
 	            	  return String.class;
 	              case 6:
-	            	  return String.class;
+	            	  return Date.class;
 	              case 7:
-	            	  return Integer.class;
+	            	  return String.class;
 	              default:
-	            	  return Boolean.class;
+	            	  return String.class;
 	            }
 	         }
 	      };
-		scrollPaneCli.setViewportView(tableClientes);*/
+		tableClientes_1.setBackground(SystemColor.window);
+		scrollPaneCli.setViewportView(tableClientes_1);
+		
+		JLabel lblReg = new JLabel("Registros de Clientes");
+		lblReg.setFont(new Font("Calibri", Font.BOLD, 20));
+		lblReg.setBounds(42, 38, 189, 27);
+		panelClientes.add(lblReg);
+		
+		JButton btnModifcar = new JButton("Modifcar");
+		btnModifcar.setForeground(Color.WHITE);
+		btnModifcar.setBackground(Color.DARK_GRAY);
+		btnModifcar.setBounds(170, 419, 104, 44);
+		panelClientes.add(btnModifcar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setForeground(Color.WHITE);
+		btnEliminar.setBackground(Color.DARK_GRAY);
+		btnEliminar.setBounds(300, 419, 104, 44);
+		panelClientes.add(btnEliminar);
+		
+		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo.setForeground(Color.WHITE);
+		btnNuevo.setBackground(Color.DARK_GRAY);
+		btnNuevo.setBounds(42, 419, 104, 44);
+		panelClientes.add(btnNuevo);
 		
 		JLabel lblTitulo = new JLabel("Clientes");
 		lblTitulo.setForeground(SystemColor.windowBorder);
 		lblTitulo.setFont(new Font("Calibri", Font.BOLD, 30));
 		lblTitulo.setBounds(147, 150, 227, 38);
 		contentPane.add(lblTitulo);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.text);
+		panel_2.setBounds(1376, 192, 469, 668);
+		contentPane.add(panel_2);
+		
+		JButton btnNewButton = new JButton("Cerrar");
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(Color.DARK_GRAY);
+		btnNewButton.setBounds(1741, 909, 104, 44);
+		contentPane.add(btnNewButton);
+		
+		JLabel label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
+		label.setBounds(147, 954, 291, 16);
+		contentPane.add(label);
 		dim = super.getToolkit().getScreenSize();
 		super.setSize(dim.width, dim.height-50);
 		setLocationRelativeTo(null);
@@ -283,28 +337,44 @@ public class TricomMain extends JFrame {
 		
 		
 	}
-	/*
+	
 	public Object[][] loadData() {
 		int i = 0;
 		try {
-			Tricom
+			Tricom.getInstance().readData();
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 		
-		Object[][] fila = new Object[Banco.getInstance().getMisCliente().size()][8];
-		for (Cliente cli: Banco.getInstance().getMisCliente()) 
+		Object[][] fila = new Object[Tricom.getInstance().getMisClientes().size()][10];
+		for (Cliente cli: Tricom.getInstance().getMisClientes()) 
 		{
-			fila[i][0] = false;
-			fila[i][1] = cli.getCodigo();
-			fila[i][2] = cli.getNombre();
-			fila[i][3] = cli.getApellidos();
-			fila[i][4] = cli.getCedula();
-			fila[i][5] = cli.getDireccion();
-			fila[i][6] = cli.getTelefono();
-			fila[i][7] = cli.getMisCuentasCli().size();
+			if(cli instanceof ClienteComun)
+			{
+				fila[i][0] = false;
+				fila[i][1] = cli.getCodCli();
+				fila[i][2] = ((ClienteComun) (cli)).getCedula();
+				fila[i][3] = cli.getNombre();
+				fila[i][4] = ((ClienteComun)(cli)).getApellido1();
+				fila[i][5] = ((ClienteComun)(cli)).getApellido2();
+				fila[i][6] = ((ClienteComun)(cli)).getFecNac();
+				fila[i][7] = cli.getTelefono();
+				fila[i][8] = cli.getEmail();
+			}
+			else
+			{
+				fila[i][0] = false;
+				fila[i][1] = cli.getCodCli();
+				fila[i][2] = ((ClienteEmpresa) (cli)).getRnc();
+				fila[i][3] = cli.getNombre();
+				fila[i][4] = "N/A";
+				fila[i][5] = "N/A";
+				fila[i][6] = "N/A";
+				fila[i][7] = cli.getTelefono();
+				fila[i][8] = cli.getEmail();
+			}
 			i++;
 		}
 		return fila;
-	}*/
+	}
 }

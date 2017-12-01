@@ -16,10 +16,11 @@ public class Plan implements Serializable{
 	private Servicio telefono;
 	private Servicio cable;
 	private String descripcion;
+	private boolean estado;
 	//En caso de que alguno de los servicios no se incluya en el plan, su valor será NULL
 	
 	
-	public Plan(String codPlan, String nombre, int duracionPlan, Servicio internet, Servicio telefono, Servicio cable, String descripcion) {
+	public Plan(String codPlan, String nombre, int duracionPlan, Servicio internet, Servicio telefono, Servicio cable, String descripcion, boolean estado) {
 		super();
 		this.codPlan = codPlan;
 		this.nombre = nombre;
@@ -28,6 +29,7 @@ public class Plan implements Serializable{
 		this.telefono = telefono;
 		this.cable = cable;
 		this.descripcion = descripcion;
+		this.estado = estado;
 		setTarifa();
 	}
 	
@@ -109,6 +111,14 @@ public class Plan implements Serializable{
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 	
 	

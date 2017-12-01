@@ -15,7 +15,7 @@ public class Tricom {
 	private static Tricom tricom = null;
 	private Empleados actual;
 	
-	private Tricom()
+	public Tricom()
 	{
 		super();
 		this.misEmpleados = new ArrayList<>();
