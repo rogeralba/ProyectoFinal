@@ -2,7 +2,7 @@ package logico;
 
 import java.util.Date;
 
-public abstract class Empleados{
+public abstract class Empleado{
 	private static int code = 0;
 	private String Nombre;
 	private String Apellido;
@@ -15,7 +15,7 @@ public abstract class Empleados{
 	private float salario;
 	
 
-	public Empleados(String nombre,String apellido,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase) {
+	public Empleado(String nombre,String apellido,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase) {
 		// TODO Auto-generated constructor stubl
 		code++;
 		this.codigointerno = code;
