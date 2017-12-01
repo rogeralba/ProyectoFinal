@@ -13,7 +13,7 @@ public abstract class Empleado{
 	private String notamedica;
 	private String contrasena;
 	private float salario;
-	
+	//
 
 	public Empleado(String nombre,String apellido,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase) {
 		// TODO Auto-generated constructor stubl
