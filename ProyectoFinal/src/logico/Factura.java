@@ -1,27 +1,34 @@
 package logico;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Factura {
-	/** https://vimeo.com/199183673 */ 
-	//ejemplo de la factura
 	
-	private LocalDateTime fecha; 
-	//Implemento esa clase para manejar la fecha 
-	/** http://www.oracle.com/technetwork/es/articles/java/paquete-java-time-2390472-esa.html */
+	private int cod;
+	private LocalDate fechaEmision;
+	private LocalDate fechaVencimiento;
 	private Cliente cliente;
+	private float totalBruto;
+	private float totalNeto;
+	private boolean vencida = false;
+	private estadoFactura estado;
 	
-	public Factura(LocalDateTime fecha, Cliente cliente){
-		this.fecha = fecha;
+	public enum estadoFactura{
+		activa, pagada, vencida, generada;
+	}
+	
+	public Factura(LocalDate fechaEmision, Cliente cliente){
+		this.fechaEmision = fechaEmision;
 		this.cliente = cliente;
 	}
 
-	public LocalDateTime getFecha() {
-		return fecha;
+	public LocalDate getFechaEmision() {
+		return fechaEmision;
 	}
 
-	public void setFecha(LocalDateTime fecha) {
-		this.fecha = fecha;
+	public void setFechaEmision(LocalDate fecha) {
+		this.fechaEmision = fecha;
 	}
 
 	public Cliente getCliente() {
@@ -30,8 +37,7 @@ public class Factura {
 	}
 
 	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	
+		this.cliente = cliente;	
 	}
 	
 }
