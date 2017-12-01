@@ -22,11 +22,11 @@ public abstract class Empleados{
 		this.Nombre = nombre;
 		this.Apellido = apellido;
 		this.cedula = cedula;
-		this.contrasena = contrase;
+		this.setContrasena(contrase);
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.notamedica = notamedia;
-		this.salario = salario;
+		this.setSalario(salario);
 		
 	
 	}
@@ -87,6 +87,22 @@ public abstract class Empleados{
 
 	public void setNotamedica(String notamedica) {
 		this.notamedica = notamedica;
+	}
+
+	public float getSalario() {
+		return salario;
+	}
+
+	public void setSalario(float salario) {
+		this.salario = salario;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 }
