@@ -13,8 +13,9 @@ public class Tricom {
 	private ArrayList<Plan> misPlanes;
 	private ArrayList<Servicio> misServicios;
 	private static Tricom tricom;
+	private Empleados actual;
 	
-	private Tricom()
+	public Tricom()
 	{
 		super();
 		this.misEmpleados = new ArrayList<>();
@@ -251,5 +252,13 @@ public class Tricom {
 public void crearempleado(Empleados emp){
 	misEmpleados.add(emp);
 	
+}
+
+public Empleados getActual() {
+	return actual;
+}
+
+public void setActual(Empleados actual) {
+	this.actual = actual;
 }
 }
