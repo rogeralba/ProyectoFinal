@@ -29,7 +29,8 @@ public class Tricom {
 		this.misServicios = new ArrayList<>();
 		this.misFacturas = new ArrayList<>();
 		this.cantRegistros = new ArrayList<>(); //0-Clientes 1-Empleados 2-Planes 3-Servicios 4-Facturas
-		
+		for(int i=0;i<5;i++)
+			cantRegistros.add(0);
 	}
 	
 	public static Tricom getInstance()
@@ -441,5 +442,21 @@ public static Tricom getTricom() {
 
 public static void setTricom(Tricom tricom) {
 	Tricom.tricom = tricom;
+}
+
+public ArrayList<Factura> getMisFacturas() {
+	return misFacturas;
+}
+
+public void setMisFacturas(ArrayList<Factura> misFacturas) {
+	this.misFacturas = misFacturas;
+}
+
+public ArrayList<Integer> getCantRegistros() {
+	return cantRegistros;
+}
+
+public void setCantRegistros(ArrayList<Integer> cantRegistros) {
+	this.cantRegistros = cantRegistros;
 }
 }

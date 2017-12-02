@@ -71,6 +71,7 @@ public class TricomMain extends JFrame {
 	}*/
 
 	public TricomMain() {
+		setResizable(false);
 		Tricom tri = new Tricom();
 		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
 		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
@@ -99,7 +100,7 @@ public class TricomMain extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.DARK_GRAY);
-		panel.setBounds(0, 0, 118, 983);
+		panel.setBounds(0, 0, 118, 995);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -294,7 +295,7 @@ public class TricomMain extends JFrame {
 		panel_1.setLayout(null);
 		panel_1.setForeground(Color.WHITE);
 		panel_1.setBackground(new Color(255, 102, 51));
-		panel_1.setBounds(118, 0, 1784, 124);
+		panel_1.setBounds(118, 0, 1796, 124);
 		contentPane.add(panel_1);
 		
 		JLabel imgLogo = new JLabel("");
@@ -316,7 +317,7 @@ public class TricomMain extends JFrame {
 		btnSingOut.setFont(new Font("Calibri", Font.BOLD, 17));
 		btnSingOut.setForeground(Color.WHITE);
 		btnSingOut.setBackground(new Color(255, 99, 71));
-		btnSingOut.setBounds(1627, 84, 145, 34);
+		btnSingOut.setBounds(1639, 84, 145, 34);
 		btnSingOut.setFocusable(false);
 		btnSingOut.setBorder(null);
 		panel_1.add(btnSingOut);
@@ -359,8 +360,8 @@ public class TricomMain extends JFrame {
 				switch(activeButton)
 				{
 				case 1: //Boton de Clientes
-					Cliente cliente = new ClienteComun("cod","nom","ap","ap2","dir","tel","email","ced","fec");
-					Tricom.getInstance().getMisClientes().add(cliente);
+					RegistrarCliente rgCli = new RegistrarCliente(null,1);
+					rgCli.setVisible(true);
 					cargarJtable(columnNames1);
 					break;
 				case 2://Boton de Empleados
