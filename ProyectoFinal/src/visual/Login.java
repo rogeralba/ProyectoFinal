@@ -12,6 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import logico.Administrativo;
 import logico.Empleado;
 import logico.Tricom;
 
@@ -19,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -43,8 +45,7 @@ public class Login extends JDialog {
 					Login dialog = new Login();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					 frame = new TricomMain();
-					//frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,14 +54,6 @@ public class Login extends JDialog {
 		
 	}
 	
-	private static void crearPrincipal(){
-		try {
-			//TricomMain frame = new TricomMain();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	private boolean verificarLogin(){
 		boolean resultado = false;
@@ -69,24 +62,35 @@ public class Login extends JDialog {
 			if(p.getCedula().compareTo(txtUsuario.getText()) == 0 && p.getContrasena().compareTo(txtContrasena.getText()) == 0){
 				resultado = true;
 				Tricom.getInstance().setActual(p);
-				frame.loaddataemp();
-				frame.setVisible(true);
-				break;
 			}
 		}
 		
 		return resultado;
 	}
 	
-	/**
-	 * Create the dialog.
-	 */
+
 	public Login() {
 		try {
 			patron = new MaskFormatter("###-#######-#");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		
+		
+		//Leer la data al iniciar el programa
+		try {
+			Tricom.getInstance().readData();
+		} catch (ClassNotFoundException | IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		//Creacion de usuario inicial.
+		if(Tricom.getInstance().getMisEmpleados().size() == 0)
+		{
+			Administrativo adm = new Administrativo("admin", "el", "boss", "000-0000000-0", "Tricom SA HQ", "111", "Fallecido", 10, "000");
+			Tricom.getInstance().getMisEmpleados().add(adm);
 		}
 		
 		setTitle("Tricom SA");
@@ -127,7 +131,8 @@ public class Login extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(verificarLogin()){
-							crearPrincipal();
+							TricomMain triMain = new TricomMain();
+							triMain.setVisible(true);
 							dispose();
 						}else{
 							JOptionPane.showMessageDialog(contentPanel, "Usuario y/o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);

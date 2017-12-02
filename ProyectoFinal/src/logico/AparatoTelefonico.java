@@ -1,6 +1,8 @@
 package logico;
 
-public class AparatoTelefonico {
+import java.io.Serializable;
+
+public class AparatoTelefonico implements Serializable{
 	private boolean callerID;
 	private boolean inalambrico;
 	private int precio;

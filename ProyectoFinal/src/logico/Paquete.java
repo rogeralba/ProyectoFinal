@@ -1,6 +1,8 @@
 package logico;
 
-public class Paquete {
+import java.io.Serializable;
+
+public class Paquete implements Serializable{
 	private int codPaquete;
 	private String nombre;
 	private int precio;

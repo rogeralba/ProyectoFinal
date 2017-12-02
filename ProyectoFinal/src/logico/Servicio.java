@@ -1,6 +1,8 @@
 package logico;
 
-public abstract class Servicio {
+import java.io.Serializable;
+
+public abstract class Servicio implements Serializable{
 	private String codServicio;
 	private int impuestos;
 	private float precioInstalacion;

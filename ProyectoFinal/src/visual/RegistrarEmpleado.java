@@ -359,20 +359,6 @@ public class RegistrarEmpleado extends JDialog {
 		cargarModific();
 
 	}
-/*
-	public void limpiarDialogos() {
-		txtNombre.setText("");
-		txtApellido1.setText("");
-		txtCedula.setText("");
-		txtTelefono.setText("");
-		cbxSexo.setSelectedIndex(0);
-		txtCorreo.setText("");
-		txtDireccion.setText("");
-		txtContrasena.setText("");
-		txtAppellido2.setText("");
-		txtnotam.setText("");
-
-	}*/
 
 	public void cargarModific() {
 

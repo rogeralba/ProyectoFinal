@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Empleado{
+public abstract class Empleado implements Serializable{
 	private static int code = 0;
 	private String nombre;
 	private String apellido1;

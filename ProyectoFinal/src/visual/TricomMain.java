@@ -36,6 +36,8 @@ import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
 public class TricomMain extends JFrame {
@@ -74,14 +76,27 @@ public class TricomMain extends JFrame {
 		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
 		
 		setTitle("Tricom");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		//
+		
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter(){
+			public void windowClosing(WindowEvent we){
+				try {
+					Tricom.getInstance().saveData();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				System.exit(0);
+			}
+			
+		});
+		
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.DARK_GRAY);
 		panel.setBounds(0, 0, 118, 983);
@@ -378,6 +393,16 @@ public class TricomMain extends JFrame {
 		contentPane.add(panelGraficos);
 		
 		JButton btnNewButton = new JButton("Cerrar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					Tricom.getInstance().saveData();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				System.exit(0);
+			}
+		});
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.setBounds(1741, 909, 104, 44);
@@ -406,12 +431,6 @@ public class TricomMain extends JFrame {
 	
 	public Object[][] loadData() {
 		int i = 0;
-		/*try {
-			Tricom.getInstance().readData();
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		}
-		*/
 		Object[][] fila = null;
 		switch(activeButton)
 		{

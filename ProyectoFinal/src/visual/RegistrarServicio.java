@@ -24,21 +24,22 @@ import javax.swing.UIManager;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 
 public class RegistrarServicio extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_4;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField txtVelocidad;
-	private JTextField txtBajada;
-	private JTextField txtSubida;
-	private JTextField txtMinutos;
-	private JTextField txtLocales;
-	private JTextField txtInter;
-	private JTextField txtHD;
+	private JSpinner txtImpuestos;
+	private JTextField txtCodigo;
+	private JSpinner txtInstalacion;
+	private JSpinner txtTarifa;
+	private JSpinner spnVelocidad;
+	private JSpinner spnSubida;
+	private JSpinner txtMinutos;
+	private JSpinner txtLocales;
+	private JSpinner txtInter;
+	private JSpinner txtHD;
 	JRadioButton rdbCable;
 	JRadioButton rdbInternet;
 	JRadioButton rdbTelefono;
@@ -105,31 +106,31 @@ public class RegistrarServicio extends JDialog {
 		panel_1.setBounds(25, 111, 672, 672);
 		contentPanel.add(panel_1);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField.setColumns(10);
-		textField.setBounds(425, 114, 224, 27);
-		panel_1.add(textField);
+		txtImpuestos = new JSpinner();
+		txtImpuestos.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		txtImpuestos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtImpuestos.setBounds(425, 114, 224, 27);
+		panel_1.add(txtImpuestos);
 		
-		JLabel lblNombreDelServicio = new JLabel("Impuestos:");
-		lblNombreDelServicio.setForeground(Color.DARK_GRAY);
-		lblNombreDelServicio.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblNombreDelServicio.setBackground(Color.GRAY);
-		lblNombreDelServicio.setBounds(425, 87, 156, 25);
-		panel_1.add(lblNombreDelServicio);
+		JLabel lblImpuestos = new JLabel("Impuestos:");
+		lblImpuestos.setForeground(Color.DARK_GRAY);
+		lblImpuestos.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblImpuestos.setBackground(Color.GRAY);
+		lblImpuestos.setBounds(425, 87, 156, 25);
+		panel_1.add(lblImpuestos);
 		
-		textField_4 = new JTextField();
-		textField_4.setEditable(false);
-		textField_4.setColumns(10);
-		textField_4.setBounds(24, 41, 224, 27);
-		panel_1.add(textField_4);
+		txtCodigo = new JTextField();
+		txtCodigo.setEditable(false);
+		txtCodigo.setColumns(10);
+		txtCodigo.setBounds(24, 41, 224, 27);
+		panel_1.add(txtCodigo);
 		
-		JLabel label_10 = new JLabel("C\u00F3digo:");
-		label_10.setForeground(Color.DARK_GRAY);
-		label_10.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_10.setBackground(Color.GRAY);
-		label_10.setBounds(24, 17, 71, 25);
-		panel_1.add(label_10);
+		JLabel lblCodigo = new JLabel("C\u00F3digo:");
+		lblCodigo.setForeground(Color.DARK_GRAY);
+		lblCodigo.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblCodigo.setBackground(Color.GRAY);
+		lblCodigo.setBounds(24, 17, 71, 25);
+		panel_1.add(lblCodigo);
 		
 		JLabel lblTipoDeServicio = new JLabel("Tipo de servicio:");
 		lblTipoDeServicio.setForeground(Color.DARK_GRAY);
@@ -138,31 +139,31 @@ public class RegistrarServicio extends JDialog {
 		lblTipoDeServicio.setBounds(24, 159, 136, 25);
 		panel_1.add(lblTipoDeServicio);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_1.setColumns(10);
-		textField_1.setBounds(425, 44, 224, 27);
-		panel_1.add(textField_1);
+		txtInstalacion = new JSpinner();
+		txtInstalacion.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		txtInstalacion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtInstalacion.setBounds(425, 44, 224, 27);
+		panel_1.add(txtInstalacion);
 		
-		JLabel lblPrecioDeIntalacin = new JLabel("Precio de intalaci\u00F3n:");
-		lblPrecioDeIntalacin.setForeground(Color.DARK_GRAY);
-		lblPrecioDeIntalacin.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblPrecioDeIntalacin.setBackground(Color.GRAY);
-		lblPrecioDeIntalacin.setBounds(425, 17, 156, 25);
-		panel_1.add(lblPrecioDeIntalacin);
+		JLabel lblInstalacion = new JLabel("Precio de intalaci\u00F3n:");
+		lblInstalacion.setForeground(Color.DARK_GRAY);
+		lblInstalacion.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblInstalacion.setBackground(Color.GRAY);
+		lblInstalacion.setBounds(425, 17, 156, 25);
+		panel_1.add(lblInstalacion);
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_2.setColumns(10);
-		textField_2.setBounds(24, 114, 224, 27);
-		panel_1.add(textField_2);
+		txtTarifa = new JSpinner();
+		txtTarifa.setModel(new SpinnerNumberModel(new Integer(1), null, null, new Integer(1)));
+		txtTarifa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtTarifa.setBounds(24, 114, 224, 27);
+		panel_1.add(txtTarifa);
 		
-		JLabel lblTarifaBase = new JLabel("Tarifa base:");
-		lblTarifaBase.setForeground(Color.DARK_GRAY);
-		lblTarifaBase.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblTarifaBase.setBackground(Color.GRAY);
-		lblTarifaBase.setBounds(24, 87, 156, 25);
-		panel_1.add(lblTarifaBase);
+		JLabel lblTarifa = new JLabel("Tarifa base:");
+		lblTarifa.setForeground(Color.DARK_GRAY);
+		lblTarifa.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblTarifa.setBackground(Color.GRAY);
+		lblTarifa.setBounds(24, 87, 156, 25);
+		panel_1.add(lblTarifa);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new TitledBorder(null, "Internet", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -171,11 +172,11 @@ public class RegistrarServicio extends JDialog {
 		panel_1.add(panel_2);
 		panel_2.setLayout(null);
 		
-		txtVelocidad = new JTextField();
-		txtVelocidad.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtVelocidad.setColumns(10);
-		txtVelocidad.setBounds(20, 54, 136, 27);
-		panel_2.add(txtVelocidad);
+		spnVelocidad = new JSpinner();
+		spnVelocidad.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spnVelocidad.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		spnVelocidad.setBounds(20, 54, 136, 27);
+		panel_2.add(spnVelocidad);
 		
 		JLabel lblVelocidad = new JLabel("Velocidad:");
 		lblVelocidad.setForeground(Color.DARK_GRAY);
@@ -189,40 +190,23 @@ public class RegistrarServicio extends JDialog {
 		lblNewLabel.setBounds(159, 65, 56, 16);
 		panel_2.add(lblNewLabel);
 		
-		txtBajada = new JTextField();
-		txtBajada.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtBajada.setColumns(10);
-		txtBajada.setBounds(227, 54, 136, 27);
-		panel_2.add(txtBajada);
+		spnSubida = new JSpinner();
+		spnSubida.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spnSubida.setBackground(SystemColor.text);
+		spnSubida.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		spnSubida.setBounds(227, 54, 136, 27);
+		panel_2.add(spnSubida);
 		
-		JLabel lblVelocidadDeBajada = new JLabel("Velocidad de bajada:");
-		lblVelocidadDeBajada.setForeground(Color.DARK_GRAY);
-		lblVelocidadDeBajada.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblVelocidadDeBajada.setBackground(Color.GRAY);
-		lblVelocidadDeBajada.setBounds(227, 27, 156, 25);
-		panel_2.add(lblVelocidadDeBajada);
-		
-		JLabel label_2 = new JLabel("Mbps");
-		label_2.setFont(new Font("Arial", Font.PLAIN, 13));
-		label_2.setBounds(366, 65, 56, 16);
-		panel_2.add(label_2);
-		
-		txtSubida = new JTextField();
-		txtSubida.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtSubida.setColumns(10);
-		txtSubida.setBounds(434, 54, 136, 27);
-		panel_2.add(txtSubida);
-		
-		JLabel label_1 = new JLabel("Mbps");
-		label_1.setFont(new Font("Arial", Font.PLAIN, 13));
-		label_1.setBounds(573, 65, 40, 16);
-		panel_2.add(label_1);
+		JLabel lblMbp = new JLabel("KB/s");
+		lblMbp.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblMbp.setBounds(366, 65, 40, 16);
+		panel_2.add(lblMbp);
 		
 		JLabel lblVelocidadDeSubida = new JLabel("Velocidad de subida:");
 		lblVelocidadDeSubida.setForeground(Color.DARK_GRAY);
 		lblVelocidadDeSubida.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblVelocidadDeSubida.setBackground(Color.GRAY);
-		lblVelocidadDeSubida.setBounds(434, 27, 156, 25);
+		lblVelocidadDeSubida.setBounds(227, 27, 156, 25);
 		panel_2.add(lblVelocidadDeSubida);
 		
 		JPanel panel_3 = new JPanel();
@@ -232,10 +216,10 @@ public class RegistrarServicio extends JDialog {
 		panel_3.setBounds(24, 375, 625, 119);
 		panel_1.add(panel_3);
 		
-		txtMinutos = new JTextField();
-		txtMinutos.setEditable(false);
+		txtMinutos = new JSpinner();
+		txtMinutos.setEnabled(false);
+		txtMinutos.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		txtMinutos.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtMinutos.setColumns(10);
 		txtMinutos.setBounds(20, 54, 166, 27);
 		panel_3.add(txtMinutos);
 		
@@ -252,13 +236,12 @@ public class RegistrarServicio extends JDialog {
 				rdbInternet.setSelected(true);
 				rdbCable.setSelected(false);
 				rdbTelefono.setSelected(false);
-				txtVelocidad.setEditable(true);
-				txtBajada.setEditable(true);
-				txtSubida.setEditable(true);
-				txtMinutos.setEditable(false);
-				txtInter.setEditable(false);
-				txtLocales.setEditable(false);
-				txtHD.setEditable(false);		
+				spnVelocidad.setEnabled(true);
+				spnSubida.setEnabled(true);
+				txtMinutos.setEnabled(false);
+				txtInter.setEnabled(false);
+				txtLocales.setEnabled(false);
+				txtHD.setEnabled(false);		
 		}
 		});
 		rdbInternet.setBackground(SystemColor.text);
@@ -273,13 +256,12 @@ public class RegistrarServicio extends JDialog {
 				rdbCable.setSelected(true);
 				rdbInternet.setSelected(false);
 				rdbTelefono.setSelected(false);
-				txtVelocidad.setEditable(false);
-				txtBajada.setEditable(false);
-				txtSubida.setEditable(false);
-				txtMinutos.setEditable(false);
-				txtInter.setEditable(true);
-				txtLocales.setEditable(true);
-				txtHD.setEditable(true);
+				spnVelocidad.setEnabled(false);
+				spnSubida.setEnabled(false);
+				txtMinutos.setEnabled(false);
+				txtInter.setEnabled(true);
+				txtLocales.setEnabled(true);
+				txtHD.setEnabled(true);
 			}
 		});
 		rdbCable.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -293,13 +275,12 @@ public class RegistrarServicio extends JDialog {
 				rdbTelefono.setSelected(true);
 				rdbInternet.setSelected(false);
 				rdbCable.setSelected(false);
-				txtVelocidad.setEditable(false);
-				txtBajada.setEditable(false);
-				txtSubida.setEditable(false);
-				txtMinutos.setEditable(true);
-				txtInter.setEditable(false);
-				txtLocales.setEditable(false);
-				txtHD.setEditable(false);
+				spnVelocidad.setEnabled(false);
+				spnSubida.setEnabled(false);
+				txtMinutos.setEnabled(true);
+				txtInter.setEnabled(false);
+				txtLocales.setEnabled(false);
+				txtHD.setEnabled(false);
 			}
 		});
 		rdbTelefono.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -314,10 +295,10 @@ public class RegistrarServicio extends JDialog {
 		panel_4.setBounds(24, 507, 625, 119);
 		panel_1.add(panel_4);
 		
-		txtLocales = new JTextField();
-		txtLocales.setEditable(false);
+		txtLocales = new JSpinner();
+		txtLocales.setEnabled(false);
+		txtLocales.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		txtLocales.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtLocales.setColumns(10);
 		txtLocales.setBounds(20, 54, 166, 27);
 		panel_4.add(txtLocales);
 		
@@ -335,17 +316,17 @@ public class RegistrarServicio extends JDialog {
 		lblLocales.setBounds(227, 27, 156, 25);
 		panel_4.add(lblLocales);
 		
-		txtInter = new JTextField();
-		txtInter.setEditable(false);
+		txtInter = new JSpinner();
+		txtInter.setEnabled(false);
+		txtInter.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		txtInter.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtInter.setColumns(10);
 		txtInter.setBounds(227, 54, 166, 27);
 		panel_4.add(txtInter);
 		
-		txtHD = new JTextField();
-		txtHD.setEditable(false);
+		txtHD = new JSpinner();
+		txtHD.setEnabled(false);
+		txtHD.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		txtHD.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtHD.setColumns(10);
 		txtHD.setBounds(436, 54, 166, 27);
 		panel_4.add(txtHD);
 		

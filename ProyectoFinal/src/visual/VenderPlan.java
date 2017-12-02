@@ -35,26 +35,25 @@ import javax.swing.JRadioButton;
 
 public class VenderPlan extends JDialog {
 	private JTextField txtCedula;
-	private JTextField textField;
-	private JTextField textField_3;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
-	private JTextField textField_15;
-	private JTextField textField_16;
-	private JTextField textField_17;
-	private JTextField textField_18;
-	private JTextField textField_19;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JTextField txtTelefono;
+	private JTextField txtDireccion;
+	private JTextField txtTarifa;
+	private JTextField txtImpuestos;
+	private JTextField txtInstalacion;
+	private JTextField txtMinutos;
+	private JTextField txtVelocidad;
+	private JTextField txtSubida;
+	private JTextField txtTelPrecio;
+	private JTextField txtTelImpuestos;
+	private JTextField txtInterPrecio;
+	private JTextField txtInterImpuestos;
+	private JTextField txtCanales;
+	private JTextField txtLocales;
+	private JTextField txtInternaciones;
+	private JTextField txtCablePrecio;
+	private JTextField txtCableImpuestos;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -184,30 +183,30 @@ public class VenderPlan extends JDialog {
 		lblPlan.setBounds(25, 24, 71, 25);
 		panel_2.add(lblPlan);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBackground(new Color(255, 255, 255));
-		comboBox.setBounds(25, 51, 224, 27);
-		panel_2.add(comboBox);
+		JComboBox cbxPlanes = new JComboBox();
+		cbxPlanes.setBackground(new Color(255, 255, 255));
+		cbxPlanes.setBounds(25, 51, 224, 27);
+		panel_2.add(cbxPlanes);
 		
-		JLabel lblTarifaMensual = new JLabel("Duraci\u00F3n:");
-		lblTarifaMensual.setForeground(Color.DARK_GRAY);
-		lblTarifaMensual.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblTarifaMensual.setBackground(Color.GRAY);
-		lblTarifaMensual.setBounds(284, 24, 112, 25);
-		panel_2.add(lblTarifaMensual);
+		JLabel lblDuracion = new JLabel("Duraci\u00F3n:");
+		lblDuracion.setForeground(Color.DARK_GRAY);
+		lblDuracion.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblDuracion.setBackground(Color.GRAY);
+		lblDuracion.setBounds(284, 24, 112, 25);
+		panel_2.add(lblDuracion);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"18"}));
-		comboBox_1.setBounds(284, 50, 112, 27);
-		comboBox_1.setBackground(Color.WHITE);
-		panel_2.add(comboBox_1);
+		JComboBox cbxDuracion = new JComboBox();
+		cbxDuracion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cbxDuracion.setModel(new DefaultComboBoxModel(new String[] {"18"}));
+		cbxDuracion.setBounds(284, 50, 112, 27);
+		cbxDuracion.setBackground(Color.WHITE);
+		panel_2.add(cbxDuracion);
 		
-		textField_4 = new JTextField();
-		textField_4.setEnabled(false);
-		textField_4.setColumns(10);
-		textField_4.setBounds(428, 51, 112, 27);
-		panel_2.add(textField_4);
+		txtTarifa = new JTextField();
+		txtTarifa.setEnabled(false);
+		txtTarifa.setColumns(10);
+		txtTarifa.setBounds(428, 51, 112, 27);
+		panel_2.add(txtTarifa);
 		
 		JLabel lblTarifa = new JLabel("Tarifa:");
 		lblTarifa.setForeground(Color.DARK_GRAY);
@@ -216,11 +215,11 @@ public class VenderPlan extends JDialog {
 		lblTarifa.setBounds(428, 27, 71, 25);
 		panel_2.add(lblTarifa);
 		
-		textField_5 = new JTextField();
-		textField_5.setEnabled(false);
-		textField_5.setColumns(10);
-		textField_5.setBounds(570, 51, 112, 27);
-		panel_2.add(textField_5);
+		txtImpuestos = new JTextField();
+		txtImpuestos.setEnabled(false);
+		txtImpuestos.setColumns(10);
+		txtImpuestos.setBounds(570, 51, 112, 27);
+		panel_2.add(txtImpuestos);
 		
 		JLabel lblImpuestos = new JLabel("Impuestos:");
 		lblImpuestos.setForeground(Color.DARK_GRAY);
@@ -236,11 +235,11 @@ public class VenderPlan extends JDialog {
 		panel_2.add(panel);
 		panel.setLayout(null);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(12, 56, 118, 27);
-		textField_7.setBackground(SystemColor.menu);
-		panel.add(textField_7);
+		txtMinutos = new JTextField();
+		txtMinutos.setColumns(10);
+		txtMinutos.setBounds(12, 56, 118, 27);
+		txtMinutos.setBackground(SystemColor.menu);
+		panel.add(txtMinutos);
 		
 		JLabel lblMinutos = new JLabel("Minutos:");
 		lblMinutos.setForeground(Color.DARK_GRAY);
@@ -256,15 +255,15 @@ public class VenderPlan extends JDialog {
 		lblLlamadasInternacionales.setBounds(12, 212, 200, 25);
 		panel.add(lblLlamadasInternacionales);
 		
-		JRadioButton rdbInter1 = new JRadioButton("");
-		rdbInter1.setBounds(30, 235, 31, 25);
-		rdbInter1.setBackground(Color.white);
-		panel.add(rdbInter1);
+		JRadioButton rdbLlamIntSi = new JRadioButton("");
+		rdbLlamIntSi.setBounds(30, 235, 31, 25);
+		rdbLlamIntSi.setBackground(Color.white);
+		panel.add(rdbLlamIntSi);
 		
-		JRadioButton radioButton = new JRadioButton("");
-		radioButton.setBackground(Color.WHITE);
-		radioButton.setBounds(99, 235, 31, 25);
-		panel.add(radioButton);
+		JRadioButton rdbLlamIntNo = new JRadioButton("");
+		rdbLlamIntNo.setBackground(Color.WHITE);
+		rdbLlamIntNo.setBounds(99, 235, 31, 25);
+		panel.add(rdbLlamIntNo);
 		
 		JLabel lblSi = new JLabel("Si:");
 		lblSi.setForeground(Color.DARK_GRAY);
@@ -280,10 +279,10 @@ public class VenderPlan extends JDialog {
 		lblNo.setBounds(78, 235, 25, 25);
 		panel.add(lblNo);
 		
-		JRadioButton radioButton_1 = new JRadioButton("");
-		radioButton_1.setBackground(Color.WHITE);
-		radioButton_1.setBounds(99, 180, 31, 25);
-		panel.add(radioButton_1);
+		JRadioButton rdbMinAdNo = new JRadioButton("");
+		rdbMinAdNo.setBackground(Color.WHITE);
+		rdbMinAdNo.setBounds(99, 180, 31, 25);
+		panel.add(rdbMinAdNo);
 		
 		JLabel label = new JLabel("No:");
 		label.setForeground(Color.DARK_GRAY);
@@ -292,10 +291,10 @@ public class VenderPlan extends JDialog {
 		label.setBounds(78, 180, 25, 25);
 		panel.add(label);
 		
-		JRadioButton radioButton_2 = new JRadioButton("");
-		radioButton_2.setBackground(Color.WHITE);
-		radioButton_2.setBounds(30, 180, 31, 25);
-		panel.add(radioButton_2);
+		JRadioButton rdbMinAdSi = new JRadioButton("");
+		rdbMinAdSi.setBackground(Color.WHITE);
+		rdbMinAdSi.setBounds(30, 180, 31, 25);
+		panel.add(rdbMinAdSi);
 		
 		JLabel label_1 = new JLabel("Si:");
 		label_1.setForeground(Color.DARK_GRAY);
@@ -318,10 +317,10 @@ public class VenderPlan extends JDialog {
 		lblDobleLnea.setBounds(12, 96, 153, 25);
 		panel.add(lblDobleLnea);
 		
-		JRadioButton radioButton_3 = new JRadioButton("");
-		radioButton_3.setBackground(Color.WHITE);
-		radioButton_3.setBounds(30, 119, 31, 25);
-		panel.add(radioButton_3);
+		JRadioButton rdbDobleLineaSi = new JRadioButton("");
+		rdbDobleLineaSi.setBackground(Color.WHITE);
+		rdbDobleLineaSi.setBounds(30, 119, 31, 25);
+		panel.add(rdbDobleLineaSi);
 		
 		JLabel label_3 = new JLabel("Si:");
 		label_3.setForeground(Color.DARK_GRAY);
@@ -337,22 +336,22 @@ public class VenderPlan extends JDialog {
 		label_4.setBounds(78, 119, 25, 25);
 		panel.add(label_4);
 		
-		JRadioButton radioButton_4 = new JRadioButton("");
-		radioButton_4.setBackground(Color.WHITE);
-		radioButton_4.setBounds(99, 119, 31, 25);
-		panel.add(radioButton_4);
+		JRadioButton rdbDobleLineaNo = new JRadioButton("");
+		rdbDobleLineaNo.setBackground(Color.WHITE);
+		rdbDobleLineaNo.setBounds(99, 119, 31, 25);
+		panel.add(rdbDobleLineaNo);
 		
-		JLabel lblDesvo = new JLabel("Desv\u00EDo:");
-		lblDesvo.setForeground(Color.DARK_GRAY);
-		lblDesvo.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblDesvo.setBackground(Color.GRAY);
-		lblDesvo.setBounds(216, 32, 54, 25);
-		panel.add(lblDesvo);
+		JLabel lblDesvio = new JLabel("Desv\u00EDo:");
+		lblDesvio.setForeground(Color.DARK_GRAY);
+		lblDesvio.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblDesvio.setBackground(Color.GRAY);
+		lblDesvio.setBounds(216, 32, 54, 25);
+		panel.add(lblDesvio);
 		
-		JRadioButton radioButton_5 = new JRadioButton("");
-		radioButton_5.setBackground(Color.WHITE);
-		radioButton_5.setBounds(234, 55, 31, 25);
-		panel.add(radioButton_5);
+		JRadioButton rdbDesvisoSi = new JRadioButton("");
+		rdbDesvisoSi.setBackground(Color.WHITE);
+		rdbDesvisoSi.setBounds(234, 55, 31, 25);
+		panel.add(rdbDesvisoSi);
 		
 		JLabel label_5 = new JLabel("Si:");
 		label_5.setForeground(Color.DARK_GRAY);
@@ -368,17 +367,17 @@ public class VenderPlan extends JDialog {
 		label_6.setBounds(282, 55, 25, 25);
 		panel.add(label_6);
 		
-		JRadioButton radioButton_6 = new JRadioButton("");
-		radioButton_6.setBackground(Color.WHITE);
-		radioButton_6.setBounds(303, 55, 31, 25);
-		panel.add(radioButton_6);
+		JRadioButton rdbDesvioNo = new JRadioButton("");
+		rdbDesvioNo.setBackground(Color.WHITE);
+		rdbDesvioNo.setBounds(303, 55, 31, 25);
+		panel.add(rdbDesvioNo);
 		
-		textField_11 = new JTextField();
-		textField_11.setBackground(SystemColor.menu);
-		textField_11.setEditable(false);
-		textField_11.setColumns(10);
-		textField_11.setBounds(216, 113, 91, 27);
-		panel.add(textField_11);
+		txtTelPrecio = new JTextField();
+		txtTelPrecio.setBackground(SystemColor.menu);
+		txtTelPrecio.setEditable(false);
+		txtTelPrecio.setColumns(10);
+		txtTelPrecio.setBounds(216, 113, 91, 27);
+		panel.add(txtTelPrecio);
 		
 		JLabel lblPrecio = new JLabel("Precio:");
 		lblPrecio.setForeground(Color.DARK_GRAY);
@@ -387,12 +386,12 @@ public class VenderPlan extends JDialog {
 		lblPrecio.setBounds(216, 89, 58, 25);
 		panel.add(lblPrecio);
 		
-		textField_12 = new JTextField();
-		textField_12.setBackground(SystemColor.menu);
-		textField_12.setEditable(false);
-		textField_12.setColumns(10);
-		textField_12.setBounds(216, 174, 91, 27);
-		panel.add(textField_12);
+		txtTelImpuestos = new JTextField();
+		txtTelImpuestos.setBackground(SystemColor.menu);
+		txtTelImpuestos.setEditable(false);
+		txtTelImpuestos.setColumns(10);
+		txtTelImpuestos.setBounds(216, 174, 91, 27);
+		panel.add(txtTelImpuestos);
 		
 		JLabel lblImpuestos_1 = new JLabel("Impuestos:");
 		lblImpuestos_1.setForeground(Color.DARK_GRAY);
@@ -415,68 +414,54 @@ public class VenderPlan extends JDialog {
 		panel_2.add(panel_3);
 		panel_3.setLayout(null);
 		
-		textField_8 = new JTextField();
-		textField_8.setBackground(SystemColor.menu);
-		textField_8.setEditable(false);
-		textField_8.setColumns(10);
-		textField_8.setBounds(24, 55, 91, 27);
-		panel_3.add(textField_8);
+		txtVelocidad = new JTextField();
+		txtVelocidad.setBackground(SystemColor.menu);
+		txtVelocidad.setEditable(false);
+		txtVelocidad.setColumns(10);
+		txtVelocidad.setBounds(24, 55, 91, 27);
+		panel_3.add(txtVelocidad);
 		
-		JLabel lblMegas = new JLabel("Megas:");
-		lblMegas.setForeground(Color.DARK_GRAY);
-		lblMegas.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblMegas.setBackground(Color.GRAY);
-		lblMegas.setBounds(24, 31, 58, 25);
-		panel_3.add(lblMegas);
+		JLabel lblVelocidad = new JLabel("Velocidad:");
+		lblVelocidad.setForeground(Color.DARK_GRAY);
+		lblVelocidad.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblVelocidad.setBackground(Color.GRAY);
+		lblVelocidad.setBounds(24, 31, 75, 25);
+		panel_3.add(lblVelocidad);
 		
-		textField_9 = new JTextField();
-		textField_9.setBackground(SystemColor.menu);
-		textField_9.setEditable(false);
-		textField_9.setColumns(10);
-		textField_9.setBounds(24, 119, 91, 27);
-		panel_3.add(textField_9);
+		txtSubida = new JTextField();
+		txtSubida.setBackground(SystemColor.menu);
+		txtSubida.setEditable(false);
+		txtSubida.setColumns(10);
+		txtSubida.setBounds(24, 119, 91, 27);
+		panel_3.add(txtSubida);
 		
-		JLabel lblVelocidadDeSubida = new JLabel("Velocidad de subida:");
-		lblVelocidadDeSubida.setForeground(Color.DARK_GRAY);
-		lblVelocidadDeSubida.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblVelocidadDeSubida.setBackground(Color.GRAY);
-		lblVelocidadDeSubida.setBounds(24, 95, 148, 25);
-		panel_3.add(lblVelocidadDeSubida);
+		JLabel lblSubida = new JLabel("Velocidad de subida:");
+		lblSubida.setForeground(Color.DARK_GRAY);
+		lblSubida.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblSubida.setBackground(Color.GRAY);
+		lblSubida.setBounds(24, 95, 148, 25);
+		panel_3.add(lblSubida);
 		
-		textField_10 = new JTextField();
-		textField_10.setBackground(SystemColor.menu);
-		textField_10.setEditable(false);
-		textField_10.setColumns(10);
-		textField_10.setBounds(24, 183, 91, 27);
-		panel_3.add(textField_10);
+		txtInterPrecio = new JTextField();
+		txtInterPrecio.setEditable(false);
+		txtInterPrecio.setColumns(10);
+		txtInterPrecio.setBackground(SystemColor.menu);
+		txtInterPrecio.setBounds(215, 55, 91, 27);
+		panel_3.add(txtInterPrecio);
 		
-		JLabel lblVelocidadDeBajada = new JLabel("Velocidad de bajada:");
-		lblVelocidadDeBajada.setForeground(Color.DARK_GRAY);
-		lblVelocidadDeBajada.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblVelocidadDeBajada.setBackground(Color.GRAY);
-		lblVelocidadDeBajada.setBounds(24, 159, 163, 25);
-		panel_3.add(lblVelocidadDeBajada);
+		JLabel lblInterPrecio = new JLabel("Precio:");
+		lblInterPrecio.setForeground(Color.DARK_GRAY);
+		lblInterPrecio.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblInterPrecio.setBackground(Color.GRAY);
+		lblInterPrecio.setBounds(215, 31, 58, 25);
+		panel_3.add(lblInterPrecio);
 		
-		textField_13 = new JTextField();
-		textField_13.setEditable(false);
-		textField_13.setColumns(10);
-		textField_13.setBackground(SystemColor.menu);
-		textField_13.setBounds(215, 55, 91, 27);
-		panel_3.add(textField_13);
-		
-		JLabel label_2 = new JLabel("Precio:");
-		label_2.setForeground(Color.DARK_GRAY);
-		label_2.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_2.setBackground(Color.GRAY);
-		label_2.setBounds(215, 31, 58, 25);
-		panel_3.add(label_2);
-		
-		textField_14 = new JTextField();
-		textField_14.setEditable(false);
-		textField_14.setColumns(10);
-		textField_14.setBackground(SystemColor.menu);
-		textField_14.setBounds(215, 119, 91, 27);
-		panel_3.add(textField_14);
+		txtInterImpuestos = new JTextField();
+		txtInterImpuestos.setEditable(false);
+		txtInterImpuestos.setColumns(10);
+		txtInterImpuestos.setBackground(SystemColor.menu);
+		txtInterImpuestos.setBounds(215, 119, 91, 27);
+		panel_3.add(txtInterImpuestos);
 		
 		JLabel label_7 = new JLabel("Impuestos:");
 		label_7.setForeground(Color.DARK_GRAY);
@@ -489,7 +474,7 @@ public class VenderPlan extends JDialog {
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(244, 164, 96));
-		btnNewButton.setBounds(215, 220, 91, 40);
+		btnNewButton.setBounds(215, 218, 91, 40);
 		panel_3.add(btnNewButton);
 		
 		JPanel panel_4 = new JPanel();
@@ -499,12 +484,12 @@ public class VenderPlan extends JDialog {
 		panel_2.add(panel_4);
 		panel_4.setLayout(null);
 		
-		textField_15 = new JTextField();
-		textField_15.setEditable(false);
-		textField_15.setColumns(10);
-		textField_15.setBackground(SystemColor.menu);
-		textField_15.setBounds(22, 56, 91, 27);
-		panel_4.add(textField_15);
+		txtCanales = new JTextField();
+		txtCanales.setEditable(false);
+		txtCanales.setColumns(10);
+		txtCanales.setBackground(SystemColor.menu);
+		txtCanales.setBounds(22, 56, 91, 27);
+		panel_4.add(txtCanales);
 		
 		JLabel lblCanales = new JLabel("Canales:");
 		lblCanales.setForeground(Color.DARK_GRAY);
@@ -513,12 +498,12 @@ public class VenderPlan extends JDialog {
 		lblCanales.setBounds(22, 32, 91, 25);
 		panel_4.add(lblCanales);
 		
-		textField_16 = new JTextField();
-		textField_16.setEditable(false);
-		textField_16.setColumns(10);
-		textField_16.setBackground(SystemColor.menu);
-		textField_16.setBounds(22, 120, 91, 27);
-		panel_4.add(textField_16);
+		txtLocales = new JTextField();
+		txtLocales.setEditable(false);
+		txtLocales.setColumns(10);
+		txtLocales.setBackground(SystemColor.menu);
+		txtLocales.setBounds(22, 120, 91, 27);
+		panel_4.add(txtLocales);
 		
 		JLabel lblLocales = new JLabel("Locales:");
 		lblLocales.setForeground(Color.DARK_GRAY);
@@ -527,12 +512,12 @@ public class VenderPlan extends JDialog {
 		lblLocales.setBounds(22, 96, 91, 25);
 		panel_4.add(lblLocales);
 		
-		textField_17 = new JTextField();
-		textField_17.setEditable(false);
-		textField_17.setColumns(10);
-		textField_17.setBackground(SystemColor.menu);
-		textField_17.setBounds(22, 184, 91, 27);
-		panel_4.add(textField_17);
+		txtInternaciones = new JTextField();
+		txtInternaciones.setEditable(false);
+		txtInternaciones.setColumns(10);
+		txtInternaciones.setBackground(SystemColor.menu);
+		txtInternaciones.setBounds(22, 184, 91, 27);
+		panel_4.add(txtInternaciones);
 		
 		JLabel lblInternacionales = new JLabel("Internacionales:");
 		lblInternacionales.setForeground(Color.DARK_GRAY);
@@ -541,33 +526,33 @@ public class VenderPlan extends JDialog {
 		lblInternacionales.setBounds(22, 160, 108, 25);
 		panel_4.add(lblInternacionales);
 		
-		textField_18 = new JTextField();
-		textField_18.setEditable(false);
-		textField_18.setColumns(10);
-		textField_18.setBackground(SystemColor.menu);
-		textField_18.setBounds(219, 56, 91, 27);
-		panel_4.add(textField_18);
+		txtCablePrecio = new JTextField();
+		txtCablePrecio.setEditable(false);
+		txtCablePrecio.setColumns(10);
+		txtCablePrecio.setBackground(SystemColor.menu);
+		txtCablePrecio.setBounds(219, 56, 91, 27);
+		panel_4.add(txtCablePrecio);
 		
-		JLabel lblPrecio_1 = new JLabel("Precio:");
-		lblPrecio_1.setForeground(Color.DARK_GRAY);
-		lblPrecio_1.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblPrecio_1.setBackground(Color.GRAY);
-		lblPrecio_1.setBounds(219, 32, 91, 25);
-		panel_4.add(lblPrecio_1);
+		JLabel lblCablePrecio = new JLabel("Precio:");
+		lblCablePrecio.setForeground(Color.DARK_GRAY);
+		lblCablePrecio.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblCablePrecio.setBackground(Color.GRAY);
+		lblCablePrecio.setBounds(219, 32, 91, 25);
+		panel_4.add(lblCablePrecio);
 		
-		textField_19 = new JTextField();
-		textField_19.setEditable(false);
-		textField_19.setColumns(10);
-		textField_19.setBackground(SystemColor.menu);
-		textField_19.setBounds(219, 120, 91, 27);
-		panel_4.add(textField_19);
+		txtCableImpuestos = new JTextField();
+		txtCableImpuestos.setEditable(false);
+		txtCableImpuestos.setColumns(10);
+		txtCableImpuestos.setBackground(SystemColor.menu);
+		txtCableImpuestos.setBounds(219, 120, 91, 27);
+		panel_4.add(txtCableImpuestos);
 		
-		JLabel label_12 = new JLabel("Impuestos:");
-		label_12.setForeground(Color.DARK_GRAY);
-		label_12.setFont(new Font("Arial", Font.PLAIN, 16));
-		label_12.setBackground(Color.GRAY);
-		label_12.setBounds(219, 96, 91, 25);
-		panel_4.add(label_12);
+		JLabel lblCableImpuestos = new JLabel("Impuestos:");
+		lblCableImpuestos.setForeground(Color.DARK_GRAY);
+		lblCableImpuestos.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblCableImpuestos.setBackground(Color.GRAY);
+		lblCableImpuestos.setBounds(219, 96, 91, 25);
+		panel_4.add(lblCableImpuestos);
 		
 		JButton btnHd = new JButton("HD");
 		btnHd.setForeground(Color.WHITE);
@@ -576,24 +561,24 @@ public class VenderPlan extends JDialog {
 		btnHd.setBounds(219, 220, 91, 40);
 		panel_4.add(btnHd);
 		
-		JLabel lblInstalacin = new JLabel("Instalaci\u00F3n:");
-		lblInstalacin.setForeground(Color.DARK_GRAY);
-		lblInstalacin.setFont(new Font("Arial", Font.PLAIN, 16));
-		lblInstalacin.setBackground(Color.GRAY);
-		lblInstalacin.setBounds(711, 27, 81, 25);
-		panel_2.add(lblInstalacin);
+		JLabel lblInstalacion = new JLabel("Instalaci\u00F3n:");
+		lblInstalacion.setForeground(Color.DARK_GRAY);
+		lblInstalacion.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblInstalacion.setBackground(Color.GRAY);
+		lblInstalacion.setBounds(711, 27, 81, 25);
+		panel_2.add(lblInstalacion);
 		
-		textField_6 = new JTextField();
-		textField_6.setEnabled(false);
-		textField_6.setColumns(10);
-		textField_6.setBounds(711, 51, 112, 27);
-		panel_2.add(textField_6);
+		txtInstalacion = new JTextField();
+		txtInstalacion.setEnabled(false);
+		txtInstalacion.setColumns(10);
+		txtInstalacion.setBounds(711, 51, 112, 27);
+		panel_2.add(txtInstalacion);
 		
-		textField = new JTextField();
-		textField.setBounds(26, 200, 224, 27);
-		getContentPane().add(textField);
-		textField.setEditable(false);
-		textField.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(26, 200, 224, 27);
+		getContentPane().add(txtNombre);
+		txtNombre.setEditable(false);
+		txtNombre.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(26, 176, 71, 25);
@@ -602,11 +587,11 @@ public class VenderPlan extends JDialog {
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNombre.setBackground(Color.GRAY);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(262, 200, 224, 27);
-		getContentPane().add(textField_3);
-		textField_3.setEditable(false);
-		textField_3.setColumns(10);
+		txtApellido = new JTextField();
+		txtApellido.setBounds(262, 200, 224, 27);
+		getContentPane().add(txtApellido);
+		txtApellido.setEditable(false);
+		txtApellido.setColumns(10);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setBounds(262, 176, 71, 25);
@@ -615,11 +600,11 @@ public class VenderPlan extends JDialog {
 		lblApellido.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblApellido.setBackground(Color.GRAY);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(498, 200, 224, 27);
-		getContentPane().add(textField_1);
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
+		txtTelefono = new JTextField();
+		txtTelefono.setBounds(498, 200, 224, 27);
+		getContentPane().add(txtTelefono);
+		txtTelefono.setEditable(false);
+		txtTelefono.setColumns(10);
 		
 		JLabel lblCdula = new JLabel("Tel\u00E9fono:");
 		lblCdula.setBounds(498, 176, 71, 25);
@@ -628,11 +613,11 @@ public class VenderPlan extends JDialog {
 		lblCdula.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblCdula.setBackground(Color.GRAY);
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
-		textField_2.setBounds(734, 200, 347, 27);
-		getContentPane().add(textField_2);
+		txtDireccion = new JTextField();
+		txtDireccion.setEditable(false);
+		txtDireccion.setColumns(10);
+		txtDireccion.setBounds(734, 200, 347, 27);
+		getContentPane().add(txtDireccion);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
 		lblDireccin.setForeground(Color.DARK_GRAY);

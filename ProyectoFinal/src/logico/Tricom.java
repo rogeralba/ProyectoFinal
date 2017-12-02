@@ -14,21 +14,22 @@ public class Tricom {
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Plan> misPlanes;
 	private ArrayList<Servicio> misServicios;
+	private ArrayList<Factura> misFacturas;
+	private ArrayList<Integer> cantRegistros; //Contiene la cantidad de registros que se han creado de cada clase.
 	private static Tricom tricom = null;
+	
 	private Empleado actual;
 	
 	public Tricom()
 	{
 		super();
+		this.misClientes = new ArrayList<>();
 		this.misEmpleados = new ArrayList<>();
 		this.misPlanes = new ArrayList<>();
-		this.misClientes = new ArrayList<>();
+		this.misServicios = new ArrayList<>();
+		this.misFacturas = new ArrayList<>();
+		this.cantRegistros = new ArrayList<>(); //0-Clientes 1-Empleados 2-Planes 3-Servicios 4-Facturas
 		
-		//Creacion de usuario inicial.
-		if(misEmpleados.size() == 0){
-		Administrativo adm = new Administrativo("admin", "el", "boss", "000-0000000-0", "Tricom SA HQ", "111", "Fallecido", 10, "000");
-		misEmpleados.add(adm);
-	}
 	}
 	
 	public static Tricom getInstance()
@@ -38,17 +39,33 @@ public class Tricom {
 		
 		return tricom;
 	}
-	/*
+	
 	public void saveData() throws IOException
 	{
 		String dirCli = "./Data/Clientes.dat";
-		String dirCuen = "./Data/Empleados.dat";
+		String dirEmp = "./Data/Empleados.dat";
+		String dirPlan = "./Data/Planes.dat";
+		String dirSer = "./Data/Servicios.dat";
+		String dirFac = "./Data/Facturas.dat";
+		String dirReg = "./Data/totalReg.dat";
 	
 		FileOutputStream cliStream;
 		ObjectOutputStream oos1;
 		
 		FileOutputStream empStream;
 		ObjectOutputStream oos2;
+		
+		FileOutputStream planStream;
+		ObjectOutputStream oos3;
+		
+		FileOutputStream serStream;
+		ObjectOutputStream oos4;
+		
+		FileOutputStream facStream;
+		ObjectOutputStream oos5;
+		
+		FileOutputStream regStream;
+		ObjectOutputStream oos6;
 		
 		try {
 			cliStream = new FileOutputStream(dirCli);
@@ -61,73 +78,200 @@ public class Tricom {
 		}
 		
 		try {
-			empStream = new FileOutputStream(dirCuen);
+			empStream = new FileOutputStream(dirEmp);
 			oos2 = new ObjectOutputStream(empStream);
 		} catch (FileNotFoundException e) { //Si el fichero no existe
-			File archivo = new File(dirCuen);
+			File archivo = new File(dirEmp);
 			archivo.createNewFile();
-			empStream = new FileOutputStream(dirCuen);
+			empStream = new FileOutputStream(dirEmp);
 			oos2 = new ObjectOutputStream(empStream);
+		}
+		
+		try {
+			planStream = new FileOutputStream(dirPlan);
+			oos3 = new ObjectOutputStream(planStream);
+		} catch (FileNotFoundException e) { //Si el fichero no existe
+			File archivo = new File(dirPlan);
+			archivo.createNewFile();
+			planStream = new FileOutputStream(dirPlan);
+			oos3 = new ObjectOutputStream(planStream);
+		}
+		
+		try {
+			serStream = new FileOutputStream(dirSer);
+			oos4 = new ObjectOutputStream(serStream);
+		} catch (FileNotFoundException e) { //Si el fichero no existe
+			File archivo = new File(dirSer);
+			archivo.createNewFile();
+			serStream = new FileOutputStream(dirSer);
+			oos4 = new ObjectOutputStream(serStream);
+		}
+		
+		try {
+			facStream = new FileOutputStream(dirFac);
+			oos5 = new ObjectOutputStream(facStream);
+		} catch (FileNotFoundException e) { //Si el fichero no existe
+			File archivo = new File(dirFac);
+			archivo.createNewFile();
+			facStream = new FileOutputStream(dirFac);
+			oos5 = new ObjectOutputStream(facStream);
+		}
+		
+		try {
+			regStream = new FileOutputStream(dirReg);
+			oos6 = new ObjectOutputStream(regStream);
+		} catch (FileNotFoundException e) { //Si el fichero no existe
+			File archivo = new File(dirReg);
+			archivo.createNewFile();
+			regStream = new FileOutputStream(dirReg);
+			oos6 = new ObjectOutputStream(regStream);
 		}
 				
 		oos1.writeInt(misClientes.size());
 		oos2.writeInt(misEmpleados.size());
+		oos3.writeInt(misPlanes.size());
+		oos4.writeInt(misServicios.size());
+		oos5.writeInt(misFacturas.size());
+		oos6.writeInt(cantRegistros.size());
 		
 		for(Cliente cli: misClientes)
-		{
 			oos1.writeObject(cli);
-		}
 		
 		for(Empleado emp: misEmpleados)
-		{
 			oos2.writeObject(emp);
-		}
+		
+		for(Plan plan: misPlanes)
+			oos3.writeObject(plan);
+		
+		for(Servicio ser: misServicios)
+			oos4.writeObject(ser);
+		
+		for(Factura fac: misFacturas)
+			oos5.writeObject(fac);
+		
+		for(Integer cant: cantRegistros)
+			oos6.writeObject(cant);
+		
 		cliStream.close();
 		empStream.close();
+		planStream.close();
+		serStream.close();
+		facStream.close();
+		regStream.close();
 	}
 	
 	public void readData() throws IOException, ClassNotFoundException
 	{
-		int cantPlanes;
-		FileInputStream planStream = new FileInputStream("Planes.dat");
-		ObjectInputStream ois = new ObjectInputStream(planStream);
-		
-		cantPlanes = ois.readInt();
-		
-		for(int i=0; i < cantPlanes; i++)
-		{
-			misPlanes.add(i, (Plan)ois.readObject());	
-		}
-		planStream.close();
+		String dirCli = "./Data/Clientes.dat";
+		String dirEmp = "./Data/Empleados.dat";
+		String dirPlan = "./Data/Planes.dat";
+		String dirSer = "./Data/Servicios.dat";
+		String dirFac = "./Data/Facturas.dat";
+		String dirReg = "./Data/totalReg.dat";
 		
 		//Clientes
-		int cantClientes;
-		FileInputStream clienteStream = new FileInputStream("Clientes.dat");
-		ObjectInputStream clo = new ObjectInputStream(clienteStream);
+		int cant = 0;
+		FileInputStream clienteStream;
+			ObjectInputStream ois1;
+			try{
+				clienteStream = new FileInputStream(dirCli);
+				ois1 = new ObjectInputStream(clienteStream);
+				cant = ois1.readInt();
+				for(int i=0; i < cant; i++)
+					misClientes.add(i, (Cliente)ois1.readObject());	
+				clienteStream.close();
+			}catch(IOException e){
+				cant = 0;
+				File archivo = new File(dirCli);
+				archivo.createNewFile();
+			}
 		
-		cantClientes = clo.readInt();
-		
-		for(int i=0; i < cantClientes; i++)
-		{
-			misClientes.add(i, (Cliente)clo.readObject());	
-		}
-		clienteStream.close();
 		
 		//Empleados
+
+			FileInputStream empleadoStream;
+			ObjectInputStream ois2;
+			try{
+				empleadoStream = new FileInputStream(dirEmp);
+				ois2 = new ObjectInputStream(empleadoStream);
+				cant = ois2.readInt();
+				for(int i=0; i < cant; i++)
+					misEmpleados.add(i, (Empleado)ois2.readObject());	
+				empleadoStream.close();
+			}catch(IOException e){
+				cant = 0;
+				File archivo = new File(dirEmp);
+				archivo.createNewFile();
+			}
 		
-		int cantEmpleados;
-		FileInputStream empleadoSteam = new FileInputStream("Empleado.dat");
-		ObjectInputStream empo = new ObjectInputStream(empleadoSteam);
 		
-		cantEmpleados = empo.readInt();
+		//Planes
+	
+			FileInputStream planStream;
+			ObjectInputStream ois3;
+			try{
+				planStream = new FileInputStream(dirPlan);
+				ois3 = new ObjectInputStream(planStream);
+				cant = ois3.readInt();
+				for(int i=0; i < cant; i++)
+					misPlanes.add(i, (Plan)ois3.readObject());	
+				planStream.close();
+			}catch(IOException e){
+				cant = 0;
+				File archivo = new File(dirPlan);
+				archivo.createNewFile();
+			}
 		
-		for(int i=0; i < cantEmpleados; i++)
-		{
-			misEmpleados.add(i, (Empleado)empo.readObject());	
-		}
-		empleadoSteam.close();
+		//Servicios	
+			FileInputStream serStream;
+			ObjectInputStream ois4;
+			try{
+				serStream = new FileInputStream(dirSer);
+				ois4 = new ObjectInputStream(serStream);
+				cant = ois4.readInt();
+				for(int i=0; i < cant; i++)
+					misServicios.add(i, (Servicio)ois4.readObject());	
+				serStream.close();
+			}catch(IOException e){
+				cant = 0;
+				File archivo = new File(dirSer);
+				archivo.createNewFile();
+			}	
+		
+		//Facturas
+			FileInputStream facStream;
+			ObjectInputStream ois5;
+			try{
+				facStream = new FileInputStream(dirFac);
+				ois5 = new ObjectInputStream(facStream);
+				cant = ois5.readInt();
+				for(int i=0; i < cant; i++)
+					misFacturas.add(i, (Factura)ois5.readObject());	
+				facStream.close();
+			}catch(IOException e){
+				cant = 0;
+				File archivo = new File(dirFac);
+				archivo.createNewFile();
+			}
+			
+		//Registros totales
+	
+			FileInputStream regStream;
+			ObjectInputStream ois6;
+			try{
+				regStream = new FileInputStream(dirReg);
+				ois6 = new ObjectInputStream(regStream);	
+				cant = ois6.readInt();
+				for(int i=0; i < cant; i++)
+					cantRegistros.add(i, (Integer)ois6.readObject());	
+				regStream.close();
+			}catch(IOException e){
+				cant = 0;
+				File archivo = new File(dirReg);
+				archivo.createNewFile();
+			}
 	}
-	*/
+	
 	
 	public void eliminarPlan(String codPlan)
 	{

@@ -1,9 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Factura {
+public class Factura implements Serializable{
 	
 	private int cod;
 	private LocalDate fechaEmision;
