@@ -155,7 +155,6 @@ public class TricomMain extends JFrame {
 		}else {
 			
 			JOptionPane.showMessageDialog(null, "Usted no cuenta con permiso para accesar"+Tricom.getInstance().getActual().getCedula(), "Error", JOptionPane.INFORMATION_MESSAGE);
-
 		}
 			}
 		});
@@ -365,8 +364,6 @@ public class TricomMain extends JFrame {
 					cargarJtable(columnNames1);
 					break;
 				case 2://Boton de Empleados
-					//Empleado empleado = new Administrativo("nom","ap1","ap2","ced","dir","tel","nota",800,"123");
-					//Tricom.getInstance().getMisEmpleados().add(empleado);
 					RegistrarEmpleado reg = new RegistrarEmpleado("",true,null);
 					reg.setVisible(true);
 					cargarJtable(columnNames2);
@@ -491,11 +488,6 @@ public class TricomMain extends JFrame {
 		return fila;
 }
 	
-	
-	public void reloadTable(){
-		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
-		cargarJtable(columnNames2);
-	}
 	
 	private void cargarJtable(String[] columnNames)
 	{

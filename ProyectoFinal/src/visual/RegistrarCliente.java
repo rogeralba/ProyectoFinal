@@ -14,9 +14,17 @@ import java.awt.Image;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
+
+import logico.Cliente;
+import logico.ClienteComun;
+import logico.ClienteEmpresa;
+import logico.Tricom;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import javax.swing.JTextField;
@@ -29,6 +37,7 @@ import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
+import com.toedter.calendar.JDateChooser;
 
 public class RegistrarCliente extends JDialog {
 
@@ -37,7 +46,7 @@ public class RegistrarCliente extends JDialog {
 	private JTextField txtNombre;
 	private JTextField txtApellido1;
 	private JTextField txtApellido2;
-	private JTextField txtID;
+	private JTextField txtPasaporte;
 	private JTextField txtDireccion;
 	private JTextField txtEmail;
 	private JLabel lblApellido1;
@@ -50,7 +59,10 @@ public class RegistrarCliente extends JDialog {
 	private JLabel lblEmail;
 	private JFormattedTextField txtTelefono;
 	private JLabel label;
-
+	private JLabel lblFecNac;
+	private JDateChooser dtcFecNac;
+	JFormattedTextField txtCedula;
+/*
 	public static void main(String[] args) {
 		try {
 			RegistrarCliente dialog = new RegistrarCliente();
@@ -59,17 +71,19 @@ public class RegistrarCliente extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 
-	public RegistrarCliente() {
+	public RegistrarCliente(Cliente cliente, int accion) //accion: 1-Registrar (El parametro cliente es NULL), 2-Modificar
+	{
 		setResizable(false);
 		setTitle("Registrar Cliente");
-		setBounds(100, 100, 667, 608);
+		setBounds(100, 100, 667, 669);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		setLocationRelativeTo(null);
 		contentPanel.setLayout(null);
 		
 		String path0 = "./Imagenes/tricom.png";
@@ -111,7 +125,7 @@ public class RegistrarCliente extends JDialog {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.WHITE);
-		panel_1.setBounds(24, 108, 614, 383);
+		panel_1.setBounds(24, 108, 614, 444);
 		contentPanel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -127,6 +141,7 @@ public class RegistrarCliente extends JDialog {
 		txtCodigo.setEditable(false);
 		txtCodigo.setColumns(10);
 		txtCodigo.setBounds(23, 50, 224, 27);
+		txtCodigo.setText("codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1));
 		panel_1.add(txtCodigo);
 		
 		JComboBox cbxTipo = new JComboBox();
@@ -141,9 +156,11 @@ public class RegistrarCliente extends JDialog {
 					txtApellido2.setVisible(false);
 					rdbCedula.setVisible(false);
 					rdbPasaporte.setVisible(false);
-					txtID.setVisible(false);
+					txtPasaporte.setVisible(false);
 					lblRNC.setVisible(true);
 					txtRNC.setVisible(true);
+					lblFecNac.setVisible(false);
+					dtcFecNac.setVisible(false);
 					lblTelefono.setBounds(23, 233, 116, 25);
 					txtTelefono.setBounds(23, 257, 224, 27);
 					lblEmail.setBounds(23, 297, 128, 25);
@@ -156,14 +173,19 @@ public class RegistrarCliente extends JDialog {
 					lblApellido2.setVisible(true);
 					txtApellido2.setVisible(true);
 					rdbCedula.setVisible(true);
+					rdbCedula.setSelected(true);
 					rdbPasaporte.setVisible(true);
-					txtID.setVisible(true);
+					rdbPasaporte.setSelected(false);
+					txtCedula.setVisible(true);
+					txtPasaporte.setVisible(false);
 					lblRNC.setVisible(false);
 					txtRNC.setVisible(false);
 					lblTelefono.setBounds(364, 233, 116, 25);
 					txtTelefono.setBounds(364, 257, 224, 27);
 					lblEmail.setBounds(364, 297, 128, 25);
 					txtEmail.setBounds(364, 321, 224, 27);
+					lblFecNac.setVisible(true);
+					dtcFecNac.setVisible(true);
 				}
 			}
 		});
@@ -222,12 +244,13 @@ public class RegistrarCliente extends JDialog {
 		lblApellido2.setBounds(23, 297, 128, 25);
 		panel_1.add(lblApellido2);
 		
-		txtID = new JTextField();
-		txtID.setFont(new Font("Arial", Font.PLAIN, 15));
-		txtID.setColumns(10);
-		txtID.setBackground(Color.WHITE);
-		txtID.setBounds(364, 119, 224, 27);
-		panel_1.add(txtID);
+		txtPasaporte = new JTextField();
+		txtPasaporte.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtPasaporte.setColumns(10);
+		txtPasaporte.setBackground(Color.WHITE);
+		txtPasaporte.setBounds(364, 119, 224, 27);
+		txtPasaporte.setVisible(false);
+		panel_1.add(txtPasaporte);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -247,7 +270,9 @@ public class RegistrarCliente extends JDialog {
 		rdbCedula.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				rdbCedula.setSelected(true);
-				rdbPasaporte.setSelected(false);				
+				rdbPasaporte.setSelected(false);	
+				txtPasaporte.setVisible(false);
+				txtCedula.setVisible(true);
 			}
 		});
 		rdbCedula.setSelected(true);
@@ -261,6 +286,8 @@ public class RegistrarCliente extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				rdbCedula.setSelected(false);
 				rdbPasaporte.setSelected(true);
+				txtCedula.setVisible(false);
+				txtPasaporte.setVisible(true);
 			}
 		});
 		rdbPasaporte.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -320,16 +347,98 @@ public class RegistrarCliente extends JDialog {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		
+		
+		try {
+			mascara = new MaskFormatter("###-#######-#");
+			txtCedula = new JFormattedTextField(mascara);
+			txtCedula.setFont(new Font("Arial", Font.PLAIN, 15));
+			txtCedula.setBounds(364, 119, 224, 27);
+			panel_1.add(txtCedula);
+			
+			
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		
+		dtcFecNac = new JDateChooser();
+		dtcFecNac.setBounds(23, 390, 224, 27);
+		panel_1.add(dtcFecNac);
+		
+		lblFecNac = new JLabel("Fecha de nacimiento:");
+		lblFecNac.setForeground(Color.DARK_GRAY);
+		lblFecNac.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblFecNac.setBackground(Color.GRAY);
+		lblFecNac.setBounds(23, 361, 166, 25);
+		panel_1.add(lblFecNac);
+		
 		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.setBounds(432, 504, 97, 44);
+		btnNewButton.setBounds(432, 577, 97, 44);
 		contentPanel.add(btnNewButton);
 		
 		JButton btnAceptar = new JButton("Siguiente");
-		btnAceptar.setBounds(541, 504, 97, 44);
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Cliente cliente = null;
+				boolean valido = false;
+				String nombre = txtNombre.getText().toString();
+				String apellido1 = txtApellido1.getText().toString();
+				String apellido2 = txtApellido2.getText().toString();
+				String direccion = txtDireccion.getText().toString();
+				String telefono = txtTelefono.getText().toString();
+				String email = txtEmail.getText().toString();
+				String cedula = txtCedula.getText().toString();
+				String pasaporte = txtPasaporte.getText().toString();
+				String rnc = txtRNC.getText().toString();
+				
+				String codCli = "codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1);
+				String fecNac = dtcFecNac.getDateFormatString();
+				
+				if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Corriente"))
+				{
+					if(rdbCedula.isSelected() == true)
+					{
+						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && cedula.equalsIgnoreCase("   -       - ")==false && email.equalsIgnoreCase("")==false)
+						{
+							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,cedula,fecNac);
+							valido = true;
+						}
+					}else if(rdbPasaporte.isSelected() == true)
+					{
+						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && pasaporte.equalsIgnoreCase("")==false && email.equalsIgnoreCase("")==false)
+						{
+							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,pasaporte,fecNac);
+							valido = true;
+						}
+					}	
+				}else if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Empresa"))
+				{
+					if(nombre.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && rnc.equalsIgnoreCase("   -     - ")==false && email.equalsIgnoreCase("")==false)
+					{
+						cliente = new ClienteEmpresa(codCli,nombre,direccion,telefono,email,rnc);
+						valido = true;
+					}
+				}	
+				
+				if(valido == true)
+				{
+					Tricom.getInstance().getMisClientes().add(cliente);
+					int cant = Tricom.getInstance().getCantRegistros().get(0);
+					Tricom.getInstance().getCantRegistros().add(0, (cant+1));
+					JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
+					dispose();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Todos los campos deben ser válidos.");
+				}
+			}
+		});
+		btnAceptar.setBounds(541, 577, 97, 44);
 		contentPanel.add(btnAceptar);
 		
 		label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
-		label.setBounds(24, 532, 291, 16);
+		label.setBounds(24, 605, 291, 16);
 		contentPanel.add(label);
 		
 	
