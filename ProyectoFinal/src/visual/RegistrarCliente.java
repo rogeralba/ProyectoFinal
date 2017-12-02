@@ -317,20 +317,20 @@ public class RegistrarCliente extends JDialog {
 			txtRNC.setVisible(false);
 			panel_1.add(txtRNC);
 			
-			JButton btnNewButton = new JButton("Cancelar");
-			btnNewButton.setBounds(432, 504, 97, 44);
-			contentPanel.add(btnNewButton);
-			
-			JButton btnAceptar = new JButton("Siguiente");
-			btnAceptar.setBounds(541, 504, 97, 44);
-			contentPanel.add(btnAceptar);
-			
-			label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
-			label.setBounds(24, 532, 291, 16);
-			contentPanel.add(label);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+		JButton btnNewButton = new JButton("Cancelar");
+		btnNewButton.setBounds(432, 504, 97, 44);
+		contentPanel.add(btnNewButton);
+		
+		JButton btnAceptar = new JButton("Siguiente");
+		btnAceptar.setBounds(541, 504, 97, 44);
+		contentPanel.add(btnAceptar);
+		
+		label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
+		label.setBounds(24, 532, 291, 16);
+		contentPanel.add(label);
 		
 	
 			
