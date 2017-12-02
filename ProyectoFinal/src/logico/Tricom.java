@@ -19,7 +19,7 @@ public class Tricom {
 	private static Tricom tricom = null;
 	
 	private Empleado actual;
-	//
+	////
 	public Tricom()
 	{
 		super();
