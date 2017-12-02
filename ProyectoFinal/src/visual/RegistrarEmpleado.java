@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
-import logico.Empleados;
+import logico.Empleado;
 import logico.Tricom;
 
 import javax.swing.JComboBox;
@@ -39,7 +39,7 @@ public class RegistrarEmpleado extends JDialog {
 	private JComboBox combosexoUser;
 	private MaskFormatter patron;
 	private MaskFormatter tele;
-	private Empleados myvend;
+	private Empleado myvend;
 	private boolean option = true;
 	private JButton okButton;
 	private String[] nombrePlan;
@@ -49,7 +49,7 @@ public class RegistrarEmpleado extends JDialog {
 	private JTextField contraUser;
 	private JSpinner spnsal;
 
-	public RegistrarEmpleado(String title, boolean option, Empleados client) {
+	public RegistrarEmpleado(String title, boolean option, Empleado client) {
 		setTitle("Registrar Empleado\r\n");
 		setBounds(100, 100, 557, 369);
 		setLocationRelativeTo(null);

@@ -11,7 +11,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
-import logico.Empleados;
+import logico.Empleado;
 import logico.Tricom;
 
 import javax.swing.JLabel;
@@ -56,7 +56,7 @@ public class Login extends JDialog {
 	private boolean verificarLogin(){
 		boolean resultado = false;
 	Tricom tri = new Tricom();
-		for (Empleados p : tri.getMisEmpleados()) {
+		for (Empleado p : tri.getMisEmpleados()) {
 			if(p.getCedula().compareTo(txtUsuario.getText()) == 0 && p.getContrasena().compareTo(txtContrasena.getText()) == 0){
 				resultado = true;
 				tri.setActual(p);

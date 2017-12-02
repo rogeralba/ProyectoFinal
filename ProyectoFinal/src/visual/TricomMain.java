@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
@@ -16,29 +17,42 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Administrativo;
 import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
+import logico.Empleado;
 import logico.Tricom;
 
 import javax.swing.JInternalFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TricomMain extends JFrame {
 	
 
 	private JPanel contentPane;
 	private Dimension dim;
-	private JTable tableClientes;
-	private JTable tableClientes_1;
+	private JTable table;
 	private static DefaultTableModel model;
+	private JLabel lblTitulo;
+	private JLabel lblReg;
+	private JScrollPane scrollPane;
+	private JPanel panelRegistros;
+	private JButton btnNuevo;
+	private JButton btnModificar;
+	private JButton btnEliminar;
+	private int activeButton = 1;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,6 +68,9 @@ public class TricomMain extends JFrame {
 	}
 
 	public TricomMain() {
+		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
+		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
+		
 		setTitle("Tricom");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -84,6 +101,14 @@ public class TricomMain extends JFrame {
 		
 	
 		JButton btnClientes = new JButton("Clientes");
+		btnClientes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				lblTitulo.setText("Clientes");
+				lblReg.setText("Registros de Clientes");
+				activeButton = 1;
+				cargarJtable(columnNames1);
+			}
+		});
 		btnClientes.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnClientes.setForeground(Color.LIGHT_GRAY);
 		btnClientes.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -100,6 +125,14 @@ public class TricomMain extends JFrame {
 		panel.add(btnClientes);
 		
 		JButton btnEmpleados = new JButton("Empleados");
+		btnEmpleados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblTitulo.setText("Empleados");
+				lblReg.setText("Registros de Empleados");
+				activeButton = 2;
+				cargarJtable(columnNames2);
+			}
+		});
 		btnEmpleados.setBackground(Color.DARK_GRAY);
 		btnEmpleados.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnEmpleados.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -117,6 +150,13 @@ public class TricomMain extends JFrame {
 		panel.add(btnEmpleados);
 		
 		JButton btnVentas = new JButton("Ventas");
+		btnVentas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblTitulo.setText("Ventas");
+				lblReg.setText("Registros de planes vendidos");
+				activeButton = 3;
+			}
+		});
 		btnVentas.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnVentas.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnVentas.setMargin(new Insets(0, 0, 10, 0));
@@ -135,6 +175,13 @@ public class TricomMain extends JFrame {
 		panel.add(btnVentas);
 		
 		JButton btnPlanes = new JButton("Planes");
+		btnPlanes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblTitulo.setText("Planes");
+				lblReg.setText("Planes disponibles");
+				activeButton = 4;
+			}
+		});
 		btnPlanes.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnPlanes.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnPlanes.setMargin(new Insets(0, 0, 10, 0));
@@ -153,6 +200,13 @@ public class TricomMain extends JFrame {
 		panel.add(btnPlanes);
 		
 		JButton btnServicios = new JButton("Servicios");
+		btnServicios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblTitulo.setText("Servicios");
+				lblReg.setText("Servicios disponibles");
+				activeButton = 5;
+			}
+		});
 		btnServicios.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnServicios.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnServicios.setMargin(new Insets(0, 0, 10, 0));
@@ -171,6 +225,10 @@ public class TricomMain extends JFrame {
 		panel.add(btnServicios);
 		
 		JButton btnPagos = new JButton("Pagos");
+		btnPagos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnPagos.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnPagos.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnPagos.setMargin(new Insets(0, 0, 10, 0));
@@ -238,83 +296,74 @@ public class TricomMain extends JFrame {
 		btnSingOut.setBorder(null);
 		panel_1.add(btnSingOut);
 		
-		JPanel panelClientes = new JPanel();
-		panelClientes.setBackground(SystemColor.text);
-		panelClientes.setBounds(147, 192, 1179, 668);
-		contentPane.add(panelClientes);
-		panelClientes.setLayout(null);
+		panelRegistros = new JPanel();
+		panelRegistros.setBackground(SystemColor.text);
+		panelRegistros.setBounds(147, 192, 1179, 668);
+		contentPane.add(panelRegistros);
+		panelRegistros.setLayout(null);
 		
-		JScrollPane scrollPaneCli = new JScrollPane();
-		scrollPaneCli.setBounds(42, 68, 1091, 323);
-		scrollPaneCli.setBackground(SystemColor.text);
-		panelClientes.add(scrollPaneCli);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 68, 1091, 323);
+		scrollPane.setBackground(SystemColor.text);
+		panelRegistros.add(scrollPane);
 		
-		tableClientes = new JTable();
-		String[] columnNames = {"Seleccionar","Codigo", "ID", "Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
-		model = new DefaultTableModel(loadData(),columnNames);
-		tableClientes_1 = new JTable(model)
-		{
-	        public Class getColumnClass(int column) 
-	        {
-	           switch (column) 
-	           {
-	              case 0:
-	            	  return Boolean.class;
-	              case 1:
-	                  return String.class;
-	              case 2:
-	            	  return String.class;
-	              case 3:
-	            	  return String.class;
-	              case 4:
-	            	  return String.class;
-	              case 5:
-	            	  return String.class;
-	              case 6:
-	            	  return Date.class;
-	              case 7:
-	            	  return String.class;
-	              default:
-	            	  return String.class;
-	            }
-	         }
-	      };
-		tableClientes_1.setBackground(SystemColor.window);
-		scrollPaneCli.setViewportView(tableClientes_1);
 		
-		JLabel lblReg = new JLabel("Registros de Clientes");
+		//Para iniciar el programa
+		cargarJtable(columnNames1);
+		
+		lblReg = new JLabel("Registros de Clientes");
 		lblReg.setFont(new Font("Calibri", Font.BOLD, 20));
-		lblReg.setBounds(42, 38, 189, 27);
-		panelClientes.add(lblReg);
+		lblReg.setBounds(42, 38, 269, 27);
+		panelRegistros.add(lblReg);
 		
-		JButton btnModifcar = new JButton("Modifcar");
-		btnModifcar.setForeground(Color.WHITE);
-		btnModifcar.setBackground(Color.DARK_GRAY);
-		btnModifcar.setBounds(170, 419, 104, 44);
-		panelClientes.add(btnModifcar);
+		btnModificar = new JButton("Modifcar");
+		btnModificar.setForeground(Color.WHITE);
+		btnModificar.setBackground(Color.DARK_GRAY);
+		btnModificar.setBounds(170, 419, 104, 44);
+		panelRegistros.add(btnModificar);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBackground(Color.DARK_GRAY);
 		btnEliminar.setBounds(300, 419, 104, 44);
-		panelClientes.add(btnEliminar);
+		panelRegistros.add(btnEliminar);
 		
-		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switch(activeButton)
+				{
+				case 1:
+					Cliente cliente = new ClienteComun("cod","nom","ap","ap2","dir","tel","email","ced","fec");
+					Tricom.getInstance().getMisClientes().add(cliente);
+					cargarJtable(columnNames1);
+					break;
+				case 2:
+					Empleado empleado = new Administrativo("nom","ap1","ap2","ced","dir","tel","nota",800,"123");
+					Tricom.getInstance().getMisEmpleados().add(empleado);
+					cargarJtable(columnNames2);
+					break;
+				default:
+					break;
+				}	
+			}
+		});
+		
 		btnNuevo.setForeground(Color.WHITE);
 		btnNuevo.setBackground(Color.DARK_GRAY);
 		btnNuevo.setBounds(42, 419, 104, 44);
-		panelClientes.add(btnNuevo);
+		panelRegistros.add(btnNuevo);
 		
-		JLabel lblTitulo = new JLabel("Clientes");
+		lblTitulo = new JLabel("Clientes");
 		lblTitulo.setForeground(SystemColor.windowBorder);
 		lblTitulo.setFont(new Font("Calibri", Font.BOLD, 30));
 		lblTitulo.setBounds(147, 150, 227, 38);
 		contentPane.add(lblTitulo);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(SystemColor.text);
-		panel_2.setBounds(1376, 192, 469, 668);
-		contentPane.add(panel_2);
+		JPanel panelGraficos = new JPanel();
+		panelGraficos.setBackground(SystemColor.text);
+		panelGraficos.setBounds(1376, 192, 469, 668);
+		contentPane.add(panelGraficos);
 		
 		JButton btnNewButton = new JButton("Cerrar");
 		btnNewButton.setForeground(Color.WHITE);
@@ -340,41 +389,89 @@ public class TricomMain extends JFrame {
 	
 	public Object[][] loadData() {
 		int i = 0;
-		try {
+		/*try {
 			Tricom.getInstance().readData();
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-		
-		Object[][] fila = new Object[Tricom.getInstance().getMisClientes().size()][10];
-		for (Cliente cli: Tricom.getInstance().getMisClientes()) 
+		*/
+		Object[][] fila = null;
+		switch(activeButton)
 		{
-			if(cli instanceof ClienteComun)
-			{
-				fila[i][0] = false;
-				fila[i][1] = cli.getCodCli();
-				fila[i][2] = ((ClienteComun) (cli)).getCedula();
-				fila[i][3] = cli.getNombre();
-				fila[i][4] = ((ClienteComun)(cli)).getApellido1();
-				fila[i][5] = ((ClienteComun)(cli)).getApellido2();
-				fila[i][6] = ((ClienteComun)(cli)).getFecNac();
-				fila[i][7] = cli.getTelefono();
-				fila[i][8] = cli.getEmail();
-			}
-			else
-			{
-				fila[i][0] = false;
-				fila[i][1] = cli.getCodCli();
-				fila[i][2] = ((ClienteEmpresa) (cli)).getRnc();
-				fila[i][3] = cli.getNombre();
-				fila[i][4] = "N/A";
-				fila[i][5] = "N/A";
-				fila[i][6] = "N/A";
-				fila[i][7] = cli.getTelefono();
-				fila[i][8] = cli.getEmail();
-			}
-			i++;
+		   case 1:
+			   fila = new Object[Tricom.getInstance().getMisClientes().size()][10];
+			   for (Cliente cli: Tricom.getInstance().getMisClientes()) 
+			   {
+				   if(cli instanceof ClienteComun)
+				   {
+					   fila[i][0] = false;
+					   fila[i][1] = cli.getCodCli();
+					   fila[i][2] = ((ClienteComun) (cli)).getCedula();
+					   fila[i][3] = cli.getNombre();
+					   fila[i][4] = ((ClienteComun)(cli)).getApellido1();
+					   fila[i][5] = ((ClienteComun)(cli)).getApellido2();
+					   fila[i][6] = ((ClienteComun)(cli)).getFecNac();
+					   fila[i][7] = cli.getTelefono();
+					   fila[i][8] = cli.getEmail();	
+				   }
+				   else
+				   {
+					   fila[i][0] = false;
+					   fila[i][1] = cli.getCodCli();
+					   fila[i][2] = ((ClienteEmpresa) (cli)).getRnc();
+					   fila[i][3] = cli.getNombre();
+					   fila[i][4] = "N/A";
+					   fila[i][5] = "N/A";
+					   fila[i][6] = "N/A";
+					   fila[i][7] = cli.getTelefono();
+					   fila[i][8] = cli.getEmail();
+				   }
+				   i++;
+			   }
+			   break;
+		   case 2:
+			   fila = new Object[Tricom.getInstance().getMisEmpleados().size()][10];
+			   for (Empleado emp: Tricom.getInstance().getMisEmpleados()) 
+			   {
+				   fila[i][0] = false;
+				   fila[i][1] = emp.getCodigointerno();
+				   if(emp instanceof Administrativo)
+					   fila[i][2] = "Admistrativo";
+				   else
+					   fila[i][2] = "Servicio";
+				   fila[i][3] = emp.getCedula();
+				   fila[i][4] = emp.getNombre();
+				   fila[i][5] = emp.getApellido1();
+				   fila[i][6] = emp.getApellido2();
+				   fila[i][7] = emp.getTelefono();
+				   fila[i][8] = String.valueOf(emp.getSalario());
+				   i++;
+			   }
+			   break;
+		   default:
+			   JOptionPane.showMessageDialog(null, "sd");
 		}
 		return fila;
+}
+	
+	
+	private void cargarJtable(String[] columnNames)
+	{
+		model = new DefaultTableModel(loadData(),columnNames);
+		table = new JTable(model)
+		{
+	        public Class getColumnClass(int column) 
+	        {
+	           switch (column) 
+	           {
+	              case 0:
+	            	  return Boolean.class;
+	              default:
+	            	  return String.class;
+	            }
+	         }
+	      };
+		table.setBackground(SystemColor.window);
+		scrollPane.setViewportView(table);
 	}
 }

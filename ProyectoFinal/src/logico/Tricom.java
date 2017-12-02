@@ -1,6 +1,8 @@
 package logico;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,12 +10,12 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class Tricom {
-	private ArrayList<Empleados> misEmpleados;
+	private ArrayList<Empleado> misEmpleados;
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Plan> misPlanes;
 	private ArrayList<Servicio> misServicios;
 	private static Tricom tricom = null;
-	private Empleados actual;
+	private Empleado actual;
 	
 	public Tricom()
 	{
@@ -31,45 +33,51 @@ public class Tricom {
 		
 		return tricom;
 	}
-	
+	/*
 	public void saveData() throws IOException
 	{
-		FileOutputStream planStream = new FileOutputStream("Planes.dat");
-		ObjectOutputStream oos = new ObjectOutputStream(planStream);
-
-		oos.writeInt(misPlanes.size());
-		for(int i=0;i<misPlanes.size();i++)
-		{
-			oos.writeObject(misPlanes.get(i));
+		String dirCli = "./Data/Clientes.dat";
+		String dirCuen = "./Data/Empleados.dat";
+	
+		FileOutputStream cliStream;
+		ObjectOutputStream oos1;
+		
+		FileOutputStream empStream;
+		ObjectOutputStream oos2;
+		
+		try {
+			cliStream = new FileOutputStream(dirCli);
+			oos1 = new ObjectOutputStream(cliStream);
+		} catch (FileNotFoundException e) { //Si el fichero no existe
+			File archivo = new File(dirCli);
+			archivo.createNewFile();
+			cliStream = new FileOutputStream(dirCli);
+			oos1 = new ObjectOutputStream(cliStream);
 		}
 		
-		planStream.close();//Fichero
-		
-		
-		
-		//Clientes
-		FileOutputStream clStream = new FileOutputStream("Clientes.dat");
-		ObjectOutputStream clo = new ObjectOutputStream(clStream);
-
-		clo.writeInt(misClientes.size());
-		for(int i=0;i<misClientes.size();i++)
-		{
-			oos.writeObject(misClientes.get(i));
+		try {
+			empStream = new FileOutputStream(dirCuen);
+			oos2 = new ObjectOutputStream(empStream);
+		} catch (FileNotFoundException e) { //Si el fichero no existe
+			File archivo = new File(dirCuen);
+			archivo.createNewFile();
+			empStream = new FileOutputStream(dirCuen);
+			oos2 = new ObjectOutputStream(empStream);
 		}
-		
-		clStream.close();
 				
-				//Empleados
-				
-		FileOutputStream empStream = new FileOutputStream("Empleado.dat");
-		ObjectOutputStream elo = new ObjectOutputStream(empStream);
-
-		elo.writeInt(misEmpleados.size());
-		for(int i=0;i<misEmpleados.size();i++)
+		oos1.writeInt(misClientes.size());
+		oos2.writeInt(misEmpleados.size());
+		
+		for(Cliente cli: misClientes)
 		{
-			elo.writeObject(misEmpleados.get(i));
+			oos1.writeObject(cli);
 		}
 		
+		for(Empleado emp: misEmpleados)
+		{
+			oos2.writeObject(emp);
+		}
+		cliStream.close();
 		empStream.close();
 	}
 	
@@ -110,11 +118,11 @@ public class Tricom {
 		
 		for(int i=0; i < cantEmpleados; i++)
 		{
-			misEmpleados.add(i, (Empleados)empo.readObject());	
+			misEmpleados.add(i, (Empleado)empo.readObject());	
 		}
 		empleadoSteam.close();
 	}
-	
+	*/
 	
 	public void eliminarPlan(String codPlan)
 	{
@@ -152,7 +160,7 @@ public class Tricom {
 	public void ingresarPlan(Plan plan) throws IOException
 	{
 		misPlanes.add(plan);
-		saveData();
+		//saveData();
 	}
 	
 	
@@ -232,11 +240,11 @@ public class Tricom {
 	}
 	
 	
-	public ArrayList<Empleados> getMisEmpleados() {
+	public ArrayList<Empleado> getMisEmpleados() {
 		return misEmpleados;
 	}
 
-	public void setMisEmpleados(ArrayList<Empleados> misEmpleados) {
+	public void setMisEmpleados(ArrayList<Empleado> misEmpleados) {
 		this.misEmpleados = misEmpleados;
 	}
 
@@ -249,16 +257,16 @@ public class Tricom {
 	}
 	//Roger creacion y manejo de usuarios(Empleados)
 	
-public void crearempleado(Empleados emp){
+public void crearempleado(Empleado emp){
 	misEmpleados.add(emp);
 	
 }
 
-public Empleados getActual() {
+public Empleado getActual() {
 	return actual;
 }
 
-public void setActual(Empleados actual) {
+public void setActual(Empleado actual) {
 	this.actual = actual;
 }
 

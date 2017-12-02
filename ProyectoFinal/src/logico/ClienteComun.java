@@ -1,16 +1,15 @@
 package logico;
 
-import java.util.Date;
 
 public class ClienteComun extends Cliente {
 	private String apellido1;
 	private String cedula;
 	private String apellido2;
-	private Date fecNac;
+	private String fecNac;
 	
-	public ClienteComun(String cedula, String nombre, String apellido1,String apellido2, String direccion, String telefono, String email, String id, Date fecNac) {
-		super(cedula, nombre, direccion, telefono, email);
-		this.cedula = cedula;
+	public ClienteComun(String codCli, String nombre, String apellido1,String apellido2, String direccion, String telefono, String email, String id,String fecNac) {
+		super(codCli, nombre, direccion, telefono, email);
+		this.cedula = id;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.fecNac = fecNac;
@@ -50,12 +49,12 @@ public class ClienteComun extends Cliente {
 	}
 
 
-	public Date getFecNac() {
+	public String getFecNac() {
 		return fecNac;
 	}
 
 
-	public void setFecNac(Date fecNac) {
+	public void setFecNac(String fecNac) {
 		this.fecNac = fecNac;
 	}
 	

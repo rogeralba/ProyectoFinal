@@ -4,8 +4,9 @@ import java.util.Date;
 
 public abstract class Empleado{
 	private static int code = 0;
-	private String Nombre;
-	private String Apellido;
+	private String nombre;
+	private String apellido1;
+	private String apellido2;
 	private String cedula;
 	private String direccion;
 	private String telefono;
@@ -15,12 +16,12 @@ public abstract class Empleado{
 	private float salario;
 	//
 
-	public Empleado(String nombre,String apellido,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase) {
-		// TODO Auto-generated constructor stubl
+	public Empleado(String nombre,String apellido1,String apellido2,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase) {
 		code++;
 		this.codigointerno = code;
-		this.Nombre = nombre;
-		this.Apellido = apellido;
+		this.nombre = nombre;
+		this.apellido1 = apellido1;
+		this.apellido2 = apellido2;
 		this.cedula = cedula;
 		this.setContrasena(contrase);
 		this.direccion = direccion;
@@ -32,20 +33,13 @@ public abstract class Empleado{
 	}
 
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.nombre = nombre;
 	}
 
-	public String getApellido() {
-		return Apellido;
-	}
-
-	public void setApellido(String apellido) {
-		Apellido = apellido;
-	}
 
 	public String getCedula() {
 		return cedula;
@@ -55,7 +49,6 @@ public abstract class Empleado{
 		this.cedula = cedula;
 	}
 
-	
 
 	public String getDireccion() {
 		return direccion;
@@ -104,5 +97,23 @@ public abstract class Empleado{
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
+
+	public String getApellido1() {
+		return apellido1;
+	}
+
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+	}
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
+	}
+
+	
 
 }
