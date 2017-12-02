@@ -61,8 +61,9 @@ public class RegistrarCliente extends JDialog {
 	private JLabel label;
 	private JLabel lblFecNac;
 	private JDateChooser dtcFecNac;
-	JFormattedTextField txtCedula;
-/*
+	private JFormattedTextField txtCedula;
+	private JComboBox cbxSexo;
+	/*
 	public static void main(String[] args) {
 		try {
 			RegistrarCliente dialog = new RegistrarCliente();
@@ -372,6 +373,18 @@ public class RegistrarCliente extends JDialog {
 		lblFecNac.setBounds(23, 361, 166, 25);
 		panel_1.add(lblFecNac);
 		
+		cbxSexo = new JComboBox();
+		cbxSexo.setModel(new DefaultComboBoxModel(new String[] {"Femenino", "Masculino"}));
+		cbxSexo.setFont(new Font("Arial", Font.PLAIN, 15));
+		cbxSexo.setBackground(Color.WHITE);
+		cbxSexo.setBounds(364, 390, 141, 27);
+		panel_1.add(cbxSexo);
+		
+		JLabel lblSexo = new JLabel("Sexo:");
+		lblSexo.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblSexo.setBounds(364, 368, 57, 14);
+		panel_1.add(lblSexo);
+		
 		JButton btnNewButton = new JButton("Cancelar");
 		btnNewButton.setBounds(432, 577, 97, 44);
 		contentPanel.add(btnNewButton);
@@ -390,7 +403,7 @@ public class RegistrarCliente extends JDialog {
 				String cedula = txtCedula.getText().toString();
 				String pasaporte = txtPasaporte.getText().toString();
 				String rnc = txtRNC.getText().toString();
-				
+				String sexo = cbxSexo.getSelectedItem().toString();
 				String codCli = "codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1);
 				String fecNac = dtcFecNac.getDateFormatString();
 				
@@ -400,14 +413,14 @@ public class RegistrarCliente extends JDialog {
 					{
 						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && cedula.equalsIgnoreCase("   -       - ")==false && email.equalsIgnoreCase("")==false)
 						{
-							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,cedula,fecNac);
+							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,cedula,fecNac,sexo);
 							valido = true;
 						}
 					}else if(rdbPasaporte.isSelected() == true)
 					{
 						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && pasaporte.equalsIgnoreCase("")==false && email.equalsIgnoreCase("")==false)
 						{
-							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,pasaporte,fecNac);
+							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,pasaporte,fecNac,sexo);
 							valido = true;
 						}
 					}	

@@ -6,13 +6,15 @@ public class ClienteComun extends Cliente {
 	private String cedula;
 	private String apellido2;
 	private String fecNac;
+	private String sexo;
 	
-	public ClienteComun(String codCli, String nombre, String apellido1,String apellido2, String direccion, String telefono, String email, String id,String fecNac) {
+	public ClienteComun(String codCli, String nombre, String apellido1,String apellido2, String direccion, String telefono, String email, String id,String fecNac,String sexo) {
 		super(codCli, nombre, direccion, telefono, email);
 		this.cedula = id;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
 		this.fecNac = fecNac;
+		this.sexo = sexo;
 	}
 
 	
@@ -56,6 +58,16 @@ public class ClienteComun extends Cliente {
 
 	public void setFecNac(String fecNac) {
 		this.fecNac = fecNac;
+	}
+
+
+	public String getSexo() {
+		return sexo;
+	}
+
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 	
 	
