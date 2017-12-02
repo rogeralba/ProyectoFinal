@@ -15,9 +15,10 @@ public abstract class Empleado implements Serializable{
 	private String notamedica;
 	private String contrasena;
 	private float salario;
+	private String fNacimiento;
 	//
 
-	public Empleado(String nombre,String apellido1,String apellido2,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase) {
+	public Empleado(String nombre,String apellido1,String apellido2,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase, String fechanacim) {
 		code++;
 		this.codigointerno = code;
 		this.nombre = nombre;
@@ -29,7 +30,7 @@ public abstract class Empleado implements Serializable{
 		this.telefono = telefono;
 		this.notamedica = notamedia;
 		this.setSalario(salario);
-		
+		this.fNacimiento = fechanacim;
 	
 	}
 
