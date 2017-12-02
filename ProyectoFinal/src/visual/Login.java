@@ -69,6 +69,7 @@ public class Login extends JDialog {
 			if(p.getCedula().compareTo(txtUsuario.getText()) == 0 && p.getContrasena().compareTo(txtContrasena.getText()) == 0){
 				resultado = true;
 				Tricom.getInstance().setActual(p);
+				frame.loaddataemp();
 				frame.setVisible(true);
 				break;
 			}

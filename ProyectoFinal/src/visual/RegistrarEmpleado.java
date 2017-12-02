@@ -14,7 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
+import logico.Administrativo;
 import logico.Empleado;
+import logico.ServicioC;
 import logico.Tricom;
 
 import javax.swing.JComboBox;
@@ -48,10 +50,13 @@ public class RegistrarEmpleado extends JDialog {
 	private String numberOnly1;
 	private JTextField contraUser;
 	private JSpinner spnsal;
+	private JTextField txtappellido2;
+	private JLabel lblNotaMedica;
+	private JTextField txtnotam ;
 
 	public RegistrarEmpleado(String title, boolean option, Empleado client) {
 		setTitle("Registrar Empleado\r\n");
-		setBounds(100, 100, 557, 369);
+		setBounds(100, 100, 557, 437);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		this.nombrePlan = new String[cant];
@@ -64,7 +69,7 @@ public class RegistrarEmpleado extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Datos Personales", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 11, 531, 271);
+		panel.setBounds(10, 93, 531, 271);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		try {
@@ -92,7 +97,7 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(nombreUser);
 		nombreUser.setColumns(10);
 		
-		JLabel lblApellido = new JLabel("Apellido:");
+		JLabel lblApellido = new JLabel("Apellido 1:");
 		lblApellido.setBounds(299, 68, 57, 14);
 		panel.add(lblApellido);
 		
@@ -111,13 +116,13 @@ public class RegistrarEmpleado extends JDialog {
 		correoUser.setColumns(10);
 		
 		JLabel lblSexo = new JLabel("Sexo:");
-		lblSexo.setBounds(299, 100, 57, 14);
+		lblSexo.setBounds(309, 188, 57, 14);
 		panel.add(lblSexo);
 		
 		combosexoUser = new JComboBox();
 		
 		combosexoUser.setModel(new DefaultComboBoxModel(new String[] {"<Seleccione>", "Femenino", "Masculino"}));
-		combosexoUser.setBounds(386, 99, 120, 18);
+		combosexoUser.setBounds(396, 187, 120, 18);
 		panel.add(combosexoUser);
 		
 		JLabel lblDireccion = new JLabel("Direccion:");
@@ -170,20 +175,20 @@ public class RegistrarEmpleado extends JDialog {
 		
 		JLabel label_6 = new JLabel("*");
 		label_6.setForeground(Color.RED);
-		label_6.setBounds(366, 100, 11, 14);
+		label_6.setBounds(376, 188, 11, 14);
 		panel.add(label_6);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a para acceder al sistema:");
-		lblContrasea.setBounds(10, 214, 211, 14);
+		lblContrasea.setBounds(10, 222, 211, 14);
 		panel.add(lblContrasea);
 		
 		JLabel label_7 = new JLabel("*");
 		label_7.setForeground(Color.RED);
-		label_7.setBounds(231, 214, 11, 14);
+		label_7.setBounds(231, 222, 11, 14);
 		panel.add(label_7);
 		
 		contraUser = new JTextField();
-		contraUser.setBounds(252, 211, 140, 20);
+		contraUser.setBounds(252, 219, 140, 20);
 		panel.add(contraUser);
 		contraUser.setColumns(10);
 		
@@ -192,7 +197,7 @@ public class RegistrarEmpleado extends JDialog {
 		txtnotam.setBounds(95, 156, 421, 20);
 		panel.add(txtnotam);
 		
-		JLabel lblNotaMedica = new JLabel("Nota Medica:\r\n");
+		 lblNotaMedica = new JLabel("Nota Medica:\r\n");
 		lblNotaMedica.setBounds(10, 159, 70, 14);
 		panel.add(lblNotaMedica);
 		
@@ -215,6 +220,39 @@ public class RegistrarEmpleado extends JDialog {
 		spnsal.setBounds(95, 187, 91, 20);
 		panel.add(spnsal);
 		
+		txtappellido2 = new JTextField();
+		txtappellido2.setColumns(10);
+		txtappellido2.setBounds(386, 94, 120, 20);
+		panel.add(txtappellido2);
+		
+		JLabel label_8 = new JLabel("*");
+		label_8.setForeground(Color.RED);
+		label_8.setBounds(365, 100, 11, 14);
+		panel.add(label_8);
+		
+		JLabel lblApellido_1 = new JLabel("Apellido 2:");
+		lblApellido_1.setBounds(299, 97, 57, 14);
+		panel.add(lblApellido_1);
+		
+		JLabel lblNewLabel = new JLabel("Cargo:");
+		lblNewLabel.setBounds(242, 11, 46, 14);
+		contentPanel.add(lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (comboBox.getSelectedIndex() == 0){
+					panel.setEnabled(false);
+				}
+				if (comboBox.getSelectedIndex() > 0){
+					panel.setEnabled(true);
+				}
+			}
+		});
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Ventas", "Administrativo"}));
+		comboBox.setBounds(213, 36, 101, 20);
+		contentPanel.add(comboBox);
+		panel.setEnabled(false);
 	
 		
 	
@@ -231,12 +269,22 @@ public class RegistrarEmpleado extends JDialog {
 							if(!(nombreUser.getText().equalsIgnoreCase("")) && !(contraUser.getText().equalsIgnoreCase("")) && (cedulaUser.getText().length() == 13) && !(direccionUser.getText().equalsIgnoreCase("") && !(apellidoUser.getText().equalsIgnoreCase("")) && !(correoUser.getText().equalsIgnoreCase("")) && !(telefonoUser.getText().equalsIgnoreCase("")) && combosexoUser.getSelectedIndex()!= 0) )
 							{
 								
+								if (comboBox.getSelectedIndex() == 1){
+									ServicioC vend = new ServicioC(nombreUser.getText(),apellidoUser.getText(), txtappellido2.getText(),cedulaUser.getText(),direccionUser.getText(),telefonoUser.getText(),txtnotam.getText(),(float) spnsal.getValue(),contraUser.getText());
+									Tricom.getInstance().crearempleado(vend);
+									limpiarDialogos();
+									JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE, null);
+
+								}
+								if (comboBox.getSelectedIndex() > 2){
+Administrativo vend = new Administrativo(nombreUser.getText(),apellidoUser.getText(), txtappellido2.getText(),cedulaUser.getText(),direccionUser.getText(),telefonoUser.getText(),txtnotam.getText(),(float) spnsal.getValue(),contraUser.getText());
+Tricom.getInstance().crearempleado(vend);
+limpiarDialogos();
+JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE, null);
+
+								}
 								
-								
-								//Empleados vend = new Empleados(nombreUser.getText(),apellidoUser.getText(),cedulaUser.getText(),direccionUser.getText(),telefonoUser.getText(),txtnotam.getText(), spnsal.getValue(),contraUser.getText());
-								
-								//Tricom.getInstance().crearempleado(vend);
-								String m = correoUser.getText();
+															String m = correoUser.getText();
 								
 								
 								
@@ -282,6 +330,9 @@ public class RegistrarEmpleado extends JDialog {
 		correoUser.setText("");
 		direccionUser.setText("");
 		contraUser.setText("");
+		txtappellido2.setText("");
+		txtnotam.setText("");
+		
 		
 	}
 	
@@ -289,9 +340,4 @@ public class RegistrarEmpleado extends JDialog {
 	{
 		
 	}
-	
-
-	
-	
-	
 }

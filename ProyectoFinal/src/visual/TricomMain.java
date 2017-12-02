@@ -53,6 +53,7 @@ public class TricomMain extends JFrame {
 	private JButton btnModificar;
 	private JButton btnEliminar;
 	private int activeButton = 1;
+	private JLabel lblNewLabel;
 	
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -95,11 +96,10 @@ public class TricomMain extends JFrame {
 		userImg.setIcon(icono2);
 		panel.add(userImg);
 		
-		JLabel lblNewLabel = new JLabel("Juan Lopez");
+	 lblNewLabel = new JLabel("Juan Lopez");
 		lblNewLabel.setForeground(Color.LIGHT_GRAY);
 		lblNewLabel.setBounds(25, 108, 118, 16);
 		panel.add(lblNewLabel);
-		
 	
 		JButton btnClientes = new JButton("Clientes");
 		btnClientes.addActionListener(new ActionListener() {
@@ -349,8 +349,10 @@ public class TricomMain extends JFrame {
 					cargarJtable(columnNames1);
 					break;
 				case 2:
-					Empleado empleado = new Administrativo("nom","ap1","ap2","ced","dir","tel","nota",800,"123");
-					Tricom.getInstance().getMisEmpleados().add(empleado);
+					//Empleado empleado = new Administrativo("nom","ap1","ap2","ced","dir","tel","nota",800,"123");
+					//Tricom.getInstance().getMisEmpleados().add(empleado);
+					RegistrarEmpleado reg = new RegistrarEmpleado("",true,null);
+					reg.setVisible(true);
 					cargarJtable(columnNames2);
 					break;
 				default:
@@ -395,6 +397,12 @@ public class TricomMain extends JFrame {
 		this.setIconImage(icono0);
 		
 		
+	}
+	
+	//LOAD DATA DE EMPLEADO, CUANDO EL EMPLEADO SE LOGEA SE CARGAN LOS DATOS DE EL
+	public void loaddataemp(){
+		lblNewLabel.setText(""+Tricom.getInstance().getActual().getNombre()+" "+Tricom.getInstance().getActual().getApellido1());
+
 	}
 	
 	public Object[][] loadData() {
@@ -464,6 +472,11 @@ public class TricomMain extends JFrame {
 		return fila;
 }
 	
+	
+	public void reloadTable(){
+		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
+		cargarJtable(columnNames2);
+	}
 	
 	private void cargarJtable(String[] columnNames)
 	{
