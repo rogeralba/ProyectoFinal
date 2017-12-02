@@ -38,6 +38,9 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 
 import javax.swing.UIManager;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
 
 public class RegistrarEmpleado extends JDialog {
 
@@ -273,6 +276,16 @@ public class RegistrarEmpleado extends JDialog {
 		lblCodigo.setBackground(Color.GRAY);
 		lblCodigo.setBounds(31, 57, 71, 25);
 		panel.add(lblCodigo);
+		
+		JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento:");
+		lblFechaDeNacimiento.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblFechaDeNacimiento.setBounds(375, 439, 171, 14);
+		panel.add(lblFechaDeNacimiento);
+		
+		JSpinner spnNacim = new JSpinner();
+		spnNacim.setModel(new SpinnerDateModel(new Date(28958400000L), null, null, Calendar.DAY_OF_YEAR));
+		spnNacim.setBounds(375, 469, 141, 27);
+		panel.add(spnNacim);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -323,7 +336,7 @@ public class RegistrarEmpleado extends JDialog {
 						ServicioC vend = new ServicioC(txtNombre.getText(), txtApellido1.getText(),
 								txtAppellido2.getText(), txtCedula.getText(), txtDireccion.getText(),
 								txtTelefono.getText(), txtNota.getText(), (float) spnSalario.getValue(),
-								txtContrasena.getText());
+								txtContrasena.getText(),spnNacim.getValue().toString());
 						Tricom.getInstance().crearempleado(vend);
 						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
 						dispose();
@@ -332,7 +345,7 @@ public class RegistrarEmpleado extends JDialog {
 						Administrativo vend = new Administrativo(txtNombre.getText(), txtApellido1.getText(),
 								txtAppellido2.getText(), txtCedula.getText(), txtDireccion.getText(),
 								txtTelefono.getText(), txtNota.getText(), (float) spnSalario.getValue(),
-								txtContrasena.getText());
+								txtContrasena.getText(),spnNacim.getValue().toString());
 						Tricom.getInstance().crearempleado(vend);
 						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
 						dispose();
