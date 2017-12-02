@@ -343,12 +343,12 @@ public class TricomMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				switch(activeButton)
 				{
-				case 1:
+				case 1: //Boton de Clientes
 					Cliente cliente = new ClienteComun("cod","nom","ap","ap2","dir","tel","email","ced","fec");
 					Tricom.getInstance().getMisClientes().add(cliente);
 					cargarJtable(columnNames1);
 					break;
-				case 2:
+				case 2://Boton de Empleados
 					//Empleado empleado = new Administrativo("nom","ap1","ap2","ced","dir","tel","nota",800,"123");
 					//Tricom.getInstance().getMisEmpleados().add(empleado);
 					RegistrarEmpleado reg = new RegistrarEmpleado("",true,null);
@@ -402,7 +402,6 @@ public class TricomMain extends JFrame {
 	//LOAD DATA DE EMPLEADO, CUANDO EL EMPLEADO SE LOGEA SE CARGAN LOS DATOS DE EL
 	public void loaddataemp(){
 		lblNewLabel.setText(""+Tricom.getInstance().getActual().getNombre()+" "+Tricom.getInstance().getActual().getApellido1());
-
 	}
 	
 	public Object[][] loadData() {
