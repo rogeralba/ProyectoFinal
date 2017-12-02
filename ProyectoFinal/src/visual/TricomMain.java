@@ -54,20 +54,21 @@ public class TricomMain extends JFrame {
 	private JButton btnEliminar;
 	private int activeButton = 1;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					TricomMain frame = new TricomMain();
-					frame.setVisible(true);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	public TricomMain() {
+		Tricom tri = new Tricom();
 		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
 		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
 		
@@ -127,10 +128,19 @@ public class TricomMain extends JFrame {
 		JButton btnEmpleados = new JButton("Empleados");
 		btnEmpleados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//SI EL USUARUI ACTUAL ES ADMIN PUEDE VER LOS EMPLEADOS SI NO SE JODIO.
+		if(Tricom.getInstance().getActual() instanceof Administrativo){
+			
 				lblTitulo.setText("Empleados");
 				lblReg.setText("Registros de Empleados");
 				activeButton = 2;
 				cargarJtable(columnNames2);
+		}else {
+			
+			JOptionPane.showMessageDialog(null, "Usted no cuenta con permiso para accesar"+Tricom.getInstance().getActual().getCedula(), "Error", JOptionPane.INFORMATION_MESSAGE);
+
+		}
 			}
 		});
 		btnEmpleados.setBackground(Color.DARK_GRAY);
