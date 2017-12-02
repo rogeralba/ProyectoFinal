@@ -1,6 +1,7 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -29,25 +30,33 @@ public class Login extends JDialog {
 	private JTextField txtUsuario;
 	private JTextField txtContrasena;
 	private MaskFormatter patron;
+	private static TricomMain frame;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			Login dialog = new Login();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login dialog = new Login();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+					 frame = new TricomMain();
+					//frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 	}
 	
 	private static void crearPrincipal(){
 		try {
-			//Principal frame = new Principal();
-			//frame.setVisible(true);
-			//frame.setIconImage(img.getImage());
+			//TricomMain frame = new TricomMain();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,11 +64,12 @@ public class Login extends JDialog {
 	
 	private boolean verificarLogin(){
 		boolean resultado = false;
-	Tricom tri = new Tricom();
-		for (Empleado p : tri.getMisEmpleados()) {
+	
+		for (Empleado p : Tricom.getInstance().getMisEmpleados()) {
 			if(p.getCedula().compareTo(txtUsuario.getText()) == 0 && p.getContrasena().compareTo(txtContrasena.getText()) == 0){
 				resultado = true;
-				tri.setActual(p);
+				Tricom.getInstance().setActual(p);
+				frame.setVisible(true);
 				break;
 			}
 		}

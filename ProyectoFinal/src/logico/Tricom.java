@@ -24,6 +24,11 @@ public class Tricom {
 		this.misPlanes = new ArrayList<>();
 		this.misClientes = new ArrayList<>();
 		
+		//Creacion de usuario inicial.
+		if(misEmpleados.size() == 0){
+		Administrativo adm = new Administrativo("admin", "el", "boss", "000-0000000-0", "Tricom SA HQ", "111", "Fallecido", 10, "000");
+		misEmpleados.add(adm);
+	}
 	}
 	
 	public static Tricom getInstance()
