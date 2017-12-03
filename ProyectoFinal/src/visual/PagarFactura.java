@@ -101,6 +101,7 @@ public class PagarFactura extends JDialog {
 		txtCedula.setBounds(82, 30, 214, 27);
 		panel.add(txtCedula);
 		
+		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono:");
 		lblTelefono.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblTelefono.setForeground(Color.DARK_GRAY);
