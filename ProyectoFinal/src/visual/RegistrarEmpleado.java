@@ -72,6 +72,7 @@ public class RegistrarEmpleado extends JDialog {
 	private JDateChooser dtcFecNac;
 	private JTextField txtCodigo;
 	private JTextArea txtANota;
+	private JComboBox cbxCargo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -239,7 +240,7 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(lblApellido2);
 		panel.setEnabled(false);
 
-		JComboBox cbxCargo = new JComboBox();
+		 cbxCargo = new JComboBox();
 		cbxCargo.setBackground(Color.WHITE);
 		cbxCargo.setFont(new Font("Arial", Font.PLAIN, 15));
 		cbxCargo.setBounds(375, 81, 141, 27);
@@ -364,11 +365,38 @@ public class RegistrarEmpleado extends JDialog {
 				dispose();
 			}
 		});
-		cargarModific();
+		if(accion == 2){
+			loadDatos(empleado);
+		}
+			}
+ 
+			public void loadDatos(Empleado cl){
+			
+				txtCodigo.setText(cl.getCodigo()); 
+				
+				cbxCargo.setSelectedIndex(0);
+				txtNombre.setText(cl.getNombre()); 
+			txtApellido1.setText(cl.getApellido1());
+				txtApellido2.setText(cl.getApellido2());
+				txtDireccion.setText(cl.getDireccion());
+				 txtTelefono.setText(cl.getTelefono());
+				 txtCedula.setText(cl.getCedula());
+				 txtnotam.setText(cl.getNotamedica());
+				 				 if (cl.getSexo().equalsIgnoreCase("Femenino")) {
+					 cbxSexo.setSelectedIndex(0);
+				}else{
+					 cbxSexo.setSelectedIndex(1);
 
-	}
-
-	public void cargarModific() {
-
-	}
+				}
+				    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date dt;
+		try {
+			dt = formatter.parse(cl.getfNacimiento());
+			dtcFecNac.setDate(dt);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+		}
+				
+			
+			}
 }
