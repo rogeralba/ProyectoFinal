@@ -1,14 +1,17 @@
 package logico;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 public class Factura implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 293750880857425320L;
 	private int cod;
-	private LocalDate fechaEmision;
-	private LocalDate fechaVencimiento;
+	private String fechaEmision;
+	private String fechaVencimiento;
 	private Cliente cliente;
 	private float totalBruto;
 	private float totalNeto;
@@ -19,18 +22,11 @@ public class Factura implements Serializable{
 		activa, pagada, vencida, generada;
 	}
 	
-	public Factura(LocalDate fechaEmision, Cliente cliente){
+	public Factura(String fechaEmision, Cliente cliente){
 		this.fechaEmision = fechaEmision;
 		this.cliente = cliente;
 	}
 
-	public LocalDate getFechaEmision() {
-		return fechaEmision;
-	}
-
-	public void setFechaEmision(LocalDate fecha) {
-		this.fechaEmision = fecha;
-	}
 
 	public Cliente getCliente() {
 		return cliente;
@@ -40,5 +36,76 @@ public class Factura implements Serializable{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;	
 	}
+
+
+	public int getCod() {
+		return cod;
+	}
+
+
+	public void setCod(int cod) {
+		this.cod = cod;
+	}
+
+
+	public String getFechaEmision() {
+		return fechaEmision;
+	}
+
+
+	public void setFechaEmision(String fechaEmision) {
+		this.fechaEmision = fechaEmision;
+	}
+
+
+	public String getFechaVencimiento() {
+		return fechaVencimiento;
+	}
+
+
+	public void setFechaVencimiento(String fechaVencimiento) {
+		this.fechaVencimiento = fechaVencimiento;
+	}
+
+
+	public float getTotalBruto() {
+		return totalBruto;
+	}
+
+
+	public void setTotalBruto(float totalBruto) {
+		this.totalBruto = totalBruto;
+	}
+
+
+	public float getTotalNeto() {
+		return totalNeto;
+	}
+
+
+	public void setTotalNeto(float totalNeto) {
+		this.totalNeto = totalNeto;
+	}
+
+
+	public boolean isVencida() {
+		return vencida;
+	}
+
+
+	public void setVencida(boolean vencida) {
+		this.vencida = vencida;
+	}
+
+
+	public estadoFactura getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(estadoFactura estado) {
+		this.estado = estado;
+	}
+	
 	
 }
