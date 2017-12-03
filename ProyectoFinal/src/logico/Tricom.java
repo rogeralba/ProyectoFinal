@@ -402,14 +402,6 @@ public class Tricom {
 	}
 	
 	
-	
-	public void ingresarPlan(Plan plan) throws IOException
-	{
-		misPlanes.add(plan);
-		//saveData();
-	}
-	
-	
 	public Plan buscarPlan(String codPlan)
 	{
 		boolean encontrado = false;

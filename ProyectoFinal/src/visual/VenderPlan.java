@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.text.ParseException;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -23,6 +24,13 @@ import java.awt.Insets;
 
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
+
+import logico.Cliente;
+import logico.ClienteComun;
+import logico.ClienteEmpresa;
+import logico.Tricom;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -32,6 +40,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JSlider;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
+import javax.swing.JFormattedTextField;
 
 public class VenderPlan extends JDialog {
 	private JTextField txtCedula;
@@ -54,6 +63,14 @@ public class VenderPlan extends JDialog {
 	private JTextField txtInternaciones;
 	private JTextField txtCablePrecio;
 	private JTextField txtCableImpuestos;
+	private JRadioButton rdbDesvioSi;
+	private JRadioButton rdbDesvioNo;
+	private JRadioButton rdbDobleLineaNo;
+	private JRadioButton rdbDobleLineaSi;
+	private JRadioButton rdbMinAdNo;
+	private JRadioButton rdbMinAdSi; 
+	private JRadioButton rdbLlamIntNo;
+	private JRadioButton rdbLlamIntSi;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -105,16 +122,36 @@ public class VenderPlan extends JDialog {
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("C\u00E9dula:");
-		lblNewLabel.setBounds(26, 107, 71, 25);
-		getContentPane().add(lblNewLabel);
-		lblNewLabel.setForeground(Color.DARK_GRAY);
-		lblNewLabel.setBackground(new Color(128, 128, 128));
-		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 17));
+		JLabel lblID = new JLabel("Identificaci\u00F3n:");
+		lblID.setBounds(26, 107, 224, 25);
+		getContentPane().add(lblID);
+		lblID.setForeground(Color.DARK_GRAY);
+		lblID.setBackground(new Color(128, 128, 128));
+		lblID.setFont(new Font("Arial", Font.PLAIN, 17));
 		
 		
 		Color myGreen = new Color(255, 159, 35);
 		JButton btnBuscar = new JButton("");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cedula = txtCedula.getText().toString();
+				Cliente cliente = Tricom.getInstance().buscarCliente(cedula);
+				if(cliente != null)
+				{
+					txtNombre.setText(cliente.getNombre());
+					if(cliente instanceof ClienteEmpresa)
+						txtApellido.setText("N/A");
+					else
+						txtApellido.setText(((ClienteComun)cliente).getApellido1());
+					txtTelefono.setText(cliente.getTelefono());
+					txtDireccion.setText(cliente.getDireccion());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
+				}
+			}
+		});
 		btnBuscar.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setBackground(new Color(0, 128, 0));
@@ -131,7 +168,6 @@ public class VenderPlan extends JDialog {
 		getContentPane().add(btnBuscar);
 		
 		
-		
 		txtCedula = new JTextField();
 		txtCedula.setForeground(new Color(0, 0, 0));
 		txtCedula.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -139,9 +175,6 @@ public class VenderPlan extends JDialog {
 		txtCedula.setBorder(new LineBorder(myGreen, 1));
 		getContentPane().add(txtCedula);
 		txtCedula.setColumns(10);
-		
-		
-	
 		
 		
 		JLabel imgLogo = new JLabel("");
@@ -255,12 +288,25 @@ public class VenderPlan extends JDialog {
 		lblLlamadasInternacionales.setBounds(12, 212, 200, 25);
 		panel.add(lblLlamadasInternacionales);
 		
-		JRadioButton rdbLlamIntSi = new JRadioButton("");
+		rdbLlamIntSi = new JRadioButton("");
+		rdbLlamIntSi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbLlamIntNo.setSelected(false);
+				rdbLlamIntSi.setSelected(true);
+			}
+		});
 		rdbLlamIntSi.setBounds(30, 235, 31, 25);
 		rdbLlamIntSi.setBackground(Color.white);
 		panel.add(rdbLlamIntSi);
 		
-		JRadioButton rdbLlamIntNo = new JRadioButton("");
+		rdbLlamIntNo = new JRadioButton("");
+		rdbLlamIntNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbLlamIntNo.setSelected(true);
+				rdbLlamIntSi.setSelected(false);
+			}
+		});
+		rdbLlamIntNo.setSelected(true);
 		rdbLlamIntNo.setBackground(Color.WHITE);
 		rdbLlamIntNo.setBounds(99, 235, 31, 25);
 		panel.add(rdbLlamIntNo);
@@ -279,7 +325,14 @@ public class VenderPlan extends JDialog {
 		lblNo.setBounds(78, 235, 25, 25);
 		panel.add(lblNo);
 		
-		JRadioButton rdbMinAdNo = new JRadioButton("");
+		rdbMinAdNo = new JRadioButton("");
+		rdbMinAdNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbMinAdNo.setSelected(true);
+				rdbMinAdSi.setSelected(false);
+			}
+		});
+		rdbMinAdNo.setSelected(true);
 		rdbMinAdNo.setBackground(Color.WHITE);
 		rdbMinAdNo.setBounds(99, 180, 31, 25);
 		panel.add(rdbMinAdNo);
@@ -291,7 +344,13 @@ public class VenderPlan extends JDialog {
 		label.setBounds(78, 180, 25, 25);
 		panel.add(label);
 		
-		JRadioButton rdbMinAdSi = new JRadioButton("");
+		rdbMinAdSi = new JRadioButton("");
+		rdbMinAdSi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbMinAdNo.setSelected(false);
+				rdbMinAdSi.setSelected(true);
+			}
+		});
 		rdbMinAdSi.setBackground(Color.WHITE);
 		rdbMinAdSi.setBounds(30, 180, 31, 25);
 		panel.add(rdbMinAdSi);
@@ -317,7 +376,13 @@ public class VenderPlan extends JDialog {
 		lblDobleLnea.setBounds(12, 96, 153, 25);
 		panel.add(lblDobleLnea);
 		
-		JRadioButton rdbDobleLineaSi = new JRadioButton("");
+		rdbDobleLineaSi = new JRadioButton("");
+		rdbDobleLineaSi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbDobleLineaSi.setSelected(true);
+				rdbDobleLineaNo.setSelected(false);
+			}
+		});
 		rdbDobleLineaSi.setBackground(Color.WHITE);
 		rdbDobleLineaSi.setBounds(30, 119, 31, 25);
 		panel.add(rdbDobleLineaSi);
@@ -336,7 +401,14 @@ public class VenderPlan extends JDialog {
 		label_4.setBounds(78, 119, 25, 25);
 		panel.add(label_4);
 		
-		JRadioButton rdbDobleLineaNo = new JRadioButton("");
+		rdbDobleLineaNo = new JRadioButton("");
+		rdbDobleLineaNo.setSelected(true);
+		rdbDobleLineaNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbDobleLineaSi.setSelected(false);
+				rdbDobleLineaNo.setSelected(true);
+			}
+		});
 		rdbDobleLineaNo.setBackground(Color.WHITE);
 		rdbDobleLineaNo.setBounds(99, 119, 31, 25);
 		panel.add(rdbDobleLineaNo);
@@ -348,10 +420,16 @@ public class VenderPlan extends JDialog {
 		lblDesvio.setBounds(216, 32, 54, 25);
 		panel.add(lblDesvio);
 		
-		JRadioButton rdbDesvisoSi = new JRadioButton("");
-		rdbDesvisoSi.setBackground(Color.WHITE);
-		rdbDesvisoSi.setBounds(234, 55, 31, 25);
-		panel.add(rdbDesvisoSi);
+		rdbDesvioSi = new JRadioButton("");
+		rdbDesvioSi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbDesvioSi.setSelected(true);
+				rdbDesvioNo.setSelected(false);
+			}
+		});
+		rdbDesvioSi.setBackground(Color.WHITE);
+		rdbDesvioSi.setBounds(234, 55, 31, 25);
+		panel.add(rdbDesvioSi);
 		
 		JLabel label_5 = new JLabel("Si:");
 		label_5.setForeground(Color.DARK_GRAY);
@@ -367,7 +445,14 @@ public class VenderPlan extends JDialog {
 		label_6.setBounds(282, 55, 25, 25);
 		panel.add(label_6);
 		
-		JRadioButton rdbDesvioNo = new JRadioButton("");
+		rdbDesvioNo = new JRadioButton("");
+		rdbDesvioNo.setSelected(true);
+		rdbDesvioNo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbDesvioSi.setSelected(false);
+				rdbDesvioNo.setSelected(true);
+			}
+		});
 		rdbDesvioNo.setBackground(Color.WHITE);
 		rdbDesvioNo.setBounds(303, 55, 31, 25);
 		panel.add(rdbDesvioNo);
