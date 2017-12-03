@@ -9,7 +9,7 @@ public class Plan implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String codPlan;
 	private String nombre;
-	private float impuestos;
+	private int impuestos;
 	private float tarifaMensual; // Incluye los impuestos
 	private int duracionPlan; //En meses
 	private Servicio internet;
@@ -21,7 +21,7 @@ public class Plan implements Serializable{
 	//En caso de que alguno de los servicios no se incluya en el plan, su valor será NULL
 	
 	
-	public Plan(String codPlan, String nombre, int duracionPlan, Servicio internet, Servicio telefono, Servicio cable, String descripcion, boolean estado, float instalacion) {
+	public Plan(String codPlan, String nombre, int duracionPlan, Servicio internet, Servicio telefono, Servicio cable, String descripcion, boolean estado,int impuestos, float instalacion) {
 		super();
 		this.codPlan = codPlan;
 		this.nombre = nombre;
@@ -72,10 +72,10 @@ public class Plan implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public float getImpuestos() {
+	public int getImpuestos() {
 		return impuestos;
 	}
-	public void setImpuestos(float impuestos) {
+	public void setImpuestos(int impuestos) {
 		this.impuestos = impuestos;
 	}
 	public float getTarifaMensual() {

@@ -136,7 +136,7 @@ public class RegistrarServicio extends JDialog {
 		txtCodigo.setEditable(false);
 		txtCodigo.setColumns(10);
 		txtCodigo.setBounds(24, 41, 224, 27);
-		txtCodigo.setText("codSer-"+(Tricom.getInstance().getCantRegistros().get(4)+1));
+		txtCodigo.setText("codSer-"+(Tricom.getInstance().getCantRegistros().get(3)+1));
 		panel_1.add(txtCodigo);
 		
 		JLabel lblCodigo = new JLabel("C\u00F3digo:");
@@ -369,7 +369,7 @@ public class RegistrarServicio extends JDialog {
 				int internacionales = Integer.parseInt(spnInter.getValue().toString());
 				int hd = Integer.parseInt(spnHD.getValue().toString());
 				
-				String codigo = "codSer-"+(Tricom.getInstance().getCantRegistros().get(4)+1);
+				String codigo = "codSer-"+(Tricom.getInstance().getCantRegistros().get(3)+1);
 				
 				if(rdbInternet.isSelected())
 				{
@@ -387,8 +387,8 @@ public class RegistrarServicio extends JDialog {
 				}
 				Tricom.getInstance().getMisServicios().add(servicio);
 				
-				int cant = Tricom.getInstance().getCantRegistros().get(4);
-				Tricom.getInstance().getCantRegistros().add(4, (cant+1));
+				int cant = Tricom.getInstance().getCantRegistros().get(3);
+				Tricom.getInstance().getCantRegistros().add(3, (cant+1));
 				JOptionPane.showMessageDialog(null, "Registro satisfactorio");
 				dispose();
 			}

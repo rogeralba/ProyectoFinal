@@ -465,10 +465,18 @@ public class TricomMain extends JFrame {
 					regEmp.setVisible(true);
 					cargarJtable(columnNames2);
 					break;
-				case 4:
-					RegistrarPlan regPlan = new RegistrarPlan(null,1);
-					regPlan.setVisible(true);
-					cargarJtable(columnNames4);
+				case 4://Boton de Planes
+					if(Tricom.getInstance().getMisServicios().size() == 0)
+					{
+						JOptionPane.showMessageDialog(null, "No hay servicios registrados crear un plan");
+					}
+					else
+					{
+						RegistrarPlan regPlan = new RegistrarPlan(null,1);
+						regPlan.setVisible(true);
+						cargarJtable(columnNames4);
+					}
+					
 					break;
 				case 5://Boton de Servicios
 					RegistrarServicio regSer = new RegistrarServicio(null,1);
@@ -670,7 +678,7 @@ public class TricomMain extends JFrame {
 			   }
 			   break;
 		   case 4:
-			   fila = new Object[Tricom.getInstance().getMisPlanes().size()][8];
+			   fila = new Object[Tricom.getInstance().getMisPlanes().size()][9];
 			   for (Plan plan: Tricom.getInstance().getMisPlanes()) 
 			   {
 				   fila[i][0] = false;

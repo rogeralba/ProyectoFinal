@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -31,6 +33,7 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
@@ -156,8 +159,6 @@ public class RegistrarPlan extends JDialog {
 			}
 		});
 		cbxTelefono.setFont(new Font("Arial", Font.PLAIN, 15));
-		
-			
 		cbxTelefono.setBounds(442, 109, 224, 27);
 		
 		panel_1.add(cbxTelefono);
@@ -245,7 +246,7 @@ public class RegistrarPlan extends JDialog {
 		txtCodigo.setBounds(24, 41, 224, 27);
 		panel_1.add(txtCodigo);
 		txtCodigo.setEditable(false);
-		txtCodigo.setText("codPlan-"+(Tricom.getInstance().getCantRegistros().get(3)+1));
+		txtCodigo.setText("codPlan-"+(Tricom.getInstance().getCantRegistros().get(2)+1));
 		txtCodigo.setColumns(10);
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
@@ -279,7 +280,48 @@ public class RegistrarPlan extends JDialog {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String nombre = txtNombre.getText().toString();
-				String descricion = txtADescripcion.getText().toString();
+				String descripcion = txtADescripcion.getText().toString();
+				String teleCode = cbxTelefono.getSelectedItem().toString();
+				String interCode = cbxInternet.getSelectedItem().toString();
+				String cableCode = cbxCable.getSelectedItem().toString();
+				Servicio telefono = Tricom.getInstance().buscarServcode(teleCode);
+				Servicio internet = Tricom.getInstance().buscarServcode(interCode);
+				Servicio cable = Tricom.getInstance().buscarServcode(cableCode);
+				int impuestos;
+				float instalacion;
+				
+				try{
+					impuestos = Integer.parseInt(txtImpuestos.getText().toString());
+				}catch(NumberFormatException e)
+				{
+					impuestos = 0;
+				}
+				
+				try{
+					instalacion = Integer.parseInt(txtInstalacion.getText().toString());
+				}catch(NumberFormatException e)
+				{
+					instalacion = 0;
+				}
+				String codigo = "codPlan-"+(Tricom.getInstance().getCantRegistros().get(2)+1);
+				
+				if(nombre.equalsIgnoreCase("")==false && descripcion.equalsIgnoreCase("")==false && (telefono != null || internet != null || cable != null))
+				{
+					Plan plan = new Plan(codigo,nombre,0,internet,telefono,cable,descripcion,true,impuestos,instalacion);
+					Tricom.getInstance().getMisPlanes().add(plan);
+					int cant = Tricom.getInstance().getCantRegistros().get(2);
+					Tricom.getInstance().getCantRegistros().add(2, (cant+1));
+					JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
+					dispose();
+				}
+				else if(telefono == null && internet == null && cable == null)
+				{
+					JOptionPane.showMessageDialog(null, "Debe elegir al menos un servicio.");
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Debe llenar todos los campos.");
+				}
 				
 			}
 		});
