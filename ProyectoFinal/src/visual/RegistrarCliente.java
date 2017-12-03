@@ -444,9 +444,7 @@ public class RegistrarCliente extends JDialog {
 				
 				if(valido == true)
 				{
-					Tricom.getInstance().getMisClientes().add(cliente);
-					int cant = Tricom.getInstance().getCantRegistros().get(0);
-					Tricom.getInstance().getCantRegistros().add(0, (cant+1));
+					
 					VenderPlan venPlan = new VenderPlan(cliente,1);
 					venPlan.setVisible(true);
 					dispose();
