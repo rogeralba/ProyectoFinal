@@ -28,6 +28,7 @@ import logico.ClienteComun;
 import logico.ClienteEmpresa;
 import logico.Controladora;
 import logico.Empleado;
+import logico.ServicioC;
 import logico.Tricom;
 
 import javax.swing.JInternalFrame;
@@ -407,21 +408,39 @@ public class TricomMain extends JFrame {
 				System.exit(0);
 			}
 		});
-		DefaultPieDataset data = new DefaultPieDataset();
-		data.setValue("# de Planes", tri.getMisPlanes().size());
-		data.setValue("# de Clientes",  tri.getMisClientes().size());
-		data.setValue("# de Usuarios",  tri.getMisEmpleados().size());
+		
 		//Creating piechart
-		JFreeChart chart = ChartFactory.createPieChart(
-				"Resumen ",
-				data,
-				true, // legend?
-				true, // tooltips?
-				false // URLs?
-				);
-		// create and display a frame...
-		ChartPanel cp = new ChartPanel(chart);
-		panelGraficos.add(cp,BorderLayout.CENTER);
+		if(tri.getActual() instanceof ServicioC){
+			DefaultPieDataset data = new DefaultPieDataset();
+			data.setValue("# de Ventas", ((ServicioC)tri.getActual()).getMisVentas().size());
+			data.setValue("Comisiones",  ((ServicioC)tri.getActual()).getComisionventas());
+			JFreeChart chart = ChartFactory.createPieChart(
+					"Resumen ",
+					data,
+					true, // legend?
+					true, // tooltips?
+					false //
+					);
+			// create and display a frame...
+			ChartPanel cp = new ChartPanel(chart);
+			panelGraficos.add(cp,BorderLayout.CENTER);
+		}else{
+			DefaultPieDataset data = new DefaultPieDataset();
+			data.setValue("# de Planes", tri.getMisPlanes().size());
+			data.setValue("# de Clientes",  tri.getMisClientes().size());
+			data.setValue("# de Usuarios",  tri.getMisEmpleados().size());
+			JFreeChart chart = ChartFactory.createPieChart(
+					"Resumen ",
+					data,
+					true, // legend?
+					true, // tooltips?
+					false // URLs?
+					);
+			// create and display a frame...
+			ChartPanel cp = new ChartPanel(chart);
+			panelGraficos.add(cp,BorderLayout.CENTER);
+		}
+		
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.setBounds(1741, 909, 104, 44);
