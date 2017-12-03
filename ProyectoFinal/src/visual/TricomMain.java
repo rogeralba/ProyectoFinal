@@ -26,7 +26,6 @@ import logico.Administrativo;
 import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
-import logico.Controladora;
 import logico.Empleado;
 import logico.ServicioC;
 import logico.Tricom;
@@ -424,6 +423,9 @@ public class TricomMain extends JFrame {
 			// create and display a frame...
 			ChartPanel cp = new ChartPanel(chart);
 			panelGraficos.add(cp,BorderLayout.CENTER);
+			
+			
+			
 		}else{
 			DefaultPieDataset data = new DefaultPieDataset();
 			data.setValue("# de Planes", tri.getMisPlanes().size());
@@ -439,6 +441,50 @@ public class TricomMain extends JFrame {
 			// create and display a frame...
 			ChartPanel cp = new ChartPanel(chart);
 			panelGraficos.add(cp,BorderLayout.CENTER);
+			DefaultPieDataset data2 = new DefaultPieDataset();
+			int per = 0;
+			int empr = 0;
+			for(Cliente emp : tri.getMisClientes()){
+				if (emp instanceof ClienteComun)
+					per++;
+				if (emp instanceof ClienteEmpresa)
+					empr++;
+			}
+			data2.setValue("Clientes personales", per);
+			data2.setValue("Clientes empresariales ",  empr);
+			JFreeChart chart2 = ChartFactory.createPieChart(
+					"Resumen ",
+					data2,
+					true, // legend?
+					true, // tooltips?
+					false //
+					);
+			// create and display a frame...
+			ChartPanel cp2 = new ChartPanel(chart2);
+			panelGraficos.add(cp2,BorderLayout.CENTER);
+			
+			
+			DefaultPieDataset data3 = new DefaultPieDataset();
+			int adm = 0;
+			int serv = 0;
+			for(Empleado emp : tri.getMisEmpleados()){
+				if (emp instanceof Administrativo)
+					adm++;
+				if (emp instanceof ServicioC)
+					serv++;
+			}
+			data3.setValue("Administradores", adm);
+			data3.setValue("Vendedores ",  empr);
+			JFreeChart chart3 = ChartFactory.createPieChart(
+					"Resumen ",
+					data3,
+					true, // legend?
+					true, // tooltips?
+					false //
+					);
+			// create and display a frame...
+			ChartPanel cp3 = new ChartPanel(chart3);
+			panelGraficos.add(cp3,BorderLayout.CENTER);
 		}
 		
 		btnNewButton.setForeground(Color.WHITE);
