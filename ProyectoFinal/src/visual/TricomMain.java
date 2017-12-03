@@ -17,10 +17,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+
 import logico.Administrativo;
 import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
+import logico.Controladora;
 import logico.Empleado;
 import logico.Tricom;
 
@@ -401,6 +407,21 @@ public class TricomMain extends JFrame {
 				System.exit(0);
 			}
 		});
+		DefaultPieDataset data = new DefaultPieDataset();
+		data.setValue("# de Planes", tri.getMisPlanes().size());
+		data.setValue("# de Clientes",  tri.getMisClientes().size());
+		data.setValue("# de Usuarios",  tri.getMisEmpleados().size());
+		//Creating piechart
+		JFreeChart chart = ChartFactory.createPieChart(
+				"Resumen ",
+				data,
+				true, // legend?
+				true, // tooltips?
+				false // URLs?
+				);
+		// create and display a frame...
+		ChartPanel cp = new ChartPanel(chart);
+		panelGraficos.add(cp,BorderLayout.CENTER);
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.setBounds(1741, 909, 104, 44);
