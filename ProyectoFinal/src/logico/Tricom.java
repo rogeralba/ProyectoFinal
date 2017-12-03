@@ -9,6 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import org.w3c.dom.CDATASection;
+
 public class Tricom {
 	private ArrayList<Empleado> misEmpleados;
 	private ArrayList<Cliente> misClientes;
@@ -287,7 +289,35 @@ public class Tricom {
 			i++;
 		}
 	}
-	
+	public void eliminarCliente(String codCli)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		while(i < misClientes.size() && encontrado == false)
+		{
+			if(misClientes.get(i).getCodCli().equalsIgnoreCase(codCli))
+			{
+				misClientes.remove(i);
+				encontrado = true;
+			}
+			i++;
+		}
+	}
+	public void eliminarEmpleado(String codEmp)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		while(i < misEmpleados.size() && encontrado == false)
+		{
+			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(codEmp))
+			{
+				misEmpleados.remove(i);
+				encontrado = true;
+			}
+			i++;
+		}
+	}
+
 	public void eliminarServicio(String codServicio)
 	{
 		int i = 0;
@@ -303,8 +333,48 @@ public class Tricom {
 		}
 		
 	}
-	
-
+	public Cliente buscarClientecode(String codCli)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		while(i < misClientes.size() && encontrado == false)
+		{
+			if(misClientes.get(i).getCodCli().equalsIgnoreCase(codCli))
+			{
+				return misClientes.get(i);
+			}
+			
+		}
+		return null;
+	}
+	public Empleado buscarEmpcode(String codCli)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		while(i < misEmpleados.size() && encontrado == false)
+		{
+			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(codCli))
+			{
+				return misEmpleados.get(i);
+			}
+			
+		}
+		return null;
+	}
+	public Servicio buscarServcode(String codCli)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		while(i < misServicios.size() && encontrado == false)
+		{
+			if(misServicios.get(i).getCodServicio().equalsIgnoreCase(codCli))
+			{
+				return misServicios.get(i);
+			}
+			
+		}
+		return null;
+	}
 	
 	public void ingresarPlan(Plan plan) throws IOException
 	{

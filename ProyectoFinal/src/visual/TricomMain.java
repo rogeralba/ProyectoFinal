@@ -354,6 +354,46 @@ public class TricomMain extends JFrame {
 		panelRegistros.add(lblReg);
 		
 		btnModificar = new JButton("Modifcar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//MODIFICAR
+				switch(activeButton)
+				{
+				case 1: //Boton de Clientes
+						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
+						Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
+RegistrarCliente reg = new RegistrarCliente(cl, 2);
+reg.setVisible(true);
+						
+					
+					break;
+				case 2://Boton de Empleados
+						String codigo2 = table.getModel().getValueAt(revisarCheckbox(table, "empleado"), 1).toString();
+				
+						Empleado cl2 = Tricom.getInstance().buscarEmpcode(codigo2);
+						RegistrarEmpleado reg2 = new RegistrarEmpleado(cl2, 2);
+						reg2.setVisible(true);
+						
+					
+					break;
+				case 5://Boton de Servicios
+					
+						String codigo3 = table.getModel().getValueAt(revisarCheckbox(table, "servicio"), 1).toString();
+						
+						Servicio cl3 = Tricom.getInstance().buscarServcode(codigo3);
+						RegistrarServicio reg3 = new RegistrarServicio(cl3, 2);
+						reg3.setVisible(true);
+
+						
+					
+					break;
+				default:
+					break;
+				}	
+				
+				loadData();
+			}
+		});
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setBackground(Color.DARK_GRAY);
 		btnModificar.setBounds(170, 419, 104, 44);
@@ -365,8 +405,40 @@ public class TricomMain extends JFrame {
 				
 				
 				//ELIMINAR
+				switch(activeButton)
+				{
+				case 1: //Boton de Clientes
+					while(revisarCheckbox(table, "cliente")!=-1){
+						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
+						
+						Tricom.getInstance().eliminarCliente(codigo);
+
+						
+					}
+					break;
+				case 2://Boton de Empleados
+					while(revisarCheckbox(table, "empleado")!=-1){
+						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "empleado"), 1).toString();
+					
+						Tricom.getInstance().eliminarEmpleado(codigo);
+
+						
+					}
+					break;
+				case 5://Boton de Servicios
+					while(revisarCheckbox(table, "servicio")!=-1){
+						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "servicio"), 1).toString();
+					
+						Tricom.getInstance().eliminarServicio(codigo);
+
+						
+					}
+					break;
+				default:
+					break;
+				}	
 				
-				
+				loadData();
 			}
 		});
 		btnEliminar.setForeground(Color.WHITE);
@@ -631,5 +703,35 @@ public class TricomMain extends JFrame {
 	      };
 		table.setBackground(SystemColor.window);
 		scrollPane.setViewportView(table);
+	}
+	public int revisarCheckbox(JTable table,String tipo){
+		int i = 0;
+		int row= -1;
+		if(tipo.equalsIgnoreCase("cliente")){
+			while(i < Tricom.getInstance().getMisClientes().size()){
+				if((boolean)table.getModel().getValueAt(i, 0)){
+					row = i;
+				}
+			i++;
+			}
+		}
+		if(tipo.equalsIgnoreCase("empleado")){
+			while(i < Tricom.getInstance().getMisEmpleados().size()){
+				if((boolean)table.getModel().getValueAt(i, 0)){
+					row = i;
+				}
+			i++;
+			}
+		}
+		if(tipo.equalsIgnoreCase("servicio")){
+			while(i < Tricom.getInstance().getMisServicios().size()){
+				if((boolean)table.getModel().getValueAt(i, 0)){
+					row = i;
+				}
+			i++;
+			}
+		}
+		
+		return row;
 	}
 }
