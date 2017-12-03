@@ -5,6 +5,8 @@ import java.util.Date;
 
 
 public class ServicioC extends Empleado{
+
+private static final long serialVersionUID = 1L;
 private int comisionventas = 0;
 private ArrayList<Plan> misVentas;
 public ServicioC(String codigo,String nombre, String apellido, String apellido2, String cedula, String direccion, String telefono, String notamedia,

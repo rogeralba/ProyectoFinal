@@ -1,6 +1,8 @@
 package logico;
 
 public class Telefono extends Servicio{
+
+	private static final long serialVersionUID = 1L;
 	private int minutos;
 	private boolean interLlamadas;
 	private boolean dobleLinea;

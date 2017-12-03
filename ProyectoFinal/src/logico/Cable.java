@@ -3,6 +3,7 @@ package logico;
 import java.util.ArrayList;
 
 public class Cable extends Servicio{
+	private static final long serialVersionUID = 1L;
 	private int cantCanales;
 	private int locales;
 	private int internacionales;

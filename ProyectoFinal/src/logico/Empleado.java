@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public abstract class Empleado implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private String nombre;
 	private String apellido1;

@@ -2,6 +2,10 @@ package logico;
 
 
 public class ClienteComun extends Cliente {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String apellido1;
 	private String cedula;
 	private String apellido2;

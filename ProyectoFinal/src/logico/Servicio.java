@@ -3,6 +3,10 @@ package logico;
 import java.io.Serializable;
 
 public abstract class Servicio implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String codServicio;
 	private int impuestos;
 	private float precioInstalacion;

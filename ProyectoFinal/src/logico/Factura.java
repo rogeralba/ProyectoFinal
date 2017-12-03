@@ -4,10 +4,6 @@ import java.io.Serializable;
 
 
 public class Factura implements Serializable{
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 293750880857425320L;
 	private int cod;
 	private String fechaEmision;
