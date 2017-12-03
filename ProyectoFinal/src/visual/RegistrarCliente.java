@@ -34,6 +34,8 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
@@ -457,5 +459,46 @@ public class RegistrarCliente extends JDialog {
 		
 	
 			
+	}
+	
+	public void loadDatos(Cliente cl){
+		
+		if(cl instanceof ClienteComun){
+			
+		txtNombre.setText(cl.getNombre());
+	txtApellido1.setText(((ClienteComun) cl).getApellido1());
+		txtApellido2.setText(((ClienteComun) cl).getApellido2());
+		txtDireccion.setText(cl.getDireccion());
+		 txtTelefono.setText(cl.getTelefono());
+		txtEmail.setText(cl.getEmail());
+		 txtCedula.setText(((ClienteComun) cl).getCedula());
+		 //txtRNC.getText().toString();
+		 if (((ClienteComun) cl).getSexo().equalsIgnoreCase("Femenino")) {
+			 cbxSexo.setSelectedIndex(0);
+		}else{
+			 cbxSexo.setSelectedIndex(1);
+
+		}
+		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+Date dt;
+try {
+	dt = formatter.parse(((ClienteComun) cl).getFecNac());
+	dtcFecNac.setDate(dt);
+} catch (ParseException e) {
+	// TODO Auto-generated catch block
+}
+		
+		}
+		if(cl instanceof ClienteEmpresa){
+			
+			txtNombre.setText(cl.getNombre());
+			txtDireccion.setText(cl.getDireccion());
+			 txtTelefono.setText(cl.getTelefono());
+			txtEmail.setText(cl.getEmail());
+			 
+			 txtRNC.setText(((ClienteEmpresa) cl).getRnc());
+			
+			
+			}
 	}
 }
