@@ -492,6 +492,45 @@ public class Tricom {
 		return c;
 	}
 	
+	public int indexCLiente(String id){
+		int index = -1;
+		int i = 0;
+		
+		while(i < misClientes.size() && index == -1 ){
+			if(misClientes.get(i) instanceof ClienteComun)
+			{
+			    if(((ClienteComun)misClientes.get(i)).getCedula().equalsIgnoreCase(id)){
+				   index = i;
+			    }
+			}
+			if(misClientes.get(i) instanceof ClienteEmpresa)
+			{
+			    if(((ClienteEmpresa)misClientes.get(i)).getRnc().equalsIgnoreCase(id)){
+				   index = i;
+			    }
+			}
+			i++;
+		}
+		return index;
+	}
+	
+	public int indexEmpleado(String cedula)
+	{
+		int i = 0;
+		int index = -1;
+		boolean encontrado = false;
+		Empleado empleado = null;
+		while(i < misEmpleados.size() && index == -1)
+		{
+			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(cedula))
+			{
+				index = i;
+			}
+			i++;
+		}
+		return index;
+	}
+	
 	
 
 	
