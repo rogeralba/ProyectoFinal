@@ -2,7 +2,7 @@ package logico;
 
 import java.io.Serializable;
 
-public class Ventas implements Serializable{
+public class Venta implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String codVenta;
@@ -13,7 +13,7 @@ public class Ventas implements Serializable{
 	private String apellidoCliente;
 	private Plan planVendido;
 	
-	public Ventas(String codVenta, String cedulaEmpleado, String nombreEmpleado, String cedulaCliente, String nombreCliente, String apellidoCliente, Plan planVendido) {
+	public Venta(String codVenta, String cedulaEmpleado, String nombreEmpleado, String cedulaCliente, String nombreCliente, String apellidoCliente, Plan planVendido) {
 		super();
 		this.codVenta = codVenta;
 		this.cedulaEmpleado = cedulaEmpleado;
