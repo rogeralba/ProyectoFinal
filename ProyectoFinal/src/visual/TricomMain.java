@@ -364,7 +364,7 @@ public class TricomMain extends JFrame {
 					cargarJtable(columnNames1);
 					break;
 				case 2://Boton de Empleados
-					RegistrarEmpleado reg = new RegistrarEmpleado("",true,null);
+					RegistrarEmpleado reg = new RegistrarEmpleado(null,1);
 					reg.setVisible(true);
 					cargarJtable(columnNames2);
 					break;

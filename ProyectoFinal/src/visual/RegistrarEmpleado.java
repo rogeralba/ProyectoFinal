@@ -80,7 +80,7 @@ public class RegistrarEmpleado extends JDialog {
 					String title = null;
 					boolean option = false;
 					Empleado cli = null;
-					RegistrarEmpleado frame = new RegistrarEmpleado(title, option, cli);
+					RegistrarEmpleado frame = new RegistrarEmpleado(null,1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,14 +89,11 @@ public class RegistrarEmpleado extends JDialog {
 		});
 	}
 
-	public RegistrarEmpleado(String title, boolean option, Empleado client) {
+	public RegistrarEmpleado(Empleado empleado, int accion) { //accion: 1-Registrar (El parametro empleado es NULL), 2-Modificar
 		setTitle("Registrar Empleado\r\n");
 		setBounds(100, 100, 693, 776);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		this.nombrePlan = new String[cant];
-		this.option = option;
-		myvend = client;
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
