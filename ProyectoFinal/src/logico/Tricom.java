@@ -18,6 +18,7 @@ public class Tricom {
 	private ArrayList<Servicio> misServicios;
 	private ArrayList<Factura> misFacturas;
 	private ArrayList<Integer> cantRegistros; //Contiene la cantidad de registros que se han creado de cada clase.
+	private ArrayList<Venta> misVentas;
 	private static Tricom tricom = null;
 	
 	private Empleado actual;
@@ -29,9 +30,8 @@ public class Tricom {
 		this.misPlanes = new ArrayList<>();
 		this.misServicios = new ArrayList<>();
 		this.misFacturas = new ArrayList<>();
-		this.cantRegistros = new ArrayList<>(); //0-Clientes 1-Empleados 2-Planes 3-Servicios 4-Facturas
-		for(int i=0;i<5;i++)
-			cantRegistros.add(0);
+		this.cantRegistros = new ArrayList<>(); //0-Clientes 1-Empleados 2-Planes 3-Servicios 4-Facturas 5-Ventas
+		this.misVentas = new ArrayList<>();
 	}
 	
 	public static Tricom getInstance()
@@ -50,6 +50,7 @@ public class Tricom {
 		String dirSer = "./Data/Servicios.dat";
 		String dirFac = "./Data/Facturas.dat";
 		String dirReg = "./Data/totalReg.dat";
+		String dirVen = "./Data/Ventas.dat";
 	
 		FileOutputStream cliStream;
 		ObjectOutputStream oos1;
@@ -68,6 +69,9 @@ public class Tricom {
 		
 		FileOutputStream regStream;
 		ObjectOutputStream oos6;
+		
+		FileOutputStream venStream;
+		ObjectOutputStream oos7;
 		
 		try {
 			cliStream = new FileOutputStream(dirCli);
@@ -127,7 +131,21 @@ public class Tricom {
 			archivo.createNewFile();
 			regStream = new FileOutputStream(dirReg);
 			oos6 = new ObjectOutputStream(regStream);
+			for(int i=0;i<6;i++)
+				cantRegistros.add(0);
 		}
+		
+		try {
+			venStream = new FileOutputStream(dirVen);
+			oos7 = new ObjectOutputStream(venStream);
+		} catch (FileNotFoundException e) { //Si el fichero no existe
+			File archivo = new File(dirVen);
+			archivo.createNewFile();
+			venStream = new FileOutputStream(dirVen);
+			oos7 = new ObjectOutputStream(venStream);
+		}
+		
+		
 				
 		oos1.writeInt(misClientes.size());
 		oos2.writeInt(misEmpleados.size());
@@ -135,6 +153,7 @@ public class Tricom {
 		oos4.writeInt(misServicios.size());
 		oos5.writeInt(misFacturas.size());
 		oos6.writeInt(cantRegistros.size());
+		oos7.writeInt(misVentas.size());
 		
 		for(Cliente cli: misClientes)
 			oos1.writeObject(cli);
@@ -154,12 +173,16 @@ public class Tricom {
 		for(Integer cant: cantRegistros)
 			oos6.writeObject(cant);
 		
+		for(Venta cant: misVentas)
+			oos7.writeObject(cant);
+		
 		cliStream.close();
 		empStream.close();
 		planStream.close();
 		serStream.close();
 		facStream.close();
 		regStream.close();
+		venStream.close();
 	}
 	
 	public void readData() throws IOException, ClassNotFoundException
@@ -170,6 +193,7 @@ public class Tricom {
 		String dirSer = "./Data/Servicios.dat";
 		String dirFac = "./Data/Facturas.dat";
 		String dirReg = "./Data/totalReg.dat";
+		String dirVen = "./Data/Ventas.dat";
 		
 		//Clientes
 		int cant = 0;
@@ -270,6 +294,23 @@ public class Tricom {
 			}catch(IOException e){
 				cant = 0;
 				File archivo = new File(dirReg);
+				archivo.createNewFile();
+			}
+			
+		//Ventas
+			
+			FileInputStream venStream;
+			ObjectInputStream ois7;
+			try{
+				venStream = new FileInputStream(dirVen);
+				ois7 = new ObjectInputStream(venStream);	
+				cant = ois7.readInt();
+				for(int i=0; i < cant; i++)
+					misVentas.add(i, (Venta)ois7.readObject());	
+				venStream.close();
+			}catch(IOException e){
+				cant = 0;
+				File archivo = new File(dirVen);
 				archivo.createNewFile();
 			}
 	}
