@@ -19,7 +19,6 @@ public class Tricom {
 	private static Tricom tricom = null;
 	
 	private Empleado actual;
-	////
 	public Tricom()
 	{
 		super();
@@ -263,7 +262,7 @@ public class Tricom {
 				regStream = new FileInputStream(dirReg);
 				ois6 = new ObjectInputStream(regStream);	
 				cant = ois6.readInt();
-				for(int i=0; i < cant; i++)
+				for(int i=0; i < 5; i++)
 					cantRegistros.add(i, (Integer)ois6.readObject());	
 				regStream.close();
 			}catch(IOException e){

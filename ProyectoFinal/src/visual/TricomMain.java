@@ -23,11 +23,15 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
 import logico.Administrativo;
+import logico.Cable;
 import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
 import logico.Empleado;
+import logico.Internet;
+import logico.Servicio;
 import logico.ServicioC;
+import logico.Telefono;
 import logico.Tricom;
 
 import javax.swing.JInternalFrame;
@@ -81,6 +85,7 @@ public class TricomMain extends JFrame {
 		Tricom tri = new Tricom();
 		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
 		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
+		String[] columnNames5 = {"Seleccionar","Codigo","Tipo", "Precio Total", "Impuestos","Instalacion"};
 		
 		setTitle("Tricom");
 		setBounds(100, 100, 450, 300);
@@ -102,7 +107,6 @@ public class TricomMain extends JFrame {
 			}
 			
 		});
-		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.DARK_GRAY);
@@ -236,6 +240,8 @@ public class TricomMain extends JFrame {
 				lblTitulo.setText("Servicios");
 				lblReg.setText("Servicios disponibles");
 				activeButton = 5;
+				cargarJtable(columnNames5);
+				
 			}
 		});
 		btnServicios.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -379,9 +385,14 @@ public class TricomMain extends JFrame {
 					cargarJtable(columnNames1);
 					break;
 				case 2://Boton de Empleados
-					RegistrarEmpleado reg = new RegistrarEmpleado(null,1);
-					reg.setVisible(true);
+					RegistrarEmpleado regEmp = new RegistrarEmpleado(null,1);
+					regEmp.setVisible(true);
 					cargarJtable(columnNames2);
+					break;
+				case 5://Boton de Servicios
+					RegistrarServicio regSer = new RegistrarServicio(null,1);
+					regSer.setVisible(true);
+					cargarJtable(columnNames5);
 					break;
 				default:
 					break;
@@ -574,6 +585,24 @@ public class TricomMain extends JFrame {
 				   fila[i][6] = emp.getApellido2();
 				   fila[i][7] = emp.getTelefono();
 				   fila[i][8] = String.valueOf(emp.getSalario());
+				   i++;
+			   }
+			   break;
+		   case 5:
+			   fila = new Object[Tricom.getInstance().getMisServicios().size()][6];
+			   for (Servicio ser: Tricom.getInstance().getMisServicios()) 
+			   {
+				   fila[i][0] = false;
+				   fila[i][1] = ser.getCodServicio();
+				   if(ser instanceof Internet)
+					   fila[i][2] = "Internet";
+				   else if(ser instanceof Telefono)
+					   fila[i][2] = "Telefono";
+				   else if(ser instanceof Cable)
+					   fila[i][2] = "TeleCable";
+				   fila[i][3] = String.valueOf(ser.getTarifa());
+				   fila[i][4] = String.valueOf(ser.getImpuestos());
+				   fila[i][5] = String.valueOf(ser.getPrecioInstalacion());
 				   i++;
 			   }
 			   break;

@@ -18,17 +18,24 @@ import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
+
+import logico.Servicio;
+import logico.Telefono;
+import logico.Tricom;
+
 import javax.swing.UIManager;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RegistrarPlan extends JDialog {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField txtCodigo;
+	private JTextField txtNombre;
+	private JTextField txtTarifa;
+	private JTextField txtImpuestos;
+	private JTextField txtInstalacion;
 
 	/**
 	 * Launch the application.
@@ -53,7 +60,7 @@ public class RegistrarPlan extends JDialog {
 	public RegistrarPlan() {
 		setResizable(false);
 		getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
-		setBounds(100, 100, 756, 609);
+		setBounds(100, 100, 742, 609);
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
@@ -99,11 +106,11 @@ public class RegistrarPlan extends JDialog {
 		getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_1.setBounds(442, 40, 224, 27);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtNombre.setBounds(442, 40, 224, 27);
+		panel_1.add(txtNombre);
+		txtNombre.setColumns(10);
 		
 		JLabel lblNombreDelPlan = new JLabel("Nombre del Plan:");
 		lblNombreDelPlan.setBounds(442, 13, 134, 25);
@@ -119,13 +126,13 @@ public class RegistrarPlan extends JDialog {
 		lblDescripcin.setBounds(24, 83, 134, 25);
 		panel_1.add(lblDescripcin);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
-		textArea.setBounds(24, 111, 400, 160);
-		textArea.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		panel_1.add(textArea);
+		JTextArea txtADescripcion = new JTextArea();
+		txtADescripcion.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtADescripcion.setWrapStyleWord(true);
+		txtADescripcion.setLineWrap(true);
+		txtADescripcion.setBounds(24, 111, 400, 160);
+		txtADescripcion.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		panel_1.add(txtADescripcion);
 		
 		JLabel lblServicioTelefnico = new JLabel("Servicio telef\u00F3nico:");
 		lblServicioTelefnico.setForeground(Color.DARK_GRAY);
@@ -134,11 +141,13 @@ public class RegistrarPlan extends JDialog {
 		lblServicioTelefnico.setBounds(442, 83, 134, 25);
 		panel_1.add(lblServicioTelefnico);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setEditable(true);
-		comboBox.setEnabled(false);
-		comboBox.setBounds(442, 109, 224, 27);
-		panel_1.add(comboBox);
+		JComboBox cbxTelefono = new JComboBox();
+		cbxTelefono.setFont(new Font("Arial", Font.PLAIN, 15));
+		cbxTelefono.setEditable(true);
+		cbxTelefono.setEnabled(false);
+		cbxTelefono.setBounds(442, 109, 224, 27);
+		
+		panel_1.add(cbxTelefono);
 		
 		JLabel lblServicioDeInternet = new JLabel("Servicio de Internet:");
 		lblServicioDeInternet.setForeground(Color.DARK_GRAY);
@@ -147,11 +156,12 @@ public class RegistrarPlan extends JDialog {
 		lblServicioDeInternet.setBounds(442, 152, 146, 25);
 		panel_1.add(lblServicioDeInternet);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setEnabled(false);
-		comboBox_1.setEditable(true);
-		comboBox_1.setBounds(442, 178, 224, 27);
-		panel_1.add(comboBox_1);
+		JComboBox cbxInternet = new JComboBox();
+		cbxInternet.setFont(new Font("Arial", Font.PLAIN, 15));
+		cbxInternet.setEnabled(false);
+		cbxInternet.setEditable(true);
+		cbxInternet.setBounds(442, 178, 224, 27);
+		panel_1.add(cbxInternet);
 		
 		JLabel lblServicioDeTelecable = new JLabel("Servicio de telecable:");
 		lblServicioDeTelecable.setForeground(Color.DARK_GRAY);
@@ -160,18 +170,19 @@ public class RegistrarPlan extends JDialog {
 		lblServicioDeTelecable.setBounds(442, 218, 172, 25);
 		panel_1.add(lblServicioDeTelecable);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setEnabled(false);
-		comboBox_2.setEditable(true);
-		comboBox_2.setBounds(442, 244, 224, 27);
-		panel_1.add(comboBox_2);
+		JComboBox cbxCable = new JComboBox();
+		cbxCable.setFont(new Font("Arial", Font.PLAIN, 15));
+		cbxCable.setEnabled(false);
+		cbxCable.setEditable(true);
+		cbxCable.setBounds(442, 244, 224, 27);
+		panel_1.add(cbxCable);
 		
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_2.setColumns(10);
-		textField_2.setBounds(24, 320, 189, 27);
-		panel_1.add(textField_2);
+		txtTarifa = new JTextField();
+		txtTarifa.setEditable(false);
+		txtTarifa.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtTarifa.setColumns(10);
+		txtTarifa.setBounds(24, 320, 189, 27);
+		panel_1.add(txtTarifa);
 		
 		JLabel lblTarifaMensual = new JLabel("Tarifa mensual:");
 		lblTarifaMensual.setForeground(Color.DARK_GRAY);
@@ -180,12 +191,12 @@ public class RegistrarPlan extends JDialog {
 		lblTarifaMensual.setBounds(24, 292, 134, 25);
 		panel_1.add(lblTarifaMensual);
 		
-		textField_3 = new JTextField();
-		textField_3.setEditable(false);
-		textField_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_3.setColumns(10);
-		textField_3.setBounds(235, 320, 189, 27);
-		panel_1.add(textField_3);
+		txtImpuestos = new JTextField();
+		txtImpuestos.setEditable(false);
+		txtImpuestos.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtImpuestos.setColumns(10);
+		txtImpuestos.setBounds(235, 320, 189, 27);
+		panel_1.add(txtImpuestos);
 		
 		JLabel lblImpuestos = new JLabel("Impuestos:");
 		lblImpuestos.setForeground(Color.DARK_GRAY);
@@ -194,12 +205,12 @@ public class RegistrarPlan extends JDialog {
 		lblImpuestos.setBounds(235, 292, 134, 25);
 		panel_1.add(lblImpuestos);
 		
-		textField_4 = new JTextField();
-		textField_4.setEditable(false);
-		textField_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_4.setColumns(10);
-		textField_4.setBounds(442, 320, 224, 27);
-		panel_1.add(textField_4);
+		txtInstalacion = new JTextField();
+		txtInstalacion.setEditable(false);
+		txtInstalacion.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtInstalacion.setColumns(10);
+		txtInstalacion.setBounds(442, 320, 224, 27);
+		panel_1.add(txtInstalacion);
 		
 		JLabel lblPrecioDeInstalacin = new JLabel("Precio de instalaci\u00F3n:");
 		lblPrecioDeInstalacin.setForeground(Color.DARK_GRAY);
@@ -208,11 +219,13 @@ public class RegistrarPlan extends JDialog {
 		lblPrecioDeInstalacin.setBounds(442, 292, 172, 25);
 		panel_1.add(lblPrecioDeInstalacin);
 		
-		textField = new JTextField();
-		textField.setBounds(24, 41, 224, 27);
-		panel_1.add(textField);
-		textField.setEditable(false);
-		textField.setColumns(10);
+		txtCodigo = new JTextField();
+		txtCodigo.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtCodigo.setBounds(24, 41, 224, 27);
+		panel_1.add(txtCodigo);
+		txtCodigo.setEditable(false);
+		txtCodigo.setText("codPlan-"+(Tricom.getInstance().getCantRegistros().get(3)+1));
+		txtCodigo.setColumns(10);
 		
 		JLabel lblCdigo = new JLabel("C\u00F3digo:");
 		lblCdigo.setBounds(24, 17, 71, 25);
@@ -221,13 +234,20 @@ public class RegistrarPlan extends JDialog {
 		lblCdigo.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblCdigo.setBackground(Color.GRAY);
 		
-		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.setBounds(510, 506, 97, 36);
-		getContentPane().add(btnNewButton);
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(510, 506, 97, 36);
+		getContentPane().add(btnCancelar);
 		
-		JButton button = new JButton("Aceptar");
-		button.setBounds(619, 506, 97, 36);
-		getContentPane().add(button);
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String nombre = txtNombre.getText().toString();
+				String descricion = txtADescripcion.getText().toString();
+				
+			}
+		});
+		btnAceptar.setBounds(619, 506, 97, 36);
+		getContentPane().add(btnAceptar);
 		
 		JLabel lblNewLabel = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
 		lblNewLabel.setBounds(22, 533, 291, 16);
