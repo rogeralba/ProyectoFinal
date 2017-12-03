@@ -389,8 +389,8 @@ public class RegistrarCliente extends JDialog {
 		btnNewButton.setBounds(432, 577, 97, 44);
 		contentPanel.add(btnNewButton);
 		
-		JButton btnAceptar = new JButton("Siguiente");
-		btnAceptar.addActionListener(new ActionListener() {
+		JButton btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Cliente cliente = null;
 				boolean valido = false;
@@ -438,7 +438,8 @@ public class RegistrarCliente extends JDialog {
 					Tricom.getInstance().getMisClientes().add(cliente);
 					int cant = Tricom.getInstance().getCantRegistros().get(0);
 					Tricom.getInstance().getCantRegistros().add(0, (cant+1));
-					JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
+					VenderPlan venPlan = new VenderPlan(cliente,1);
+					venPlan.setVisible(true);
 					dispose();
 				}
 				else
@@ -447,8 +448,8 @@ public class RegistrarCliente extends JDialog {
 				}
 			}
 		});
-		btnAceptar.setBounds(541, 577, 97, 44);
-		contentPanel.add(btnAceptar);
+		btnSiguiente.setBounds(541, 577, 97, 44);
+		contentPanel.add(btnSiguiente);
 		
 		label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
 		label.setBounds(24, 605, 291, 16);

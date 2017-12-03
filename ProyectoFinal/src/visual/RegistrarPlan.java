@@ -262,12 +262,12 @@ public class RegistrarPlan extends JDialog {
 		
 		for(Servicio ser: Tricom.getInstance().getMisServicios())
 		{
-			if(ser instanceof Internet)
+			if(ser instanceof Telefono)
 				cbxTelefono.addItem(ser.getCodServicio());
 		}
 		for(Servicio ser: Tricom.getInstance().getMisServicios())
 		{
-			if(ser instanceof Telefono)
+			if(ser instanceof Internet)
 				cbxInternet.addItem(ser.getCodServicio());
 		}
 		for(Servicio ser: Tricom.getInstance().getMisServicios())
@@ -298,7 +298,7 @@ public class RegistrarPlan extends JDialog {
 				}
 				
 				try{
-					instalacion = Integer.parseInt(txtInstalacion.getText().toString());
+					instalacion = Float.parseFloat(txtInstalacion.getText().toString());
 				}catch(NumberFormatException e)
 				{
 					instalacion = 0;

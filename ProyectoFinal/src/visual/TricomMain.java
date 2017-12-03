@@ -34,6 +34,7 @@ import logico.Servicio;
 import logico.ServicioC;
 import logico.Telefono;
 import logico.Tricom;
+import logico.Venta;
 
 import javax.swing.JInternalFrame;
 import java.awt.Color;
@@ -86,6 +87,7 @@ public class TricomMain extends JFrame {
 		Tricom tri = new Tricom();
 		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
 		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
+		String[] columnNames3 = {"Seleccionar","Codigo","Cliente","Cedula-Cliente","Empleado","Cedula-Empleado","Nombre del Plan","Fecha"};
 		String[] columnNames4 = {"Seleccionar","Codigo","Nombre","Internet","Telefono","Telecable","Tarifa","Impuestos","Instalacion"};
 		String[] columnNames5 = {"Seleccionar","Codigo","Tipo", "Precio Total", "Impuestos","Instalacion"};
 		
@@ -193,6 +195,7 @@ public class TricomMain extends JFrame {
 				lblTitulo.setText("Ventas");
 				lblReg.setText("Registros de planes vendidos");
 				activeButton = 3;
+				cargarJtable(columnNames3);
 			}
 		});
 		btnVentas.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -457,19 +460,38 @@ public class TricomMain extends JFrame {
 				switch(activeButton)
 				{
 				case 1: //Boton de Clientes
-					RegistrarCliente rgCli = new RegistrarCliente(null,1);
-					rgCli.setVisible(true);
-					cargarJtable(columnNames1);
+					if(Tricom.getInstance().getMisServicios().size() == 0)
+					{
+						JOptionPane.showMessageDialog(null, "No se puede registrar clientes porque no se han creado planes.");
+					}
+					else
+					{
+						RegistrarCliente rgCli = new RegistrarCliente(null,1);
+						rgCli.setVisible(true);
+						cargarJtable(columnNames1);
+					}
 					break;
 				case 2://Boton de Empleados
 					RegistrarEmpleado regEmp = new RegistrarEmpleado(null,1);
 					regEmp.setVisible(true);
 					cargarJtable(columnNames2);
 					break;
+				case 3://Boton de Ventas
+					if(Tricom.getInstance().getMisServicios().size() == 0)
+					{
+						JOptionPane.showMessageDialog(null, "No se han creado planes.");
+					}
+					else
+					{
+						VenderPlan venPlan = new VenderPlan(null,2);
+						venPlan.setVisible(true);
+						cargarJtable(columnNames3);
+					}
+					break;	
 				case 4://Boton de Planes
 					if(Tricom.getInstance().getMisServicios().size() == 0)
 					{
-						JOptionPane.showMessageDialog(null, "No hay servicios registrados crear un plan");
+						JOptionPane.showMessageDialog(null, "No hay servicios registrados crear un plan.");
 					}
 					else
 					{
@@ -477,7 +499,6 @@ public class TricomMain extends JFrame {
 						regPlan.setVisible(true);
 						cargarJtable(columnNames4);
 					}
-					
 					break;
 				case 5://Boton de Servicios
 					RegistrarServicio regSer = new RegistrarServicio(null,1);
@@ -678,6 +699,21 @@ public class TricomMain extends JFrame {
 				   i++;
 			   }
 			   break;
+		   case 3:
+			   fila = new Object[Tricom.getInstance().getMisVentas().size()][8];
+			   for (Venta ven: Tricom.getInstance().getMisVentas()) 
+			   {
+				   fila[i][0] = false;
+				   fila[i][1] = ven.getCodVenta();
+				   fila[i][2] = ven.getNombreCliente()+" "+ven.getApellidoCliente();
+				   fila[i][3] = ven.getCedulaCliente();
+				   fila[i][4] = ven.getNombreEmpleado();
+				   fila[i][5] = ven.getCedulaEmpleado();
+				   fila[i][6] = ven.getPlanVendido().getNombre();
+				   fila[i][7] = ven.getFecha();
+				   i++;
+			   }
+			   break;
 		   case 4:
 			   fila = new Object[Tricom.getInstance().getMisPlanes().size()][9];
 			   for (Plan plan: Tricom.getInstance().getMisPlanes()) 
@@ -761,6 +797,14 @@ public class TricomMain extends JFrame {
 		}
 		if(tipo.equalsIgnoreCase("empleado")){
 			while(i < Tricom.getInstance().getMisEmpleados().size()){
+				if((boolean)table.getModel().getValueAt(i, 0)){
+					row = i;
+				}
+			i++;
+			}
+		}
+		if(tipo.equalsIgnoreCase("venta")){
+			while(i < Tricom.getInstance().getMisVentas().size()){
 				if((boolean)table.getModel().getValueAt(i, 0)){
 					row = i;
 				}

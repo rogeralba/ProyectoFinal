@@ -32,6 +32,7 @@ public class Plan implements Serializable{
 		this.descripcion = descripcion;
 		this.estado = estado;
 		this.instalacion = instalacion;
+		this.impuestos = impuestos;
 		setTarifa();
 	}
 	
@@ -39,11 +40,11 @@ public class Plan implements Serializable{
 	{
 		tarifaMensual = 0;
 		if(internet != null)
-			tarifaMensual += internet.getTarifa() + internet.getImpuestos();
+			tarifaMensual += internet.getTarifa();
 		if(telefono != null)
-			tarifaMensual += telefono.getTarifa() + telefono.getImpuestos();
+			tarifaMensual += telefono.getTarifa();
 		if(cable != null)
-			tarifaMensual += cable.getTarifa() + cable.getImpuestos();
+			tarifaMensual += cable.getTarifa();
 	}
 	
 	public void setImpuestos()

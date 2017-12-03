@@ -131,8 +131,6 @@ public class Tricom {
 			archivo.createNewFile();
 			regStream = new FileOutputStream(dirReg);
 			oos6 = new ObjectOutputStream(regStream);
-			for(int i=0;i<6;i++)
-				cantRegistros.add(0);
 		}
 		
 		try {
@@ -281,17 +279,22 @@ public class Tricom {
 			}
 			
 		//Registros totales
-	
+			
+			
 			FileInputStream regStream;
 			ObjectInputStream ois6;
 			try{
 				regStream = new FileInputStream(dirReg);
 				ois6 = new ObjectInputStream(regStream);	
 				cant = ois6.readInt();
-				for(int i=0; i < 5; i++)
+				for(int i=0;i<6;i++)
+					cantRegistros.add(i,0);
+				for(int i=0; i < 6; i++)
 					cantRegistros.add(i, (Integer)ois6.readObject());	
 				regStream.close();
 			}catch(IOException e){
+				for(int i=0;i<6;i++)
+					cantRegistros.add(i,0);
 				cant = 0;
 				File archivo = new File(dirReg);
 				archivo.createNewFile();
@@ -558,5 +561,13 @@ public class Tricom {
 
 	public void setCantRegistros(ArrayList<Integer> cantRegistros) {
 		this.cantRegistros = cantRegistros;
+	}
+
+	public ArrayList<Venta> getMisVentas() {
+		return misVentas;
+	}
+
+	public void setMisVentas(ArrayList<Venta> misVentas) {
+		this.misVentas = misVentas;
 	}
 }

@@ -11,9 +11,11 @@ public class Venta implements Serializable{
 	private String cedulaCliente;
 	private String nombreCliente;
 	private String apellidoCliente;
+	private String fecha;
 	private Plan planVendido;
 	
-	public Venta(String codVenta, String cedulaEmpleado, String nombreEmpleado, String cedulaCliente, String nombreCliente, String apellidoCliente, Plan planVendido) {
+	
+	public Venta(String codVenta, String cedulaEmpleado, String nombreEmpleado, String cedulaCliente, String nombreCliente, String apellidoCliente,String fecha, Plan planVendido) {
 		super();
 		this.codVenta = codVenta;
 		this.cedulaEmpleado = cedulaEmpleado;
@@ -21,6 +23,7 @@ public class Venta implements Serializable{
 		this.cedulaCliente = cedulaCliente;
 		this.nombreCliente = nombreCliente;
 		this.apellidoCliente = apellidoCliente;
+		this.fecha = fecha;
 		this.planVendido = planVendido;
 	}
 	
@@ -65,6 +68,14 @@ public class Venta implements Serializable{
 	}
 	public void setPlanVendido(Plan planVendido) {
 		this.planVendido = planVendido;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 	
 	

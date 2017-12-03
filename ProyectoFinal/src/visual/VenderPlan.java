@@ -26,9 +26,14 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
+import logico.Cable;
 import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
+import logico.Internet;
+import logico.Plan;
+import logico.Servicio;
+import logico.Telefono;
 import logico.Tricom;
 
 import javax.swing.JTextField;
@@ -60,7 +65,7 @@ public class VenderPlan extends JDialog {
 	private JTextField txtInterImpuestos;
 	private JTextField txtCanales;
 	private JTextField txtLocales;
-	private JTextField txtInternaciones;
+	private JTextField txtInternacionales;
 	private JTextField txtCablePrecio;
 	private JTextField txtCableImpuestos;
 	private JRadioButton rdbDesvioSi;
@@ -71,7 +76,10 @@ public class VenderPlan extends JDialog {
 	private JRadioButton rdbMinAdSi; 
 	private JRadioButton rdbLlamIntNo;
 	private JRadioButton rdbLlamIntSi;
-
+	private JButton btnBuscar;
+	private JComboBox cbxPlanes;
+	private JComboBox cbxDuracion;
+/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -84,10 +92,12 @@ public class VenderPlan extends JDialog {
 				}
 			}
 		});
-	}
+	}*/
 
 
-	public VenderPlan() {
+	public VenderPlan(Cliente cliente, int accion) {//Accion = 1 Si es un cliente nuevo. Accion = 2 si es un cliente ya registrado
+		
+		
 		getContentPane().setFont(new Font("Arial", Font.PLAIN, 15));
 		setTitle("Vender Planes");
 		setForeground(SystemColor.textText);
@@ -104,6 +114,19 @@ public class VenderPlan extends JDialog {
 		this.setIconImage(icono0);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(txtNombre.getText().toString().equalsIgnoreCase("") == false) //Si se cargó el cliente
+				{
+					int index = cbxPlanes.getSelectedIndex();
+					Plan plan = Tricom.getInstance().getMisPlanes().get(index);
+					int duracion = Integer.parseInt(cbxDuracion.getSelectedItem().toString());
+					
+					//plan.setDuracionPlan();
+				}
+				
+			}
+		});
 		btnAceptar.setBounds(1026, 680, 97, 38);
 		getContentPane().add(btnAceptar);
 		
@@ -131,7 +154,7 @@ public class VenderPlan extends JDialog {
 		
 		
 		Color myGreen = new Color(255, 159, 35);
-		JButton btnBuscar = new JButton("");
+		btnBuscar = new JButton("");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cedula = txtCedula.getText().toString();
@@ -173,7 +196,17 @@ public class VenderPlan extends JDialog {
 		txtCedula.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtCedula.setBounds(26, 133, 183, 30);
 		txtCedula.setBorder(new LineBorder(myGreen, 1));
+		txtCedula.setMargin(new Insets(0, 3, 0, 0));
 		getContentPane().add(txtCedula);
+		if(accion == 1)
+		{
+			btnBuscar.setEnabled(false);
+			txtCedula.setEditable(false);
+			if(cliente instanceof ClienteEmpresa)
+				txtCedula.setText(((ClienteEmpresa)cliente).getRnc());
+			else
+				txtCedula.setText(((ClienteComun)cliente).getCedula());
+		}
 		txtCedula.setColumns(10);
 		
 		
@@ -216,7 +249,12 @@ public class VenderPlan extends JDialog {
 		lblPlan.setBounds(25, 24, 71, 25);
 		panel_2.add(lblPlan);
 		
-		JComboBox cbxPlanes = new JComboBox();
+		cbxPlanes = new JComboBox();
+		cbxPlanes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				llenarCampos();
+			}
+		});
 		cbxPlanes.setBackground(new Color(255, 255, 255));
 		cbxPlanes.setBounds(25, 51, 224, 27);
 		panel_2.add(cbxPlanes);
@@ -228,15 +266,15 @@ public class VenderPlan extends JDialog {
 		lblDuracion.setBounds(284, 24, 112, 25);
 		panel_2.add(lblDuracion);
 		
-		JComboBox cbxDuracion = new JComboBox();
+		cbxDuracion = new JComboBox();
 		cbxDuracion.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbxDuracion.setModel(new DefaultComboBoxModel(new String[] {"18"}));
+		cbxDuracion.setModel(new DefaultComboBoxModel(new String[] {"18", "24", "36"}));
 		cbxDuracion.setBounds(284, 50, 112, 27);
 		cbxDuracion.setBackground(Color.WHITE);
 		panel_2.add(cbxDuracion);
 		
 		txtTarifa = new JTextField();
-		txtTarifa.setEnabled(false);
+		txtTarifa.setEditable(false);
 		txtTarifa.setColumns(10);
 		txtTarifa.setBounds(428, 51, 112, 27);
 		panel_2.add(txtTarifa);
@@ -249,7 +287,7 @@ public class VenderPlan extends JDialog {
 		panel_2.add(lblTarifa);
 		
 		txtImpuestos = new JTextField();
-		txtImpuestos.setEnabled(false);
+		txtImpuestos.setEditable(false);
 		txtImpuestos.setColumns(10);
 		txtImpuestos.setBounds(570, 51, 112, 27);
 		panel_2.add(txtImpuestos);
@@ -269,6 +307,7 @@ public class VenderPlan extends JDialog {
 		panel.setLayout(null);
 		
 		txtMinutos = new JTextField();
+		txtMinutos.setEditable(false);
 		txtMinutos.setColumns(10);
 		txtMinutos.setBounds(12, 56, 118, 27);
 		txtMinutos.setBackground(SystemColor.menu);
@@ -597,12 +636,12 @@ public class VenderPlan extends JDialog {
 		lblLocales.setBounds(22, 96, 91, 25);
 		panel_4.add(lblLocales);
 		
-		txtInternaciones = new JTextField();
-		txtInternaciones.setEditable(false);
-		txtInternaciones.setColumns(10);
-		txtInternaciones.setBackground(SystemColor.menu);
-		txtInternaciones.setBounds(22, 184, 91, 27);
-		panel_4.add(txtInternaciones);
+		txtInternacionales = new JTextField();
+		txtInternacionales.setEditable(false);
+		txtInternacionales.setColumns(10);
+		txtInternacionales.setBackground(SystemColor.menu);
+		txtInternacionales.setBounds(22, 184, 91, 27);
+		panel_4.add(txtInternacionales);
 		
 		JLabel lblInternacionales = new JLabel("Internacionales:");
 		lblInternacionales.setForeground(Color.DARK_GRAY);
@@ -654,7 +693,7 @@ public class VenderPlan extends JDialog {
 		panel_2.add(lblInstalacion);
 		
 		txtInstalacion = new JTextField();
-		txtInstalacion.setEnabled(false);
+		txtInstalacion.setEditable(false);
 		txtInstalacion.setColumns(10);
 		txtInstalacion.setBounds(711, 51, 112, 27);
 		panel_2.add(txtInstalacion);
@@ -663,6 +702,8 @@ public class VenderPlan extends JDialog {
 		txtNombre.setBounds(26, 200, 224, 27);
 		getContentPane().add(txtNombre);
 		txtNombre.setEditable(false);
+		if(accion == 1)
+			txtNombre.setText(cliente.getNombre());
 		txtNombre.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -676,6 +717,13 @@ public class VenderPlan extends JDialog {
 		txtApellido.setBounds(262, 200, 224, 27);
 		getContentPane().add(txtApellido);
 		txtApellido.setEditable(false);
+		if(accion == 1)
+		{
+			if(cliente instanceof ClienteEmpresa)
+				txtApellido.setText("N/A");
+			else
+				txtApellido.setText(((ClienteComun)cliente).getApellido1());
+		}
 		txtApellido.setColumns(10);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
@@ -689,6 +737,8 @@ public class VenderPlan extends JDialog {
 		txtTelefono.setBounds(498, 200, 224, 27);
 		getContentPane().add(txtTelefono);
 		txtTelefono.setEditable(false);
+		if(accion == 1)
+			txtTelefono.setText(cliente.getTelefono());
 		txtTelefono.setColumns(10);
 		
 		JLabel lblCdula = new JLabel("Tel\u00E9fono:");
@@ -702,6 +752,8 @@ public class VenderPlan extends JDialog {
 		txtDireccion.setEditable(false);
 		txtDireccion.setColumns(10);
 		txtDireccion.setBounds(734, 200, 347, 27);
+		if(accion == 1)
+			txtDireccion.setText(cliente.getDireccion());
 		getContentPane().add(txtDireccion);
 		
 		JLabel lblDireccin = new JLabel("Direcci\u00F3n:");
@@ -714,11 +766,87 @@ public class VenderPlan extends JDialog {
 		JLabel label_8 = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
 		label_8.setBounds(26, 702, 291, 16);
 		getContentPane().add(label_8);
-		
-		
-		
-		
 		setBounds(100, 100, 1153, 771);
 
+		for(Plan plan : Tricom.getInstance().getMisPlanes())
+			cbxPlanes.addItem(plan.getNombre());
+		llenarCampos();
 	}
+	
+	
+	public void llenarCampos()
+	{
+		int index = cbxPlanes.getSelectedIndex();
+		Plan plan = Tricom.getInstance().getMisPlanes().get(index);
+		
+		txtTarifa.setText(String.valueOf(plan.getTarifaMensual()));
+		txtImpuestos.setText(String.valueOf(plan.getImpuestos()));
+		txtInstalacion.setText(String.valueOf(plan.getInstalacion()));
+		
+		if(plan.getTelefono() != null)
+		{
+			txtMinutos.setText(String.valueOf(((Telefono)plan.getTelefono()).getMinutos()));
+			txtTelImpuestos.setText(String.valueOf(((Telefono)plan.getTelefono()).getImpuestos()));
+			txtTelPrecio.setText(String.valueOf(((Telefono)plan.getTelefono()).getTarifa()));
+		}else
+		{
+			txtMinutos.setText("");
+			txtTelImpuestos.setText("");
+			txtTelPrecio.setText("");
+		}
+		
+		if(plan.getInternet() != null)
+		{
+			txtVelocidad.setText(String.valueOf(((Internet)plan.getInternet()).getVelocidad()));
+			txtSubida.setText(String.valueOf(((Internet)plan.getInternet()).getVelSubida()));
+			txtInterImpuestos.setText(String.valueOf(((Internet)plan.getInternet()).getImpuestos()));
+			txtInterPrecio.setText(String.valueOf(((Internet)plan.getInternet()).getTarifa()));
+		}
+		else
+		{
+			txtVelocidad.setText("");
+			txtSubida.setText("");
+			txtInterImpuestos.setText("");
+			txtInterPrecio.setText("");
+		}
+		
+		if(plan.getCable() != null)
+		{
+			txtCanales.setText(String.valueOf(((Cable)plan.getCable()).getCantCanales()));
+			txtLocales.setText(String.valueOf(((Cable)plan.getCable()).getLocales()));
+			txtInternacionales.setText(String.valueOf(((Cable)plan.getCable()).getInternacionales()));
+			txtCableImpuestos.setText(String.valueOf(((Cable)plan.getCable()).getImpuestos()));
+			txtCablePrecio.setText(String.valueOf(((Cable)plan.getCable()).getTarifa()));
+		}
+		else
+		{
+			txtCanales.setText("");
+			txtLocales.setText("");
+			txtInternacionales.setText("");
+			txtCableImpuestos.setText("");
+			txtCablePrecio.setText("");
+		}
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
