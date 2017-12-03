@@ -65,6 +65,8 @@ public class RegistrarCliente extends JDialog {
 	private JDateChooser dtcFecNac;
 	private JFormattedTextField txtCedula;
 	private JComboBox cbxSexo;
+	private JLabel lblSexo;
+	private JComboBox cbxTipo;
 	/*
 	public static void main(String[] args) {
 		try {
@@ -147,7 +149,7 @@ public class RegistrarCliente extends JDialog {
 		txtCodigo.setText("codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1));
 		panel_1.add(txtCodigo);
 		
-		JComboBox cbxTipo = new JComboBox();
+		 cbxTipo = new JComboBox();
 		cbxTipo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String tipo = cbxTipo.getSelectedItem().toString();
@@ -168,6 +170,9 @@ public class RegistrarCliente extends JDialog {
 					txtTelefono.setBounds(23, 257, 224, 27);
 					lblEmail.setBounds(23, 297, 128, 25);
 					txtEmail.setBounds(23, 321, 224, 27);
+				cbxSexo.setVisible(false);
+				lblSexo.setVisible(false);
+				
 				}
 				else
 				{
@@ -189,6 +194,8 @@ public class RegistrarCliente extends JDialog {
 					txtEmail.setBounds(364, 321, 224, 27);
 					lblFecNac.setVisible(true);
 					dtcFecNac.setVisible(true);
+					cbxSexo.setVisible(true);
+					lblSexo.setVisible(true);
 				}
 			}
 		});
@@ -382,7 +389,7 @@ public class RegistrarCliente extends JDialog {
 		cbxSexo.setBounds(364, 390, 141, 27);
 		panel_1.add(cbxSexo);
 		
-		JLabel lblSexo = new JLabel("Sexo:");
+		 lblSexo = new JLabel("Sexo:");
 		lblSexo.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblSexo.setBounds(364, 368, 57, 14);
 		panel_1.add(lblSexo);
@@ -456,24 +463,27 @@ public class RegistrarCliente extends JDialog {
 		label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
 		label.setBounds(24, 605, 291, 16);
 		contentPanel.add(label);
-		
+		if(accion == 2)
+			loadDatos(cliente);
 	
 			
 	}
 	
 	public void loadDatos(Cliente cl){
-		
+		cbxTipo.setEnabled(false);
+		txtCodigo.setText(cl.getCodCli());
 		if(cl instanceof ClienteComun){
-			
-		txtNombre.setText(cl.getNombre());
-	txtApellido1.setText(((ClienteComun) cl).getApellido1());
-		txtApellido2.setText(((ClienteComun) cl).getApellido2());
-		txtDireccion.setText(cl.getDireccion());
-		 txtTelefono.setText(cl.getTelefono());
-		txtEmail.setText(cl.getEmail());
-		 txtCedula.setText(((ClienteComun) cl).getCedula());
+		cbxTipo.setSelectedIndex(0);
+			ClienteComun clc = (ClienteComun)cl;
+		txtNombre.setText(clc.getNombre());
+	txtApellido1.setText(clc.getApellido1());
+		txtApellido2.setText(clc.getApellido2());
+		txtDireccion.setText(clc.getDireccion());
+		 txtTelefono.setText(clc.getTelefono());
+		txtEmail.setText(clc.getEmail());
+		 txtCedula.setText(clc.getCedula());
 		 //txtRNC.getText().toString();
-		 if (((ClienteComun) cl).getSexo().equalsIgnoreCase("Femenino")) {
+		 if (clc.getSexo().equalsIgnoreCase("Femenino")) {
 			 cbxSexo.setSelectedIndex(0);
 		}else{
 			 cbxSexo.setSelectedIndex(1);
@@ -482,7 +492,7 @@ public class RegistrarCliente extends JDialog {
 		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 Date dt;
 try {
-	dt = formatter.parse(((ClienteComun) cl).getFecNac());
+	dt = formatter.parse(clc.getFecNac());
 	dtcFecNac.setDate(dt);
 } catch (ParseException e) {
 	// TODO Auto-generated catch block
@@ -490,7 +500,7 @@ try {
 		
 		}
 		if(cl instanceof ClienteEmpresa){
-			
+			cbxTipo.setSelectedIndex(1);
 			txtNombre.setText(cl.getNombre());
 			txtDireccion.setText(cl.getDireccion());
 			 txtTelefono.setText(cl.getTelefono());
