@@ -369,7 +369,7 @@ public class RegistrarServicio extends JDialog {
 				int internacionales = Integer.parseInt(spnInter.getValue().toString());
 				int hd = Integer.parseInt(spnHD.getValue().toString());
 				
-				String codigo = "codCli-"+(Tricom.getInstance().getCantRegistros().get(4)+1);
+				String codigo = "codSer-"+(Tricom.getInstance().getCantRegistros().get(4)+1);
 				
 				if(rdbInternet.isSelected())
 				{

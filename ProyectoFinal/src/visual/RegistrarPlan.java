@@ -19,6 +19,9 @@ import javax.swing.JToolBar;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 
+import logico.Cable;
+import logico.Internet;
+import logico.Plan;
 import logico.Servicio;
 import logico.Telefono;
 import logico.Tricom;
@@ -29,6 +32,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class RegistrarPlan extends JDialog {
 	private JTextField txtCodigo;
@@ -36,15 +40,18 @@ public class RegistrarPlan extends JDialog {
 	private JTextField txtTarifa;
 	private JTextField txtImpuestos;
 	private JTextField txtInstalacion;
+	private JComboBox cbxTelefono;
+	private JComboBox cbxInternet;
+	private JComboBox cbxCable;
 
 	/**
 	 * Launch the application.
-	 */
+	 *//*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistrarPlan dialog = new RegistrarPlan();
+					RegistrarPlan dialog = new RegistrarPlan(null,1);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 				} catch (Exception e) {
@@ -52,12 +59,12 @@ public class RegistrarPlan extends JDialog {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
 	 */
-	public RegistrarPlan() {
+	public RegistrarPlan(Plan plan, int accion) {//accion: 1-Registrar (El parametro plan es NULL), 2-Modificar
 		setResizable(false);
 		getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		setBounds(100, 100, 742, 609);
@@ -141,10 +148,16 @@ public class RegistrarPlan extends JDialog {
 		lblServicioTelefnico.setBounds(442, 83, 134, 25);
 		panel_1.add(lblServicioTelefnico);
 		
-		JComboBox cbxTelefono = new JComboBox();
+		cbxTelefono = new JComboBox();
+		cbxTelefono.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar"}));
+		cbxTelefono.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				llenarCostos();
+			}
+		});
 		cbxTelefono.setFont(new Font("Arial", Font.PLAIN, 15));
-		cbxTelefono.setEditable(true);
-		cbxTelefono.setEnabled(false);
+		
+			
 		cbxTelefono.setBounds(442, 109, 224, 27);
 		
 		panel_1.add(cbxTelefono);
@@ -156,10 +169,14 @@ public class RegistrarPlan extends JDialog {
 		lblServicioDeInternet.setBounds(442, 152, 146, 25);
 		panel_1.add(lblServicioDeInternet);
 		
-		JComboBox cbxInternet = new JComboBox();
+		cbxInternet = new JComboBox();
+		cbxInternet.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar"}));
+		cbxInternet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				llenarCostos();
+			}
+		});
 		cbxInternet.setFont(new Font("Arial", Font.PLAIN, 15));
-		cbxInternet.setEnabled(false);
-		cbxInternet.setEditable(true);
 		cbxInternet.setBounds(442, 178, 224, 27);
 		panel_1.add(cbxInternet);
 		
@@ -170,10 +187,14 @@ public class RegistrarPlan extends JDialog {
 		lblServicioDeTelecable.setBounds(442, 218, 172, 25);
 		panel_1.add(lblServicioDeTelecable);
 		
-		JComboBox cbxCable = new JComboBox();
+		cbxCable = new JComboBox();
+		cbxCable.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar"}));
+		cbxCable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				llenarCostos();
+			}
+		});
 		cbxCable.setFont(new Font("Arial", Font.PLAIN, 15));
-		cbxCable.setEnabled(false);
-		cbxCable.setEditable(true);
 		cbxCable.setBounds(442, 244, 224, 27);
 		panel_1.add(cbxCable);
 		
@@ -184,11 +205,11 @@ public class RegistrarPlan extends JDialog {
 		txtTarifa.setBounds(24, 320, 189, 27);
 		panel_1.add(txtTarifa);
 		
-		JLabel lblTarifaMensual = new JLabel("Tarifa mensual:");
+		JLabel lblTarifaMensual = new JLabel("Tarifa mensual (+Imp.):");
 		lblTarifaMensual.setForeground(Color.DARK_GRAY);
 		lblTarifaMensual.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblTarifaMensual.setBackground(Color.GRAY);
-		lblTarifaMensual.setBounds(24, 292, 134, 25);
+		lblTarifaMensual.setBounds(24, 292, 172, 25);
 		panel_1.add(lblTarifaMensual);
 		
 		txtImpuestos = new JTextField();
@@ -238,6 +259,22 @@ public class RegistrarPlan extends JDialog {
 		btnCancelar.setBounds(510, 506, 97, 36);
 		getContentPane().add(btnCancelar);
 		
+		for(Servicio ser: Tricom.getInstance().getMisServicios())
+		{
+			if(ser instanceof Internet)
+				cbxTelefono.addItem(ser.getCodServicio());
+		}
+		for(Servicio ser: Tricom.getInstance().getMisServicios())
+		{
+			if(ser instanceof Telefono)
+				cbxInternet.addItem(ser.getCodServicio());
+		}
+		for(Servicio ser: Tricom.getInstance().getMisServicios())
+		{
+			if(ser instanceof Cable)
+				cbxCable.addItem(ser.getCodServicio());
+		}
+		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -254,4 +291,68 @@ public class RegistrarPlan extends JDialog {
 		getContentPane().add(lblNewLabel);
 
 	}
+	
+	
+	private void llenarCostos()
+	{
+		float tarifa = 0;
+		int impuestos = 0;
+		float instalacion = 0;
+		Servicio servicio = null;
+		String codSer1 = null;
+		String codSer2 = null;
+		String codSer3 = null;
+		
+			
+		try{
+			codSer1 = new String(cbxTelefono.getSelectedItem().toString());
+		}catch(NullPointerException e)
+		{
+			codSer1 = new String("");
+		}
+		
+		try{
+			codSer2 = new String(cbxInternet.getSelectedItem().toString());
+		}catch(NullPointerException e)
+		{
+			codSer2 = new String("");
+		}
+		
+		try{
+			codSer3 = new String(cbxCable.getSelectedItem().toString());
+		}catch(NullPointerException e)
+		{
+			codSer3 = new String("");
+		}
+		
+		
+		servicio = Tricom.getInstance().buscarServcode(codSer1);
+		if(servicio != null)
+		{
+			tarifa += servicio.getTarifa();
+			impuestos += servicio.getImpuestos();
+			instalacion += servicio.getPrecioInstalacion();
+		}
+		
+		servicio = Tricom.getInstance().buscarServcode(codSer2);
+		if(servicio != null)
+		{
+			tarifa += servicio.getTarifa();
+			impuestos += servicio.getImpuestos();
+			instalacion += servicio.getPrecioInstalacion();
+		}
+		
+		servicio = Tricom.getInstance().buscarServcode(codSer3);
+		if(servicio != null)
+		{
+			tarifa += servicio.getTarifa();
+			impuestos += servicio.getImpuestos();
+			instalacion += servicio.getPrecioInstalacion();
+		}
+		
+		txtTarifa.setText(String.valueOf(tarifa));
+		txtImpuestos.setText(String.valueOf(impuestos));
+		txtInstalacion.setText(String.valueOf(instalacion));
+	}
+	
 }

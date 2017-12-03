@@ -29,6 +29,7 @@ import logico.ClienteComun;
 import logico.ClienteEmpresa;
 import logico.Empleado;
 import logico.Internet;
+import logico.Plan;
 import logico.Servicio;
 import logico.ServicioC;
 import logico.Telefono;
@@ -85,6 +86,7 @@ public class TricomMain extends JFrame {
 		Tricom tri = new Tricom();
 		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
 		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
+		String[] columnNames4 = {"Seleccionar","Codigo","Nombre","Internet","Telefono","Telecable","Tarifa","Impuestos","Instalacion"};
 		String[] columnNames5 = {"Seleccionar","Codigo","Tipo", "Precio Total", "Impuestos","Instalacion"};
 		
 		setTitle("Tricom");
@@ -215,6 +217,7 @@ public class TricomMain extends JFrame {
 				lblTitulo.setText("Planes");
 				lblReg.setText("Planes disponibles");
 				activeButton = 4;
+				cargarJtable(columnNames4);
 			}
 		});
 		btnPlanes.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -362,10 +365,9 @@ public class TricomMain extends JFrame {
 				case 1: //Boton de Clientes
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
 						Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
-RegistrarCliente reg = new RegistrarCliente(cl, 2);
-reg.setVisible(true);
+						RegistrarCliente reg = new RegistrarCliente(cl, 2);
+						reg.setVisible(true);
 						
-					
 					break;
 				case 2://Boton de Empleados
 						String codigo2 = table.getModel().getValueAt(revisarCheckbox(table, "empleado"), 1).toString();
@@ -374,18 +376,18 @@ reg.setVisible(true);
 						RegistrarEmpleado reg2 = new RegistrarEmpleado(cl2, 2);
 						reg2.setVisible(true);
 						
-					
+					break;
+				case 4://Boton de Planes
+					String codigo4 = table.getModel().getValueAt(revisarCheckbox(table, "plan"), 1).toString();
+					Plan cl4 = Tricom.getInstance().buscarPlancode(codigo4);
+					RegistrarPlan reg4 = new RegistrarPlan(cl4, 1);
+					reg4.setVisible(true);
 					break;
 				case 5://Boton de Servicios
-					
-						String codigo3 = table.getModel().getValueAt(revisarCheckbox(table, "servicio"), 1).toString();
-						
-						Servicio cl3 = Tricom.getInstance().buscarServcode(codigo3);
-						RegistrarServicio reg3 = new RegistrarServicio(cl3, 2);
-						reg3.setVisible(true);
-
-						
-					
+						String codigo5 = table.getModel().getValueAt(revisarCheckbox(table, "servicio"), 1).toString();
+						Servicio cl5 = Tricom.getInstance().buscarServcode(codigo5);
+						RegistrarServicio reg5 = new RegistrarServicio(cl5, 2);
+						reg5.setVisible(true);
 					break;
 				default:
 					break;
@@ -410,28 +412,30 @@ reg.setVisible(true);
 				case 1: //Boton de Clientes
 					while(revisarCheckbox(table, "cliente")!=-1){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
-						
 						Tricom.getInstance().eliminarCliente(codigo);
-
+						cargarJtable(columnNames1);
 						
 					}
 					break;
 				case 2://Boton de Empleados
 					while(revisarCheckbox(table, "empleado")!=-1){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "empleado"), 1).toString();
-					
 						Tricom.getInstance().eliminarEmpleado(codigo);
-
-						
+						cargarJtable(columnNames2);
+					}
+					break;
+				case 4://Boton de Planes
+					while(revisarCheckbox(table, "plan")!=-1){
+						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "plan"), 1).toString();
+						Tricom.getInstance().eliminarPlan(codigo);
+						cargarJtable(columnNames4);
 					}
 					break;
 				case 5://Boton de Servicios
 					while(revisarCheckbox(table, "servicio")!=-1){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "servicio"), 1).toString();
-					
 						Tricom.getInstance().eliminarServicio(codigo);
-
-						
+						cargarJtable(columnNames5);	
 					}
 					break;
 				default:
@@ -460,6 +464,11 @@ reg.setVisible(true);
 					RegistrarEmpleado regEmp = new RegistrarEmpleado(null,1);
 					regEmp.setVisible(true);
 					cargarJtable(columnNames2);
+					break;
+				case 4:
+					RegistrarPlan regPlan = new RegistrarPlan(null,1);
+					regPlan.setVisible(true);
+					cargarJtable(columnNames4);
 					break;
 				case 5://Boton de Servicios
 					RegistrarServicio regSer = new RegistrarServicio(null,1);
@@ -660,6 +669,32 @@ reg.setVisible(true);
 				   i++;
 			   }
 			   break;
+		   case 4:
+			   fila = new Object[Tricom.getInstance().getMisPlanes().size()][8];
+			   for (Plan plan: Tricom.getInstance().getMisPlanes()) 
+			   {
+				   fila[i][0] = false;
+				   fila[i][1] = plan.getCodPlan();
+				   fila[i][2] = plan.getNombre();
+				   if(plan.getInternet() != null) //Internet
+					   fila[i][3] = "Si";
+				   else
+					   fila[i][3] = "No";
+				   if(plan.getTelefono() != null)//Telefono
+					   fila[i][4] = "Si";
+				   else
+					   fila[i][4] = "No";
+				   if(plan.getCable() != null)//Cable
+					   fila[i][5] = "Si";
+				   else
+					   fila[i][5] = "No";
+				   
+				   fila[i][6] = String.valueOf(plan.getTarifaMensual());
+				   fila[i][7] = String.valueOf(plan.getImpuestos());
+				   fila[i][8] = String.valueOf(plan.getInstalacion());
+				   i++;
+			   }
+			   break;
 		   case 5:
 			   fila = new Object[Tricom.getInstance().getMisServicios().size()][6];
 			   for (Servicio ser: Tricom.getInstance().getMisServicios()) 
@@ -717,6 +752,14 @@ reg.setVisible(true);
 		}
 		if(tipo.equalsIgnoreCase("empleado")){
 			while(i < Tricom.getInstance().getMisEmpleados().size()){
+				if((boolean)table.getModel().getValueAt(i, 0)){
+					row = i;
+				}
+			i++;
+			}
+		}
+		if(tipo.equalsIgnoreCase("plan")){
+			while(i < Tricom.getInstance().getMisPlanes().size()){
 				if((boolean)table.getModel().getValueAt(i, 0)){
 					row = i;
 				}

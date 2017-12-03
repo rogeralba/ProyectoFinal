@@ -337,44 +337,71 @@ public class Tricom {
 	{
 		int i = 0;
 		boolean encontrado = false;
+		Cliente cliente = null;
 		while(i < misClientes.size() && encontrado == false)
 		{
 			if(misClientes.get(i).getCodCli().equalsIgnoreCase(codCli))
 			{
-				return misClientes.get(i);
+				encontrado = true;
+				cliente = misClientes.get(i);
 			}
-			
+			i++;
 		}
-		return null;
+		return cliente;
 	}
-	public Empleado buscarEmpcode(String codCli)
+	public Empleado buscarEmpcode(String codEmp)
 	{
 		int i = 0;
 		boolean encontrado = false;
+		Empleado empleado = null;
 		while(i < misEmpleados.size() && encontrado == false)
 		{
-			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(codCli))
+			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(codEmp))
 			{
-				return misEmpleados.get(i);
+				empleado = misEmpleados.get(i);
+				encontrado = true;
 			}
-			
+			i++;
 		}
-		return null;
+		return empleado;
 	}
-	public Servicio buscarServcode(String codCli)
+	
+	public Plan buscarPlancode(String codPlan)
 	{
 		int i = 0;
 		boolean encontrado = false;
+		Plan plan = null;
+		while(i < misPlanes.size() && encontrado == false)
+		{
+			if(misPlanes.get(i).getCodPlan().equalsIgnoreCase(codPlan))
+			{
+				plan = misPlanes.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return plan;
+	}
+	
+	
+	public Servicio buscarServcode(String codSer)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		Servicio servicio = null;
 		while(i < misServicios.size() && encontrado == false)
 		{
-			if(misServicios.get(i).getCodServicio().equalsIgnoreCase(codCli))
+			if(misServicios.get(i).getCodServicio().equalsIgnoreCase(codSer))
 			{
-				return misServicios.get(i);
+				servicio = misServicios.get(i);
+				encontrado = true;
 			}
-			
+			i++;
 		}
-		return null;
+		return servicio;
 	}
+	
+	
 	
 	public void ingresarPlan(Plan plan) throws IOException
 	{
@@ -429,34 +456,8 @@ public class Tricom {
 		return c;
 	}
 	
-	public boolean validarCedula(String cedula)
-	{
-		int i=0;
-		boolean resultado = false;
-		if(cedula.length() != 13 || cedula.charAt(3) != '-' || cedula.charAt(11) != '-')
-		{
-			return true;
-		}
-		while(i < cedula.length() && resultado == false)
-		{
-			if((int)cedula.charAt(i) >= 48 && (int)cedula.charAt(i) <= 57) //Si es un numero
-			{
-			    if(Integer.parseInt(cedula.charAt(i)+"") < 0 || Integer.parseInt(cedula.charAt(i)+"") > 9)//Si no se encuentra en ese rango
-			    {
-			    	resultado = true;
-			    }
-			}else if(i == 3 || i == 11)
-			{
-				resultado = false;
-			}
-			else
-			{
-				resultado = true;
-			}
-		    i++;
-		}
-		return resultado;
-	}
+	
+
 	
 	
 	public ArrayList<Empleado> getMisEmpleados() {
@@ -474,54 +475,55 @@ public class Tricom {
 	public void setMisPlanes(ArrayList<Plan> misPlanes) {
 		this.misPlanes = misPlanes;
 	}
-	//Roger creacion y manejo de usuarios(Empleados)
+	
+	
 	
 
-public Empleado getActual() {
-	return actual;
-}
+	public Empleado getActual() {
+		return actual;
+	}
 
-public void setActual(Empleado actual) {
-	this.actual = actual;
-}
+	public void setActual(Empleado actual) {
+		this.actual = actual;
+	}
 
-public ArrayList<Cliente> getMisClientes() {
-	return misClientes;
-}
+	public ArrayList<Cliente> getMisClientes() {
+		return misClientes;
+	}
 
-public void setMisClientes(ArrayList<Cliente> misClientes) {
-	this.misClientes = misClientes;
-}
+	public void setMisClientes(ArrayList<Cliente> misClientes) {
+		this.misClientes = misClientes;
+	}
 
-public ArrayList<Servicio> getMisServicios() {
-	return misServicios;
-}
+	public ArrayList<Servicio> getMisServicios() {
+		return misServicios;
+	}
 
-public void setMisServicios(ArrayList<Servicio> misServicios) {
-	this.misServicios = misServicios;
-}
+	public void setMisServicios(ArrayList<Servicio> misServicios) {
+		this.misServicios = misServicios;
+	}
 
-public static Tricom getTricom() {
-	return tricom;
-}
+	public static Tricom getTricom() {
+		return tricom;
+	}
 
-public static void setTricom(Tricom tricom) {
-	Tricom.tricom = tricom;
-}
+	public static void setTricom(Tricom tricom) {
+		Tricom.tricom = tricom;
+	}
 
-public ArrayList<Factura> getMisFacturas() {
-	return misFacturas;
-}
+	public ArrayList<Factura> getMisFacturas() {
+		return misFacturas;
+	}
 
-public void setMisFacturas(ArrayList<Factura> misFacturas) {
-	this.misFacturas = misFacturas;
-}
+	public void setMisFacturas(ArrayList<Factura> misFacturas) {
+		this.misFacturas = misFacturas;
+	}
 
-public ArrayList<Integer> getCantRegistros() {
-	return cantRegistros;
-}
+	public ArrayList<Integer> getCantRegistros() {
+		return cantRegistros;
+	}
 
-public void setCantRegistros(ArrayList<Integer> cantRegistros) {
-	this.cantRegistros = cantRegistros;
-}
+	public void setCantRegistros(ArrayList<Integer> cantRegistros) {
+		this.cantRegistros = cantRegistros;
+	}
 }

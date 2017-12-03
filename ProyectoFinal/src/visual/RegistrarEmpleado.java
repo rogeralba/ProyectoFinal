@@ -139,6 +139,8 @@ public class RegistrarEmpleado extends JDialog {
 		txtNombre.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtNombre.setBounds(31, 208, 224, 27);
 		panel.add(txtNombre);
+		if(accion == 2)
+		   txtNombre.setText(empleado.getNombre());
 		txtNombre.setColumns(10);
 
 		JLabel lblApellido1 = new JLabel("Primer apellido:");
