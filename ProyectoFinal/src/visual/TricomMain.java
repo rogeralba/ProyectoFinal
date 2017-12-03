@@ -354,6 +354,15 @@ public class TricomMain extends JFrame {
 		panelRegistros.add(btnModificar);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				//ELIMINAR
+				
+				
+			}
+		});
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBackground(Color.DARK_GRAY);
 		btnEliminar.setBounds(300, 419, 104, 44);
@@ -504,7 +513,7 @@ public class TricomMain extends JFrame {
 		String path0 = "./Imagenes/tricom.png";
 		Image icono0 =  Toolkit.getDefaultToolkit().getImage(path0);
 		this.setIconImage(icono0);
-		
+		loaddataemp();
 		
 	}
 	
