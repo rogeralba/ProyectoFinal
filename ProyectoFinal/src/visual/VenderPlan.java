@@ -12,6 +12,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -30,11 +32,13 @@ import logico.Cable;
 import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
+import logico.Empleado;
 import logico.Internet;
 import logico.Plan;
 import logico.Servicio;
 import logico.Telefono;
 import logico.Tricom;
+import logico.Venta;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -121,8 +125,50 @@ public class VenderPlan extends JDialog {
 					int index = cbxPlanes.getSelectedIndex();
 					Plan plan = Tricom.getInstance().getMisPlanes().get(index);
 					int duracion = Integer.parseInt(cbxDuracion.getSelectedItem().toString());
+					boolean desvio = rdbDesvioSi.isSelected();
+					boolean dobleLinea = rdbDobleLineaSi.isSelected();
+					boolean minutosAd = rdbMinAdSi.isSelected();
+					boolean llamInt = rdbLlamIntSi.isSelected();
 					
-					//plan.setDuracionPlan();
+					if(plan.getTelefono() != null)
+					{
+						((Telefono)plan.getTelefono()).setDesvioLlamadas(desvio);
+						((Telefono)plan.getTelefono()).setDobleLinea(dobleLinea);
+						((Telefono)plan.getTelefono()).setMinutosAdicionales(minutosAd);
+						((Telefono)plan.getTelefono()).setInterLlamadas(llamInt);
+					}
+					
+					String codVenta = "codVenta-"+(Tricom.getInstance().getCantRegistros().get(5)+1);
+					Empleado emp = Tricom.getInstance().getActual();
+					String id = null;
+					String apellido = null;
+					int cant;
+					
+					Calendar c1 = new GregorianCalendar();
+					String fecha = c1.get(Calendar.DATE) + "/" + (c1.get(Calendar.MONTH)+1) + "/" + c1.get(Calendar.YEAR);
+					
+					if(cliente instanceof ClienteComun)
+					{
+						id = new String(((ClienteComun)cliente).getCedula());
+						apellido = new String(((ClienteComun)cliente).getApellido1());
+					}
+					else
+					{
+						id = new String(((ClienteEmpresa)cliente).getRnc());
+						apellido = new String("N/A");
+					}
+					
+					cliente.getMisPlanes().add(plan);
+					Tricom.getInstance().getMisClientes().add(cliente);
+					cant = Tricom.getInstance().getCantRegistros().get(0);
+					Tricom.getInstance().getCantRegistros().add(0, (cant+1));
+					
+					Venta venta = new Venta(codVenta,emp.getCedula(),emp.getNombre(),id,cliente.getNombre(),apellido,fecha,plan);
+					Tricom.getInstance().getMisVentas().add(venta);
+					cant = Tricom.getInstance().getCantRegistros().get(5);
+					Tricom.getInstance().getCantRegistros().add(5, (cant+1));
+					JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
+					dispose();
 				}
 				
 			}
