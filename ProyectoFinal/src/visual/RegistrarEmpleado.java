@@ -20,6 +20,7 @@ import logico.ServicioC;
 import logico.Tricom;
 
 import javax.swing.JComboBox;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
@@ -41,6 +42,8 @@ import javax.swing.UIManager;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JTextArea;
 
 public class RegistrarEmpleado extends JDialog {
 
@@ -48,7 +51,7 @@ public class RegistrarEmpleado extends JDialog {
 	private JTextField txtCedula;
 	private JTextField txtNombre;
 	private JTextField txtApellido1;
-	private JTextField txtCorreo;
+	private JTextField txtEmail;
 	private JTextField txtDireccion;
 	private JTextField txtTelefono;
 	private JComboBox cbxSexo;
@@ -63,10 +66,12 @@ public class RegistrarEmpleado extends JDialog {
 	private String numberOnly1;
 	private JTextField txtContrasena;
 	private JSpinner spnSalario;
-	private JTextField txtAppellido2;
+	private JTextField txtApellido2;
 	private JLabel lblNotaMedica;
 	private JTextField txtnotam;
+	private JDateChooser dtcFecNac;
 	private JTextField txtCodigo;
+	private JTextArea txtANota;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -155,11 +160,11 @@ public class RegistrarEmpleado extends JDialog {
 		lblCorreo.setBounds(31, 251, 70, 14);
 		panel.add(lblCorreo);
 
-		txtCorreo = new JTextField();
-		txtCorreo.setFont(new Font("Arial", Font.PLAIN, 15));
-		txtCorreo.setBounds(31, 271, 224, 27);
-		panel.add(txtCorreo);
-		txtCorreo.setColumns(10);
+		txtEmail = new JTextField();
+		txtEmail.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtEmail.setBounds(31, 271, 224, 27);
+		panel.add(txtEmail);
+		txtEmail.setColumns(10);
 
 		JLabel lblSexo = new JLabel("Sexo:");
 		lblSexo.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -170,7 +175,7 @@ public class RegistrarEmpleado extends JDialog {
 		cbxSexo.setFont(new Font("Arial", Font.PLAIN, 15));
 		cbxSexo.setBackground(Color.WHITE);
 
-		cbxSexo.setModel(new DefaultComboBoxModel(new String[] { "<Seleccione>", "Femenino", "Masculino" }));
+		cbxSexo.setModel(new DefaultComboBoxModel(new String[] {"Femenino", "Masculino"}));
 		cbxSexo.setBounds(375, 337, 141, 27);
 		panel.add(cbxSexo);
 
@@ -208,12 +213,6 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(txtContrasena);
 		txtContrasena.setColumns(10);
 
-		JTextField txtNota = new JTextField();
-		txtNota.setFont(new Font("Arial", Font.PLAIN, 15));
-		txtNota.setColumns(10);
-		txtNota.setBounds(31, 461, 292, 71);
-		panel.add(txtNota);
-
 		lblNotaMedica = new JLabel("Nota Medica:\r\n");
 		lblNotaMedica.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNotaMedica.setBounds(31, 438, 132, 17);
@@ -229,11 +228,11 @@ public class RegistrarEmpleado extends JDialog {
 		spnSalario.setBounds(375, 398, 141, 27);
 		panel.add(spnSalario);
 
-		txtAppellido2 = new JTextField();
-		txtAppellido2.setFont(new Font("Arial", Font.PLAIN, 15));
-		txtAppellido2.setColumns(10);
-		txtAppellido2.setBounds(375, 271, 224, 27);
-		panel.add(txtAppellido2);
+		txtApellido2 = new JTextField();
+		txtApellido2.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtApellido2.setColumns(10);
+		txtApellido2.setBounds(375, 271, 224, 27);
+		panel.add(txtApellido2);
 
 		JLabel lblApellido2 = new JLabel("Segundo apellido:");
 		lblApellido2.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -256,7 +255,7 @@ public class RegistrarEmpleado extends JDialog {
 				}
 			}
 		});
-		cbxCargo.setModel(new DefaultComboBoxModel(new String[] { "<Seleccionar>", "Ventas", "Administrativo" }));
+		cbxCargo.setModel(new DefaultComboBoxModel(new String[] {"Ventas", "Administrativo"}));
 
 		JLabel lblCargo = new JLabel("Cargo:");
 		lblCargo.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -268,6 +267,7 @@ public class RegistrarEmpleado extends JDialog {
 		txtCodigo.setEditable(false);
 		txtCodigo.setColumns(10);
 		txtCodigo.setBounds(31, 81, 224, 27);
+		txtCodigo.setText("codEmp-"+(Tricom.getInstance().getCantRegistros().get(1)+1));
 		panel.add(txtCodigo);
 
 		JLabel lblCodigo = new JLabel("C\u00F3digo:");
@@ -282,10 +282,14 @@ public class RegistrarEmpleado extends JDialog {
 		lblFechaDeNacimiento.setBounds(375, 439, 171, 14);
 		panel.add(lblFechaDeNacimiento);
 		
-		JSpinner spnNacim = new JSpinner();
-		spnNacim.setModel(new SpinnerDateModel(new Date(28958400000L), null, null, Calendar.DAY_OF_YEAR));
-		spnNacim.setBounds(375, 469, 141, 27);
-		panel.add(spnNacim);
+		dtcFecNac = new JDateChooser();
+		dtcFecNac.setBounds(375, 468, 141, 27);
+		panel.add(dtcFecNac);
+		
+		txtANota = new JTextArea();
+		txtANota.setBounds(31, 468, 292, 73);
+		txtANota.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
+		panel.add(txtANota);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -324,36 +328,28 @@ public class RegistrarEmpleado extends JDialog {
 		contentPanel.add(btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				if (!(txtNombre.getText().equalsIgnoreCase("")) && !(txtContrasena.getText().equalsIgnoreCase(""))
-						&& (txtCedula.getText().length() == 13)
-						&& !(txtDireccion.getText().equalsIgnoreCase("")
-								&& !(txtApellido1.getText().equalsIgnoreCase(""))
-								&& !(txtCorreo.getText().equalsIgnoreCase(""))
-								&& !(txtTelefono.getText().equalsIgnoreCase("")) && cbxSexo.getSelectedIndex() != 0)) {
-
+				String codigo = "codEmp-"+(Tricom.getInstance().getCantRegistros().get(1)+1);
+				
+				if (!(txtNombre.getText().equalsIgnoreCase("")) && !(txtContrasena.getText().equalsIgnoreCase("")) && (txtCedula.getText().equalsIgnoreCase("   -       - ")==false)&& !(txtDireccion.getText().equalsIgnoreCase(""))&& !(txtApellido1.getText().equalsIgnoreCase(""))&& !(txtEmail.getText().equalsIgnoreCase(""))&& !(txtTelefono.getText().equalsIgnoreCase("   -   -    "))) 
+				{
+					if (cbxCargo.getSelectedIndex() == 0) {
+						ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString());
+						Tricom.getInstance().getMisEmpleados().add(vend);
+						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
+						
+						dispose();
+					}
 					if (cbxCargo.getSelectedIndex() == 1) {
-						ServicioC vend = new ServicioC(txtNombre.getText(), txtApellido1.getText(),
-								txtAppellido2.getText(), txtCedula.getText(), txtDireccion.getText(),
-								txtTelefono.getText(), txtNota.getText(), (float) spnSalario.getValue(),
-								txtContrasena.getText(),spnNacim.getValue().toString());
-						Tricom.getInstance().crearempleado(vend);
+						Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString());
+						Tricom.getInstance().getMisEmpleados().add(vend);
 						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
 						dispose();
 					}
-					if (cbxCargo.getSelectedIndex() == 2) {
-						Administrativo vend = new Administrativo(txtNombre.getText(), txtApellido1.getText(),
-								txtAppellido2.getText(), txtCedula.getText(), txtDireccion.getText(),
-								txtTelefono.getText(), txtNota.getText(), (float) spnSalario.getValue(),
-								txtContrasena.getText(),spnNacim.getValue().toString());
-						Tricom.getInstance().crearempleado(vend);
-						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
-						dispose();
-					}
-					String m = txtCorreo.getText();
+					int cant = Tricom.getInstance().getCantRegistros().get(1);
+					Tricom.getInstance().getCantRegistros().add(1, (cant+1));
 				} 
 				else {
-					JOptionPane.showMessageDialog(null, "Los campos con * son obligatorios", null,JOptionPane.INFORMATION_MESSAGE, null);
+					JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
 				}
 			}
 		});

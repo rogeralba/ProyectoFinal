@@ -4,23 +4,22 @@ import java.io.Serializable;
 import java.util.Date;
 
 public abstract class Empleado implements Serializable{
-	private static int code = 0;
+	private String codigo;
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
 	private String cedula;
 	private String direccion;
 	private String telefono;
-	private int codigointerno;
 	private String notamedica;
 	private String contrasena;
 	private float salario;
 	private String fNacimiento;
+	private String sexo;
 	//
 
-	public Empleado(String nombre,String apellido1,String apellido2,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase, String fechanacim) {
-		code++;
-		this.codigointerno = code;
+	public Empleado(String codigo, String nombre,String apellido1,String apellido2,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase, String fechanacim, String sexo) {
+		this.codigo = codigo;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
@@ -31,7 +30,7 @@ public abstract class Empleado implements Serializable{
 		this.notamedica = notamedia;
 		this.setSalario(salario);
 		this.fNacimiento = fechanacim;
-	
+		this.sexo = sexo;
 	}
 
 	public String getNombre() {
@@ -68,13 +67,6 @@ public abstract class Empleado implements Serializable{
 		this.telefono = telefono;
 	}
 
-	public int getCodigointerno() {
-		return codigointerno;
-	}
-
-	public void setCodigointerno(int codigointerno) {
-		this.codigointerno = codigointerno;
-	}
 
 	public String getNotamedica() {
 		return notamedica;
@@ -114,6 +106,30 @@ public abstract class Empleado implements Serializable{
 
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getfNacimiento() {
+		return fNacimiento;
+	}
+
+	public void setfNacimiento(String fNacimiento) {
+		this.fNacimiento = fNacimiento;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 
 	

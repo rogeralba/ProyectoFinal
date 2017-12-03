@@ -407,10 +407,6 @@ public class Tricom {
 	}
 	//Roger creacion y manejo de usuarios(Empleados)
 	
-public void crearempleado(Empleado emp){
-	misEmpleados.add(emp);
-	
-}
 
 public Empleado getActual() {
 	return actual;

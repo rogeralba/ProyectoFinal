@@ -468,7 +468,7 @@ public class TricomMain extends JFrame {
 			   for (Empleado emp: Tricom.getInstance().getMisEmpleados()) 
 			   {
 				   fila[i][0] = false;
-				   fila[i][1] = emp.getCodigointerno();
+				   fila[i][1] = emp.getCodigo();
 				   if(emp instanceof Administrativo)
 					   fila[i][2] = "Admistrativo";
 				   else
