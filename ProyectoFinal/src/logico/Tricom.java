@@ -30,8 +30,7 @@ public class Tricom {
 		this.misServicios = new ArrayList<>();
 		this.misFacturas = new ArrayList<>();
 		this.cantRegistros = new ArrayList<>(); //0-Clientes 1-Empleados 2-Planes 3-Servicios 4-Facturas
-		for(int i=0;i<5;i++)
-			cantRegistros.add(0);
+		
 	}
 	
 	public static Tricom getInstance()
@@ -127,6 +126,8 @@ public class Tricom {
 			archivo.createNewFile();
 			regStream = new FileOutputStream(dirReg);
 			oos6 = new ObjectOutputStream(regStream);
+			for(int i=0;i<5;i++)
+				cantRegistros.add(0);
 		}
 				
 		oos1.writeInt(misClientes.size());

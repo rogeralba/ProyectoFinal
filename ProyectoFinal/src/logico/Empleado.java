@@ -1,6 +1,7 @@
 package logico;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Empleado implements Serializable{
@@ -17,7 +18,6 @@ public abstract class Empleado implements Serializable{
 	private float salario;
 	private String fNacimiento;
 	private String sexo;
-	//
 
 	public Empleado(String codigo, String nombre,String apellido1,String apellido2,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase, String fechanacim, String sexo) {
 		this.codigo = codigo;

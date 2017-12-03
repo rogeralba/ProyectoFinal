@@ -14,6 +14,7 @@ public class Cliente implements Serializable{
 	protected String telefono;
 	protected String email;
 	protected ArrayList<Plan> misPlanes;
+	protected ArrayList<Factura> misFacturas;
 	
 	public Cliente(String codCli, String nombre, String direccion, String telefono, String email){
 		this.codCli = codCli;
@@ -22,6 +23,7 @@ public class Cliente implements Serializable{
 		this.telefono = telefono;
 		this.email = email;
 		misPlanes = new ArrayList<Plan>();
+		misFacturas = new ArrayList<Factura>();
 	}
 	
 	public void insertarPlan(Plan p){
