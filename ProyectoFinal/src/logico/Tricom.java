@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.w3c.dom.CDATASection;
 
@@ -550,9 +554,53 @@ public class Tricom {
 	}
 	
 	
+	private Factura buscarFactura(int cod) {
+		boolean encontrado = false;
+		int i = 0;
+		Factura f = null;
+		while(i < misFacturas.size() && !encontrado){
+			if(misFacturas.get(i).getCod() == cod)
+			{
+			   f = misFacturas.get(i);
+			   encontrado = true;
+			}
+			i++;
+		}
+		return f;
+	}
+	
+	//Facturar
+	public void Facturar(int cod){
+		Factura f = buscarFactura(cod);
+		Calendar fecha = new GregorianCalendar();
+		String dir = "./Data/Factura.txt";
+		FileWriter file = null;
+		PrintWriter pw = null;
+		
+		try {
+			file = new FileWriter(dir);
+			pw = new PrintWriter(file);	
+			
+			pw.println("Codigo de la factura: "+f.getCod()+"                        "+"Fecha de Emision: "+fecha.get(Calendar.DATE)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR)+"                     "+"Fecha de Vencimiento: "+f.getFechaVencimiento());            
+			pw.println("Cliente: "+f.getCliente().getNombre()+"                     "+"Telefono: "+f.getCliente().getTelefono());
+			pw.println("Direccion: "+f.getCliente().getDireccion());
+			pw.println("Estado: "+f.getEstado());
+			pw.println("Total Bruto: "+f.getTotalBruto()+"                          "+"Total Neto: "+f.getTotalNeto());
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			file.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	
-	
+
 	public ArrayList<Empleado> getMisEmpleados() {
 		return misEmpleados;
 	}
