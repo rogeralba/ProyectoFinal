@@ -415,8 +415,10 @@ public class RegistrarCliente extends JDialog {
 				String sexo = cbxSexo.getSelectedItem().toString();
 				String codCli = "codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1);
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-				String fecNac = "";
-				
+				String fecNac ="";
+				if(accion == 1){
+				 fecNac = formatter.format(dtcFecNac.getDate());
+				}
 				
 				if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Corriente"))
 				{
@@ -424,7 +426,6 @@ public class RegistrarCliente extends JDialog {
 					{
 						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && cedula.equalsIgnoreCase("   -       - ")==false && email.equalsIgnoreCase("")==false)
 						{
-							fecNac = new String(formatter.format(dtcFecNac.getDate()));
 							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,cedula,fecNac,sexo);
 							valido = true;
 						}
@@ -445,17 +446,25 @@ public class RegistrarCliente extends JDialog {
 					}
 				}	
 				
+				if(accion == 1){
 				if(valido == true)
 				{
 					
 					VenderPlan venPlan = new VenderPlan(cliente,1);
 					venPlan.setVisible(true);
 					dispose();
-				}
-				else
+				}else
 				{
 					JOptionPane.showMessageDialog(null, "Todos los campos deben ser válidos.");
 				}
+				}else{
+					if(valido == true){
+						Tricom.getInstance().reemplazarCliente(cliente);
+					
+						dispose();
+					}
+				}
+				
 			}
 		});
 		btnSiguiente.setBounds(541, 577, 97, 44);

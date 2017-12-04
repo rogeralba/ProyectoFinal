@@ -535,6 +535,23 @@ public class Tricom {
 		}
 		return index;
 	}
+	public int indexCLientecode(String id){
+		int index = 0;
+		int i = 0;
+		
+		while(i < misClientes.size() && index == -1 ){
+			
+			    if(misClientes.get(i).getCodCli().equalsIgnoreCase(id)){
+				index = i;
+			    }
+			i++;
+		}
+		return index;
+	}
+	public void reemplazarCliente(Cliente cl){
+		int index = indexCLientecode(cl.getCodCli());
+		misClientes.set(index, cl);
+	}
 	
 	public int indexEmpleado(String cedula)
 	{
