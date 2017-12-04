@@ -486,7 +486,7 @@ public class RegistrarCliente extends JDialog {
 		cbxTipo.setSelectedIndex(0);
 			ClienteComun clc = (ClienteComun)cl;
 		txtNombre.setText(clc.getNombre());
-	txtApellido1.setText(clc.getApellido1());
+		txtApellido1.setText(clc.getApellido1());
 		txtApellido2.setText(clc.getApellido2());
 		txtDireccion.setText(clc.getDireccion());
 		 txtTelefono.setText(clc.getTelefono());
