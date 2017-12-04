@@ -424,8 +424,13 @@ public class TricomMain extends JFrame {
 				case 2://Boton de Empleados
 					while(revisarCheckbox(table, "empleado")!=-1){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "empleado"), 1).toString();
+						if(Tricom.getInstance().getActual().getCodigo().equalsIgnoreCase(codigo)){
+							JOptionPane.showMessageDialog(null, "No puedes eliminarte a ti mismo.");
+break;
+						}else{
 						Tricom.getInstance().eliminarEmpleado(codigo);
 						cargarJtable(columnNames2);
+						}
 					}
 					break;
 				case 4://Boton de Planes
@@ -445,7 +450,7 @@ public class TricomMain extends JFrame {
 				default:
 					break;
 				}	
-				
+				table.repaint();
 				loadData();
 			}
 		});
