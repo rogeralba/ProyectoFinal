@@ -232,27 +232,27 @@ public class PagarFactura extends JDialog {
 		
 		fila = new Object[tableModel.getColumnCount()];
 		
-		for(int i=0; i < Tricom.getInstance().getListafactura().size();i++)
+		for(int i=0; i < Tricom.getInstance().getMisFacturas().size();i++)
 		{
-			if(Tricom.getInstance().getListafactura().get(i).getCliente().getCedula().equalsIgnoreCase(client.getCedula()))
+			if(Tricom.getInstance().getMisFacturas().get(i).getCliente().getCodCli().equalsIgnoreCase(client.getCodCli()))
 			{
-				fila[0] = Tricom.getInstance().getListafactura().get(i).getIdFactura();
-				fila[1] = Tricom.getInstance().getListafactura().get(i).getCliente().getCedula();
-				fila[2] = Tricom.getInstance().getListafactura().get(i).getCliente().getNombre();
+				fila[0] = Tricom.getInstance().getMisFacturas().get(i).getCod();
+				fila[1] = Tricom.getInstance().getMisFacturas().get(i).getCliente().getCodCli();
+				fila[2] = Tricom.getInstance().getMisFacturas().get(i).getCliente().getNombre();
 				
-				if(Tricom.getInstance().getListafactura().get(i).getCliente().getPlanes().getTipo().toString().equalsIgnoreCase("Cable"))
+				if(Tricom.getInstance().getMisFacturas().get(i).getCliente().getMisPlanes().getTipo().toString().equalsIgnoreCase("Cable"))
 				{
 					fila[3] = "Cable";
 				}
-				else if(Tricom.getInstance().getListafactura().get(i).getCliente().getPlanes().getTipo().toString().equalsIgnoreCase("Internet"))
+				else if(Tricom.getInstance().getMisFacturas().get(i).getCliente().getMisPlanes().getTipo().toString().equalsIgnoreCase("Internet"))
 				{
 					fila[3] = "Internet";
 				}
-				else if(Tricom.getInstance().getListafactura().get(i).getCliente().getPlanes().getTipo().toString().equalsIgnoreCase("Telefonia"))
+				else if(Tricom.getInstance().getMisFacturas().get(i).getCliente().getMisPlanes().getTipo().toString().equalsIgnoreCase("Telefonia"))
 				{
 					fila[3] = "Telefono";
 				}
-				else if(Tricom.getInstance().getListafactura().get(i).getCliente().getPlanes().getTipo().toString().equalsIgnoreCase("todo"))
+				else if(Tricom.getInstance().getMisFacturas().get(i).getCliente().getMisPlanes().getTipo().toString().equalsIgnoreCase("todo"))
 				{
 					fila[3] = "Todo";
 				}
@@ -261,7 +261,7 @@ public class PagarFactura extends JDialog {
 					fila[3] = "Combinado";
 				}
 				
-				fila[4] = Tricom.getInstance().getListafactura().get(i).getCliente().getPlanes().getPrecioNeto();
+				fila[4] = Tricom.getInstance().getMisFacturas().get(i).getCliente().getMisPlanes().getPrecioNeto();
 				
 				tableModel.addRow(fila);
 			}
