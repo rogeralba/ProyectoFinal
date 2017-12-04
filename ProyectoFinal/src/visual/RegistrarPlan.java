@@ -257,6 +257,11 @@ public class RegistrarPlan extends JDialog {
 		lblCdigo.setBackground(Color.GRAY);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(510, 506, 97, 36);
 		getContentPane().add(btnCancelar);
 		
