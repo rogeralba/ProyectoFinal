@@ -329,6 +329,8 @@ public class RegistrarEmpleado extends JDialog {
 		contentPanel.add(btnAceptar);
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+			
 				String codigo = "codEmp-"+(Tricom.getInstance().getCantRegistros().get(1)+1);
 				if(accion == 1)
 				{
@@ -355,6 +357,33 @@ public class RegistrarEmpleado extends JDialog {
 					{
 						JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
 					}
+				}else{
+					
+					if (!(txtNombre.getText().equalsIgnoreCase("")) && !(txtContrasena.getText().equalsIgnoreCase("")) && (txtCedula.getText().equalsIgnoreCase("   -       - ")==false)&& !(txtDireccion.getText().equalsIgnoreCase(""))&& !(txtApellido1.getText().equalsIgnoreCase(""))&& !(txtEmail.getText().equalsIgnoreCase(""))&& !(txtTelefono.getText().equalsIgnoreCase("   -   -    "))) 
+					{
+						if (cbxCargo.getSelectedIndex() == 0) 
+						{
+							ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
+							Tricom.getInstance().reemplazarEmpleado(vend);
+							JOptionPane.showMessageDialog(null, "Empleado Modificado.", null, JOptionPane.INFORMATION_MESSAGE,null);
+							dispose();
+						}
+						if (cbxCargo.getSelectedIndex() == 1) 
+						{
+							Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
+							//Tricom.getInstance().getMisEmpleados().add(vend);
+							Tricom.getInstance().reemplazarEmpleado(vend);
+							JOptionPane.showMessageDialog(null, "Empleado Modificado.", null, JOptionPane.INFORMATION_MESSAGE,null);
+							dispose();
+						}
+						int cant = Tricom.getInstance().getCantRegistros().get(1);
+						Tricom.getInstance().getCantRegistros().set(1, (cant+1));
+					} 
+					else 
+					{
+						JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
+					}
+					
 				}
 				
 				

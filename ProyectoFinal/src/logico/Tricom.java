@@ -569,7 +569,19 @@ public class Tricom {
 		}
 		return index;
 	}
-	
+	public void reemplazarEmpleado(Empleado cl){
+		int i = 0;
+		int index = 0;
+		while(i < misEmpleados.size() && index == -1)
+		{
+			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(cl.getCedula()))
+			{
+				index = i;
+			}
+			i++;
+		}
+		misEmpleados.set(index, cl);
+	}
 	
 	public Factura buscarFactura(String cod) {
 		boolean encontrado = false;
