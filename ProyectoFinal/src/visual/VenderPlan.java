@@ -33,6 +33,7 @@ import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
 import logico.Empleado;
+import logico.Factura;
 import logico.Internet;
 import logico.Plan;
 import logico.Servicio;
@@ -102,6 +103,7 @@ public class VenderPlan extends JDialog {
 	public VenderPlan(Cliente cliente, int accion) {//Accion = 1 Si es un cliente nuevo. Accion = 2 si es un cliente ya registrado
 		
 		
+		
 		getContentPane().setFont(new Font("Arial", Font.PLAIN, 15));
 		setTitle("Vender Planes");
 		setForeground(SystemColor.textText);
@@ -120,33 +122,38 @@ public class VenderPlan extends JDialog {
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(txtNombre.getText().toString().equalsIgnoreCase("") == false) //Si se cargó el cliente
+				String cedula = txtCedula.getText().toString();
+				Cliente cli = Tricom.getInstance().buscarCliente(cedula);
+				
+				int index = cbxPlanes.getSelectedIndex();
+				Plan plan = Tricom.getInstance().getMisPlanes().get(index);
+				int duracion = Integer.parseInt(cbxDuracion.getSelectedItem().toString());
+				boolean desvio = rdbDesvioSi.isSelected();
+				boolean dobleLinea = rdbDobleLineaSi.isSelected();
+				boolean minutosAd = rdbMinAdSi.isSelected();
+				boolean llamInt = rdbLlamIntSi.isSelected();
+				int dia,mes,agno;
+				
+				if(plan.getTelefono() != null)
 				{
-					int index = cbxPlanes.getSelectedIndex();
-					Plan plan = Tricom.getInstance().getMisPlanes().get(index);
-					int duracion = Integer.parseInt(cbxDuracion.getSelectedItem().toString());
-					boolean desvio = rdbDesvioSi.isSelected();
-					boolean dobleLinea = rdbDobleLineaSi.isSelected();
-					boolean minutosAd = rdbMinAdSi.isSelected();
-					boolean llamInt = rdbLlamIntSi.isSelected();
-					
-					if(plan.getTelefono() != null)
-					{
-						((Telefono)plan.getTelefono()).setDesvioLlamadas(desvio);
-						((Telefono)plan.getTelefono()).setDobleLinea(dobleLinea);
-						((Telefono)plan.getTelefono()).setMinutosAdicionales(minutosAd);
-						((Telefono)plan.getTelefono()).setInterLlamadas(llamInt);
-					}
-					
-					String codVenta = "codVenta-"+(Tricom.getInstance().getCantRegistros().get(5)+1);
-					Empleado emp = Tricom.getInstance().getActual();
-					String id = null;
-					String apellido = null;
-					int cant;
-					
-					Calendar c1 = new GregorianCalendar();
-					String fecha = c1.get(Calendar.DATE) + "/" + (c1.get(Calendar.MONTH)+1) + "/" + c1.get(Calendar.YEAR);
-					
+					((Telefono)plan.getTelefono()).setDesvioLlamadas(desvio);
+					((Telefono)plan.getTelefono()).setDobleLinea(dobleLinea);
+					((Telefono)plan.getTelefono()).setMinutosAdicionales(minutosAd);
+					((Telefono)plan.getTelefono()).setInterLlamadas(llamInt);
+				}
+				
+				String codVenta = "codVenta-"+(Tricom.getInstance().getCantRegistros().get(5)+1);
+				String codFactura = "codFact-"+(Tricom.getInstance().getCantRegistros().get(4)+1);
+				Empleado emp = Tricom.getInstance().getActual();
+				String id = null;
+				String apellido = null;
+				int cant;
+				
+				Calendar c1 = new GregorianCalendar();
+				String fecha = c1.get(Calendar.DATE) + "/" + (c1.get(Calendar.MONTH)+1) + "/" + c1.get(Calendar.YEAR);
+				
+				if(accion == 1) //Cliente nuevo
+				{
 					if(cliente instanceof ClienteComun)
 					{
 						id = new String(((ClienteComun)cliente).getCedula());
@@ -158,6 +165,26 @@ public class VenderPlan extends JDialog {
 						apellido = new String("N/A");
 					}
 					
+					
+					dia = c1.get(Calendar.DATE);
+					mes = (c1.get(Calendar.YEAR)+1);
+					agno = c1.get(Calendar.YEAR);
+					if(mes == 13)
+					{
+						mes = 1;
+						agno += 1;
+					}
+					if(dia > 28 && mes == 2)
+						dia = 1;
+
+					String fechaVen = dia + "/" + mes + "/" + fecha;
+					Factura factura = new Factura(codFactura,fecha,fechaVen,cliente,plan,plan.getTarifaMensual(),plan.getTarifaMensual(),false);
+					Tricom.getInstance().getMisFacturas().add(factura);
+					cant = Tricom.getInstance().getCantRegistros().get(4);
+					Tricom.getInstance().getCantRegistros().add(4, (cant+1));
+					
+					
+					cliente.getMisFacturas().add(factura);
 					cliente.getMisPlanes().add(plan);
 					Tricom.getInstance().getMisClientes().add(cliente);
 					cant = Tricom.getInstance().getCantRegistros().get(0);
@@ -167,8 +194,62 @@ public class VenderPlan extends JDialog {
 					Tricom.getInstance().getMisVentas().add(venta);
 					cant = Tricom.getInstance().getCantRegistros().get(5);
 					Tricom.getInstance().getCantRegistros().add(5, (cant+1));
-					JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
+					
+					JOptionPane.showMessageDialog(null, "Registro satisfactorio");
 					dispose();
+				}else if(accion == 2 && cli != null)
+				{
+					if(cli instanceof ClienteComun)
+					{
+						id = new String(((ClienteComun)cli).getCedula());
+						apellido = new String(((ClienteComun)cli).getApellido1());
+					}
+					else
+					{
+						id = new String(((ClienteEmpresa)cli).getRnc());
+						apellido = new String("N/A");
+					}
+					
+					
+					dia = c1.get(Calendar.DATE);
+					mes = (c1.get(Calendar.YEAR)+1);
+					agno = c1.get(Calendar.YEAR);
+					if(mes == 13)
+					{
+						mes = 1;
+						agno += 1;
+					}
+					if(dia > 28 && mes == 2)
+						dia = 1;
+
+					String fechaVen = dia + "/" + mes + "/" + fecha;
+					Factura factura = new Factura(codFactura,fecha,fechaVen,cli,plan,plan.getTarifaMensual(),plan.getTarifaMensual(),false);
+					Tricom.getInstance().getMisFacturas().add(factura);
+					cant = Tricom.getInstance().getCantRegistros().get(4);
+					Tricom.getInstance().getCantRegistros().add(4, (cant+1));
+					
+					
+					cli.getMisFacturas().add(factura);
+					cli.getMisPlanes().add(plan);
+					if(cli instanceof ClienteComun)
+						index = Tricom.getInstance().indexCLiente(((ClienteComun) cli).getCedula());
+					else
+						index = Tricom.getInstance().indexCLiente(((ClienteEmpresa) cli).getRnc());
+					
+					Tricom.getInstance().getMisClientes().add(index, cli);
+					
+					
+					Venta venta = new Venta(codVenta,emp.getCedula(),emp.getNombre(),id,cli.getNombre(),apellido,fecha,plan);
+					Tricom.getInstance().getMisVentas().add(venta);
+					cant = Tricom.getInstance().getCantRegistros().get(5);
+					Tricom.getInstance().getCantRegistros().add(5, (cant+1));
+					
+					JOptionPane.showMessageDialog(null, "Registro satisfactorio");
+					dispose();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Elija un cliente por favor");
 				}
 				
 			}

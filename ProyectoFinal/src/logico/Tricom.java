@@ -36,6 +36,8 @@ public class Tricom {
 		this.misFacturas = new ArrayList<>();
 		this.cantRegistros = new ArrayList<>(); //0-Clientes 1-Empleados 2-Planes 3-Servicios 4-Facturas 5-Ventas
 		this.misVentas = new ArrayList<>();
+		for(int i=0;i<6;i++)
+			cantRegistros.add(i,0);
 	}
 	
 	public static Tricom getInstance()
@@ -297,8 +299,6 @@ public class Tricom {
 					cantRegistros.add(i, (Integer)ois6.readObject());	
 				regStream.close();
 			}catch(IOException e){
-				for(int i=0;i<6;i++)
-					cantRegistros.add(i,0);
 				cant = 0;
 				File archivo = new File(dirReg);
 				archivo.createNewFile();
@@ -554,12 +554,12 @@ public class Tricom {
 	}
 	
 	
-	private Factura buscarFactura(int cod) {
+	private Factura buscarFactura(String cod) {
 		boolean encontrado = false;
 		int i = 0;
 		Factura f = null;
 		while(i < misFacturas.size() && !encontrado){
-			if(misFacturas.get(i).getCod() == cod)
+			if(misFacturas.get(i).getCodFactura().equalsIgnoreCase(cod))
 			{
 			   f = misFacturas.get(i);
 			   encontrado = true;
@@ -570,7 +570,7 @@ public class Tricom {
 	}
 	
 	//Facturar
-	public void Facturar(int cod){
+	public void Facturar(String cod){
 		Factura f = buscarFactura(cod);
 		Calendar fecha = new GregorianCalendar();
 		String dir = "./Data/Factura.txt";
@@ -581,7 +581,7 @@ public class Tricom {
 			file = new FileWriter(dir);
 			pw = new PrintWriter(file);	
 			
-			pw.println("Codigo de la factura: "+f.getCod()+"                        "+"Fecha de Emision: "+fecha.get(Calendar.DATE)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR)+"                     "+"Fecha de Vencimiento: "+f.getFechaVencimiento());            
+			pw.println("Codigo de la factura: "+f.getCodFactura()+"                        "+"Fecha de Emision: "+fecha.get(Calendar.DATE)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR)+"                     "+"Fecha de Vencimiento: "+f.getFechaVencimiento());            
 			pw.println("Cliente: "+f.getCliente().getNombre()+"                     "+"Telefono: "+f.getCliente().getTelefono());
 			pw.println("Direccion: "+f.getCliente().getDireccion());
 			pw.println("Estado: "+f.getEstado());

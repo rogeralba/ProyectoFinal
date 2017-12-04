@@ -414,7 +414,8 @@ public class RegistrarCliente extends JDialog {
 				String rnc = txtRNC.getText().toString();
 				String sexo = cbxSexo.getSelectedItem().toString();
 				String codCli = "codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1);
-				String fecNac = dtcFecNac.getDateFormatString();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				String fecNac = formatter.format(dtcFecNac.getDate());
 				
 				if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Corriente"))
 				{

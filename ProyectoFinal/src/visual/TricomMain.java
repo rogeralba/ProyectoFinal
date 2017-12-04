@@ -28,6 +28,7 @@ import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
 import logico.Empleado;
+import logico.Factura;
 import logico.Internet;
 import logico.Plan;
 import logico.Servicio;
@@ -35,6 +36,7 @@ import logico.ServicioC;
 import logico.Telefono;
 import logico.Tricom;
 import logico.Venta;
+import logico.VerificarFacturas;
 
 import javax.swing.JInternalFrame;
 import java.awt.Color;
@@ -51,6 +53,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class TricomMain extends JFrame {
 	
@@ -68,6 +71,14 @@ public class TricomMain extends JFrame {
 	private JButton btnEliminar;
 	private int activeButton = 1;
 	private JLabel lblNewLabel;
+	private JTextField txtCedula;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JTextField txtTelefono;
+	private JTextField txtDireccion;
+	private JButton btnBuscar;
+	private Cliente clienteP = null;
+	private JButton btnPagar;
 	
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -90,6 +101,7 @@ public class TricomMain extends JFrame {
 		String[] columnNames3 = {"Seleccionar","Codigo","Cliente","Cedula-Cliente","Empleado","Cedula-Empleado","Nombre del Plan","Fecha"};
 		String[] columnNames4 = {"Seleccionar","Codigo","Nombre","Internet","Telefono","Telecable","Tarifa","Impuestos","Instalacion"};
 		String[] columnNames5 = {"Seleccionar","Codigo","Tipo", "Precio Total", "Impuestos","Instalacion"};
+		String[] columnNames6 = {"Seleccionar","Codigo","Plan", "Precio Total", "Impuestos","Mora","Estado"};
 		
 		setTitle("Tricom");
 		setBounds(100, 100, 450, 300);
@@ -99,6 +111,9 @@ public class TricomMain extends JFrame {
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
+		
+		VerificarFacturas vaFac = new VerificarFacturas();
+		vaFac.start();
 		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter(){
@@ -138,7 +153,9 @@ public class TricomMain extends JFrame {
 				lblTitulo.setText("Clientes");
 				lblReg.setText("Registros de Clientes");
 				activeButton = 1;
+				camposVisibles(true,false);
 				cargarJtable(columnNames1);
+				
 			}
 		});
 		btnClientes.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -166,6 +183,7 @@ public class TricomMain extends JFrame {
 				lblTitulo.setText("Empleados");
 				lblReg.setText("Registros de Empleados");
 				activeButton = 2;
+				camposVisibles(true,false);
 				cargarJtable(columnNames2);
 		}else {
 			
@@ -195,7 +213,9 @@ public class TricomMain extends JFrame {
 				lblTitulo.setText("Ventas");
 				lblReg.setText("Registros de planes vendidos");
 				activeButton = 3;
+				camposVisibles(true,false);
 				cargarJtable(columnNames3);
+			
 			}
 		});
 		btnVentas.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -221,6 +241,7 @@ public class TricomMain extends JFrame {
 				lblTitulo.setText("Planes");
 				lblReg.setText("Planes disponibles");
 				activeButton = 4;
+				camposVisibles(true,false);
 				cargarJtable(columnNames4);
 			}
 		});
@@ -247,8 +268,8 @@ public class TricomMain extends JFrame {
 				lblTitulo.setText("Servicios");
 				lblReg.setText("Servicios disponibles");
 				activeButton = 5;
+				camposVisibles(true,false);
 				cargarJtable(columnNames5);
-				
 			}
 		});
 		btnServicios.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -271,6 +292,12 @@ public class TricomMain extends JFrame {
 		JButton btnPagos = new JButton("Pagos");
 		btnPagos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				lblTitulo.setText("Pagos");
+				lblReg.setText("Realizar pago");
+				activeButton = 6;
+				camposVisibles(false,true);
+				cargarJtable(columnNames6);
+				
 			}
 		});
 		btnPagos.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -347,7 +374,7 @@ public class TricomMain extends JFrame {
 		panelRegistros.setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 68, 1091, 323);
+		scrollPane.setBounds(38, 67, 1091, 323);
 		scrollPane.setBackground(SystemColor.text);
 		panelRegistros.add(scrollPane);
 		
@@ -401,7 +428,7 @@ public class TricomMain extends JFrame {
 		});
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setBackground(Color.DARK_GRAY);
-		btnModificar.setBounds(170, 419, 104, 44);
+		btnModificar.setBounds(170, 418, 104, 44);
 		panelRegistros.add(btnModificar);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -421,11 +448,12 @@ public class TricomMain extends JFrame {
 					}
 					break;
 				case 2://Boton de Empleados
-					while(revisarCheckbox(table, "empleado")!=-1){
+					boolean salir = false;
+					while(revisarCheckbox(table, "empleado")!=-1 && salir == false){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "empleado"), 1).toString();
 						if(Tricom.getInstance().getActual().getCodigo().equalsIgnoreCase(codigo)){
-							JOptionPane.showMessageDialog(null, "No puedes eliminarte a ti mismo.");
-break;
+							JOptionPane.showMessageDialog(null, "No se puede borrar el usuario actual.");
+							salir = true;
 						}else{
 						Tricom.getInstance().eliminarEmpleado(codigo);
 						cargarJtable(columnNames2);
@@ -455,7 +483,7 @@ break;
 		});
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBackground(Color.DARK_GRAY);
-		btnEliminar.setBounds(300, 419, 104, 44);
+		btnEliminar.setBounds(300, 418, 104, 44);
 		panelRegistros.add(btnEliminar);
 		
 		btnNuevo = new JButton("Nuevo");
@@ -517,8 +545,121 @@ break;
 		
 		btnNuevo.setForeground(Color.WHITE);
 		btnNuevo.setBackground(Color.DARK_GRAY);
-		btnNuevo.setBounds(42, 419, 104, 44);
+		btnNuevo.setBounds(42, 418, 104, 44);
 		panelRegistros.add(btnNuevo);
+		
+		Color myGreen = new Color(255, 159, 35);
+		
+		txtCedula = new JTextField();
+		txtCedula.setBounds(42, 67, 183, 30);
+		panelRegistros.add(txtCedula);
+		txtCedula.setMargin(new Insets(0, 3, 0, 0));
+		txtCedula.setForeground(Color.BLACK);
+		txtCedula.setBorder(new LineBorder(myGreen, 1));
+		txtCedula.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtCedula.setColumns(10);
+		
+		
+		
+		String path11 = "./Imagenes/lupa.png";
+		ImageIcon lupa = new ImageIcon(path11);
+		ImageIcon icono11 = new ImageIcon(lupa.getImage().getScaledInstance(37, 20, Image.SCALE_DEFAULT));
+		
+		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
+		txtNombre.setColumns(10);
+		txtNombre.setBounds(42, 134, 224, 27);
+		panelRegistros.add(txtNombre);
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(Color.DARK_GRAY);
+		lblNombre.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblNombre.setBackground(Color.GRAY);
+		lblNombre.setBounds(42, 110, 71, 25);
+		panelRegistros.add(lblNombre);
+		
+		txtApellido = new JTextField();
+		txtApellido.setEditable(false);
+		txtApellido.setColumns(10);
+		txtApellido.setBounds(278, 134, 224, 27);
+		panelRegistros.add(txtApellido);
+		
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setForeground(Color.DARK_GRAY);
+		lblApellido.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblApellido.setBackground(Color.GRAY);
+		lblApellido.setBounds(278, 110, 71, 25);
+		panelRegistros.add(lblApellido);
+		
+		txtTelefono = new JTextField();
+		txtTelefono.setEditable(false);
+		txtTelefono.setColumns(10);
+		txtTelefono.setBounds(514, 134, 224, 27);
+		panelRegistros.add(txtTelefono);
+		
+		JLabel lblTelefono = new JLabel("Tel\u00E9fono:");
+		lblTelefono.setForeground(Color.DARK_GRAY);
+		lblTelefono.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblTelefono.setBackground(Color.GRAY);
+		lblTelefono.setBounds(514, 110, 71, 25);
+		panelRegistros.add(lblTelefono);
+		
+		txtDireccion = new JTextField();
+		txtDireccion.setEditable(false);
+		txtDireccion.setColumns(10);
+		txtDireccion.setBounds(750, 134, 347, 27);
+		panelRegistros.add(txtDireccion);
+		
+		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
+		lblDireccion.setForeground(Color.DARK_GRAY);
+		lblDireccion.setFont(new Font("Arial", Font.PLAIN, 16));
+		lblDireccion.setBackground(Color.GRAY);
+		lblDireccion.setBounds(750, 110, 71, 25);
+		panelRegistros.add(lblDireccion);
+		
+		
+		btnBuscar = new JButton("");
+		btnBuscar.setBounds(224, 67, 43, 30);
+		panelRegistros.add(btnBuscar);
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String cedula = txtCedula.getText().toString();
+				Cliente cliente = Tricom.getInstance().buscarCliente(cedula);
+				if(cliente != null)
+				{
+					txtNombre.setText(cliente.getNombre());
+					if(cliente instanceof ClienteEmpresa)
+						txtApellido.setText("N/A");
+					else
+						txtApellido.setText(((ClienteComun)cliente).getApellido1());
+					txtTelefono.setText(cliente.getTelefono());
+					txtDireccion.setText(cliente.getDireccion());
+					btnPagar.setEnabled(true);
+					cargarJtable(columnNames6);
+				}
+				else
+				{
+					btnPagar.setEnabled(false);
+					JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
+				}
+			}
+		});
+		btnBuscar.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
+		btnBuscar.setForeground(Color.WHITE);
+		btnBuscar.setBackground(new Color(0, 128, 0));
+		btnBuscar.setMargin(new Insets(0, 0, 0, 0));
+		btnBuscar.setBorder(new LineBorder(myGreen, 1));
+		btnBuscar.setIcon(icono11);
+		btnBuscar.setBackground(myGreen);
+		
+		btnPagar = new JButton("Pagar");
+		btnPagar.setEnabled(false);
+		btnPagar.setForeground(Color.WHITE);
+		btnPagar.setBackground(Color.DARK_GRAY);
+		btnPagar.setBounds(38, 541, 104, 44);
+		panelRegistros.add(btnPagar);
+		
+		camposVisibles(true,false);
 		
 		lblTitulo = new JLabel("Clientes");
 		lblTitulo.setForeground(SystemColor.windowBorder);
@@ -762,12 +903,48 @@ break;
 				   i++;
 			   }
 			   break;
+		   case 6:
+			   String id = txtCedula.getText().toString();
+			   Cliente cliente = Tricom.getInstance().buscarCliente(id);
+			   if(cliente != null)
+			   {
+				   fila = new Object[cliente.getMisFacturas().size()][7];
+				   for (Factura fac: cliente.getMisFacturas()) 
+				   {
+					  fila[i][0] = false;
+					  fila[i][1] = fac.getCodFactura();
+					  fila[i][2] = fac.getPlan().getNombre();
+					  fila[i][3] = fac.getTotalNeto();
+					  fila[i][4] = fac.getPlan().getImpuestos();
+					  fila[i][5] = fac.getMora();
+					  fila[i][6] = fac.getVencida();
+				   	  i++;
+				   }
+			   }
+			   break;
 		   default:
 			   JOptionPane.showMessageDialog(null, "sd");
 		}
 		return fila;
 }
 	
+	private void camposVisibles(boolean visible1, boolean visible2)
+	{
+		btnNuevo.setVisible(visible1);
+		btnModificar.setVisible(visible1);
+		btnEliminar.setVisible(visible1);
+		txtCedula.setVisible(visible2);
+		txtNombre.setVisible(visible2);
+		txtApellido.setVisible(visible2);
+		txtTelefono.setVisible(visible2);
+		txtDireccion.setVisible(visible2);
+		btnBuscar.setVisible(visible2);
+		btnPagar.setVisible(visible2);
+		if(visible2)
+			scrollPane.setBounds(42, 189, 1091, 323);
+		if(visible1)
+			scrollPane.setBounds(38, 67, 1091, 323);
+	}
 	
 	private void cargarJtable(String[] columnNames)
 	{
@@ -824,6 +1001,14 @@ break;
 			}
 		}
 		if(tipo.equalsIgnoreCase("servicio")){
+			while(i < Tricom.getInstance().getMisServicios().size()){
+				if((boolean)table.getModel().getValueAt(i, 0)){
+					row = i;
+				}
+			i++;
+			}
+		}
+		if(tipo.equalsIgnoreCase("factura")){
 			while(i < Tricom.getInstance().getMisServicios().size()){
 				if((boolean)table.getModel().getValueAt(i, 0)){
 					row = i;

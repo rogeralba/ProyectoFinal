@@ -18,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import logico.Cliente;
-import logico.Controladora;
 import logico.Tricom;
 
 import java.awt.Font;
@@ -145,7 +144,7 @@ public class PagarFactura extends JDialog {
 						txtCorreo.setText(client.getEmail());
 						txtTelefono.setText(client.getTelefono());
 						
-						cargarFacturas();
+						//cargarFacturas();
 					}
 				}
 			}
@@ -218,7 +217,7 @@ public class PagarFactura extends JDialog {
 		table_1 = new JTable();
 		scrollPane.setColumnHeaderView(table_1);
 	}
-
+/*
 	protected void cargarFacturas() {
 		// TODO Auto-generated method stub
 		tableModel.setRowCount(0);
@@ -267,5 +266,5 @@ public class PagarFactura extends JDialog {
 			}
 			
 		}
-	}
+	}*/
 }

@@ -81,5 +81,21 @@ public class Cliente implements Serializable{
 	public void setCodCli(String codCli) {
 		this.codCli = codCli;
 	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	public ArrayList<Factura> getMisFacturas() {
+		return misFacturas;
+	}
+
+	public void setMisFacturas(ArrayList<Factura> misFacturas) {
+		this.misFacturas = misFacturas;
+	}
 	
 }
