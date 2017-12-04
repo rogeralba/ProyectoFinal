@@ -15,11 +15,12 @@ public abstract class Empleado implements Serializable{
 	private String telefono;
 	private String notamedica;
 	private String contrasena;
+	private String Email;
 	private float salario;
 	private String fNacimiento;
 	private String sexo;
 
-	public Empleado(String codigo, String nombre,String apellido1,String apellido2,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase, String fechanacim, String sexo) {
+	public Empleado(String codigo, String nombre,String apellido1,String apellido2,String cedula,String direccion,String telefono,String notamedia,float salario,String contrase, String fechanacim, String sexo,String email) {
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
@@ -32,6 +33,7 @@ public abstract class Empleado implements Serializable{
 		this.setSalario(salario);
 		this.fNacimiento = fechanacim;
 		this.sexo = sexo;
+		this.setEmail(email);
 	}
 
 	public String getNombre() {
@@ -131,6 +133,14 @@ public abstract class Empleado implements Serializable{
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
 	}
 
 	

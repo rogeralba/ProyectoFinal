@@ -334,14 +334,14 @@ public class RegistrarEmpleado extends JDialog {
 				if (!(txtNombre.getText().equalsIgnoreCase("")) && !(txtContrasena.getText().equalsIgnoreCase("")) && (txtCedula.getText().equalsIgnoreCase("   -       - ")==false)&& !(txtDireccion.getText().equalsIgnoreCase(""))&& !(txtApellido1.getText().equalsIgnoreCase(""))&& !(txtEmail.getText().equalsIgnoreCase(""))&& !(txtTelefono.getText().equalsIgnoreCase("   -   -    "))) 
 				{
 					if (cbxCargo.getSelectedIndex() == 0) {
-						ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString());
+						ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
 						Tricom.getInstance().getMisEmpleados().add(vend);
 						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
 						
 						dispose();
 					}
 					if (cbxCargo.getSelectedIndex() == 1) {
-						Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString());
+						Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
 						Tricom.getInstance().getMisEmpleados().add(vend);
 						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
 						dispose();
@@ -383,6 +383,7 @@ public class RegistrarEmpleado extends JDialog {
 				 txtTelefono.setText(cl.getTelefono());
 				 txtCedula.setText(cl.getCedula());
 				 txtnotam.setText(cl.getNotamedica());
+				 txtEmail.setText(cl.getEmail());
 				 				 if (cl.getSexo().equalsIgnoreCase("Femenino")) {
 					 cbxSexo.setSelectedIndex(0);
 				}else{
