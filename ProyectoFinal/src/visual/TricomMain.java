@@ -964,7 +964,7 @@ public class TricomMain extends JFrame {
 		if(visible1)
 			scrollPane.setBounds(38, 67, 1091, 323);
 	}
-	
+	//
 	private void cargarJtable(String[] columnNames)
 	{
 		model = new DefaultTableModel(loadData(),columnNames);
