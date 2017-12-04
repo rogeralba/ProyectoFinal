@@ -927,7 +927,7 @@ public class TricomMain extends JFrame {
 		}
 		return fila;
 }
-	
+	//
 	private void camposVisibles(boolean visible1, boolean visible2)
 	{
 		btnNuevo.setVisible(visible1);
