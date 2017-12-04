@@ -169,7 +169,7 @@ public class TricomMain extends JFrame {
 				cargarJtable(columnNames2);
 		}else {
 			
-			JOptionPane.showMessageDialog(null, "Usted no cuenta con permiso para accesar"+Tricom.getInstance().getActual().getCedula(), "Error", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Usted no cuenta con permiso para accesar", "Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 			}
 		});
