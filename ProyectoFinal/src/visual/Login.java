@@ -34,9 +34,6 @@ public class Login extends JDialog {
 	private MaskFormatter patron;
 	private static TricomMain frame;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		
 		EventQueue.invokeLater(new Runnable() {

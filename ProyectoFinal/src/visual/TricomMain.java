@@ -375,18 +375,17 @@ public class TricomMain extends JFrame {
 					break;
 				case 2://Boton de Empleados
 						String codigo2 = table.getModel().getValueAt(revisarCheckbox(table, "empleado"), 1).toString();
-				
 						Empleado cl2 = Tricom.getInstance().buscarEmpcode(codigo2);
 						RegistrarEmpleado reg2 = new RegistrarEmpleado(cl2, 2);
 						reg2.setVisible(true);
 						
 					break;
 				case 4://Boton de Planes
-					String codigo4 = table.getModel().getValueAt(revisarCheckbox(table, "plan"), 1).toString();
-					Plan cl4 = Tricom.getInstance().buscarPlancode(codigo4);
-					RegistrarPlan reg4 = new RegistrarPlan(cl4, 1);
-					reg4.setVisible(true);
-					break;
+						String codigo4 = table.getModel().getValueAt(revisarCheckbox(table, "plan"), 1).toString();
+						Plan cl4 = Tricom.getInstance().buscarPlancode(codigo4);
+						RegistrarPlan reg4 = new RegistrarPlan(cl4, 1);
+						reg4.setVisible(true);
+						break;
 				case 5://Boton de Servicios
 						String codigo5 = table.getModel().getValueAt(revisarCheckbox(table, "servicio"), 1).toString();
 						Servicio cl5 = Tricom.getInstance().buscarServcode(codigo5);

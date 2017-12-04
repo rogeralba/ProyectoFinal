@@ -69,7 +69,6 @@ public class RegistrarEmpleado extends JDialog {
 	private JSpinner spnSalario;
 	private JTextField txtApellido2;
 	private JLabel lblNotaMedica;
-	private JTextField txtnotam;
 	private JDateChooser dtcFecNac;
 	private JTextField txtCodigo;
 	private JTextArea txtANota;
@@ -241,7 +240,7 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(lblApellido2);
 		panel.setEnabled(false);
 
-		 cbxCargo = new JComboBox();
+		cbxCargo = new JComboBox();
 		cbxCargo.setBackground(Color.WHITE);
 		cbxCargo.setFont(new Font("Arial", Font.PLAIN, 15));
 		cbxCargo.setBounds(375, 81, 141, 27);
@@ -288,6 +287,7 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(dtcFecNac);
 		
 		txtANota = new JTextArea();
+		txtANota.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtANota.setBounds(31, 468, 292, 73);
 		txtANota.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
 		panel.add(txtANota);
@@ -330,28 +330,34 @@ public class RegistrarEmpleado extends JDialog {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String codigo = "codEmp-"+(Tricom.getInstance().getCantRegistros().get(1)+1);
-				
-				if (!(txtNombre.getText().equalsIgnoreCase("")) && !(txtContrasena.getText().equalsIgnoreCase("")) && (txtCedula.getText().equalsIgnoreCase("   -       - ")==false)&& !(txtDireccion.getText().equalsIgnoreCase(""))&& !(txtApellido1.getText().equalsIgnoreCase(""))&& !(txtEmail.getText().equalsIgnoreCase(""))&& !(txtTelefono.getText().equalsIgnoreCase("   -   -    "))) 
+				if(accion == 1)
 				{
-					if (cbxCargo.getSelectedIndex() == 0) {
-						ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
-						Tricom.getInstance().getMisEmpleados().add(vend);
-						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
-						
-						dispose();
+					if (!(txtNombre.getText().equalsIgnoreCase("")) && !(txtContrasena.getText().equalsIgnoreCase("")) && (txtCedula.getText().equalsIgnoreCase("   -       - ")==false)&& !(txtDireccion.getText().equalsIgnoreCase(""))&& !(txtApellido1.getText().equalsIgnoreCase(""))&& !(txtEmail.getText().equalsIgnoreCase(""))&& !(txtTelefono.getText().equalsIgnoreCase("   -   -    "))) 
+					{
+						if (cbxCargo.getSelectedIndex() == 0) 
+						{
+							ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
+							Tricom.getInstance().getMisEmpleados().add(vend);
+							JOptionPane.showMessageDialog(null, "Empleado registrado.", null, JOptionPane.INFORMATION_MESSAGE,null);
+							dispose();
+						}
+						if (cbxCargo.getSelectedIndex() == 1) 
+						{
+							Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
+							Tricom.getInstance().getMisEmpleados().add(vend);
+							JOptionPane.showMessageDialog(null, "Empleado registrado.", null, JOptionPane.INFORMATION_MESSAGE,null);
+							dispose();
+						}
+						int cant = Tricom.getInstance().getCantRegistros().get(1);
+						Tricom.getInstance().getCantRegistros().add(1, (cant+1));
+					} 
+					else 
+					{
+						JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
 					}
-					if (cbxCargo.getSelectedIndex() == 1) {
-						Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
-						Tricom.getInstance().getMisEmpleados().add(vend);
-						JOptionPane.showMessageDialog(null, "Operacion Exitosa", null, JOptionPane.INFORMATION_MESSAGE,null);
-						dispose();
-					}
-					int cant = Tricom.getInstance().getCantRegistros().get(1);
-					Tricom.getInstance().getCantRegistros().add(1, (cant+1));
-				} 
-				else {
-					JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
 				}
+				
+				
 			}
 		});
 		JButton btnCerrar = new JButton("Cerrar");
@@ -367,38 +373,34 @@ public class RegistrarEmpleado extends JDialog {
 			}
 		});
 		if(accion == 2){
+			txtCedula.setEditable(false);
 			loadDatos(empleado);
 		}
-			}
+}
  
-			public void loadDatos(Empleado cl){
-			
-				txtCodigo.setText(cl.getCodigo()); 
-				
-				cbxCargo.setSelectedIndex(0);
-				txtNombre.setText(cl.getNombre()); 
-			txtApellido1.setText(cl.getApellido1());
-				txtApellido2.setText(cl.getApellido2());
-				txtDireccion.setText(cl.getDireccion());
-				 txtTelefono.setText(cl.getTelefono());
-				 txtCedula.setText(cl.getCedula());
-				 txtnotam.setText(cl.getNotamedica());
-				 txtEmail.setText(cl.getEmail());
-				 				 if (cl.getSexo().equalsIgnoreCase("Femenino")) {
-					 cbxSexo.setSelectedIndex(0);
-				}else{
-					 cbxSexo.setSelectedIndex(1);
-
-				}
-				    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	public void loadDatos(Empleado cl){
+		txtCodigo.setText(cl.getCodigo()); 
+		cbxCargo.setSelectedIndex(0);
+		txtNombre.setText(cl.getNombre()); 
+		txtApellido1.setText(cl.getApellido1());
+		txtApellido2.setText(cl.getApellido2());
+		txtDireccion.setText(cl.getDireccion());
+		txtTelefono.setText(cl.getTelefono());
+		txtCedula.setText(cl.getCedula());
+		txtANota.setText(cl.getNotamedica());
+		txtEmail.setText(cl.getEmail());
+		if (cl.getSexo().equalsIgnoreCase("Femenino"))
+		{
+			cbxSexo.setSelectedIndex(0);
+		}else{
+			cbxSexo.setSelectedIndex(1);
+		}
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date dt;
 		try {
 			dt = formatter.parse(cl.getfNacimiento());
 			dtcFecNac.setDate(dt);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-		}
-				
-			
-			}
+	}
+}
 }

@@ -13,6 +13,7 @@ public class Cliente implements Serializable{
 	protected String direccion;
 	protected String telefono;
 	protected String email;
+	protected boolean estado;
 	protected ArrayList<Plan> misPlanes;
 	protected ArrayList<Factura> misFacturas;
 	

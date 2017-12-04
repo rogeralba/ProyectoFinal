@@ -393,6 +393,7 @@ public class Tricom {
 		}
 		return cliente;
 	}
+	
 	public Empleado buscarEmpcode(String codEmp)
 	{
 		int i = 0;
@@ -401,6 +402,23 @@ public class Tricom {
 		while(i < misEmpleados.size() && encontrado == false)
 		{
 			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(codEmp))
+			{
+				empleado = misEmpleados.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return empleado;
+	}
+	
+	public Empleado buscarEmpleado(String cedula)
+	{
+		int i = 0;
+		boolean encontrado = false;
+		Empleado empleado = null;
+		while(i < misEmpleados.size() && encontrado == false)
+		{
+			if(misEmpleados.get(i).getCedula().equalsIgnoreCase(cedula))
 			{
 				empleado = misEmpleados.get(i);
 				encontrado = true;
