@@ -967,6 +967,7 @@ public class TricomMain extends JFrame {
 	//
 	public static void cargarJtable(int tipo)
 	{
+
 		String[] columnNames;
 		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
 		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
@@ -996,6 +997,58 @@ public class TricomMain extends JFrame {
 			case 6:
 				model = new DefaultTableModel(loadData(),columnNames6);	
 				break;
+				
+		}
+		
+		table = new JTable(model)
+		{
+	        public Class getColumnClass(int column) 
+	        {
+	           switch (column) 
+	           {
+	              case 0:
+	            	  return Boolean.class;
+	              default:
+	            	  return String.class;
+	            }
+	         }
+	      };
+		table.setBackground(SystemColor.window);
+		scrollPane.setViewportView(table);
+	}
+	public static void cargarBusqueda(int tipo,Cliente cl,Empleado emp,Plan plan,Servicio ser)
+	{
+
+		String[] columnNames;
+		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
+		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
+		String[] columnNames3 = {"Seleccionar","Codigo","Cliente","Cedula-Cliente","Empleado","Cedula-Empleado","Nombre del Plan","Fecha"};
+		String[] columnNames4 = {"Seleccionar","Codigo","Nombre","Internet","Telefono","Telecable","Tarifa","Impuestos","Instalacion"};
+		String[] columnNames5 = {"Seleccionar","Codigo","Tipo", "Precio Total", "Impuestos","Instalacion"};
+		String[] columnNames6 = {"Seleccionar","Codigo","Plan", "Precio Total", "Impuestos","Mora","Vencimiento","Estado","Pago"};
+		
+		
+		switch(tipo)
+		{
+			case 1:
+				model = new DefaultTableModel(loadBusqueda(cl, null, null, null),columnNames1);
+				break;
+			case 2:
+				model = new DefaultTableModel(loadBusqueda(null, emp, null, null),columnNames2);
+				break;
+			case 3:
+				model = new DefaultTableModel(loadData(),loadBusqueda(null, null, null, plan));
+				break;
+			case 4:
+				model = new DefaultTableModel(loadBusqueda(null, null, ser, null),columnNames4);
+				break;
+			case 5:
+				model = new DefaultTableModel(loadData(),columnNames5);
+				break;
+			case 6:
+				model = new DefaultTableModel(loadData(),columnNames6);	
+				break;
+				
 		}
 		
 		table = new JTable(model)
@@ -1068,4 +1121,173 @@ public class TricomMain extends JFrame {
 		
 		return row;
 	}
+	
+	public void buscar(int tipo,String codigo){
+		
+		//PARA BUSCAR AL HACER CLICK EN EL BOTON LLAMA A ESTA FUNCION EL CODIGO ES EL INTRODUCIDO(DHA), Y EL TIPO, de acuerdo a la tabla abierta
+		
+		if(tipo == 1){
+			//cliente
+			Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
+			cargarBusqueda(1, cl, null, null, null);
+		}
+		if(tipo == 2){
+			//Empleado
+			Empleado cl = Tricom.getInstance().buscarEmpleado(codigo);
+			cargarBusqueda(1, null, cl, null, null);
+		}
+		if(tipo == 3){
+			//Empleado
+			Servicio cl = Tricom.getInstance().buscarServcode(codigo);
+			cargarBusqueda(1, null, null, null, cl);
+		}
+		if(tipo == 3){
+			//Empleado
+			Plan cl = Tricom.getInstance().buscarPlan(codigo);
+			cargarBusqueda(1, null, null, cl, null);
+		}
+		
+		
+	}
+	public static Object[][] loadBusqueda(Cliente cli,Empleado emp,Servicio ser,Plan plan) {
+		int i = 0;
+		Object[][] fila = null;
+		switch(activeButton)
+		{
+		   case 1:
+			   fila = new Object[1][10];
+				   if(cli instanceof ClienteComun)
+				   {
+					   fila[i][0] = false;
+					   fila[i][1] = cli.getCodCli();
+					   fila[i][2] = ((ClienteComun) (cli)).getCedula();
+					   fila[i][3] = cli.getNombre();
+					   fila[i][4] = ((ClienteComun)(cli)).getApellido1();
+					   fila[i][5] = ((ClienteComun)(cli)).getApellido2();
+					   fila[i][6] = ((ClienteComun)(cli)).getFecNac();
+					   fila[i][7] = cli.getTelefono();
+					   fila[i][8] = cli.getEmail();	
+				   }
+				   else
+				   {
+					   fila[i][0] = false;
+					   fila[i][1] = cli.getCodCli();
+					   fila[i][2] = ((ClienteEmpresa) (cli)).getRnc();
+					   fila[i][3] = cli.getNombre();
+					   fila[i][4] = "N/A";
+					   fila[i][5] = "N/A";
+					   fila[i][6] = "N/A";
+					   fila[i][7] = cli.getTelefono();
+					   fila[i][8] = cli.getEmail();
+				   }
+				   i++;
+			   
+			   break;
+		   case 2:
+			   fila = new Object[1][10];
+
+				   fila[i][0] = false;
+				   fila[i][1] = emp.getCodigo();
+				   if(emp instanceof Administrativo)
+					   fila[i][2] = "Admistrativo";
+				   else
+					   fila[i][2] = "Servicio";
+				   fila[i][3] = emp.getCedula();
+				   fila[i][4] = emp.getNombre();
+				   fila[i][5] = emp.getApellido1();
+				   fila[i][6] = emp.getApellido2();
+				   fila[i][7] = emp.getTelefono();
+				   fila[i][8] = String.valueOf(emp.getSalario());
+				   i++;
+			   
+			   break;
+		   case 3:
+			   fila = new Object[Tricom.getInstance().getMisVentas().size()][8];
+			   for (Venta ven: Tricom.getInstance().getMisVentas()) 
+			   {
+				   fila[i][0] = false;
+				   fila[i][1] = ven.getCodVenta();
+				   fila[i][2] = ven.getNombreCliente()+" "+ven.getApellidoCliente();
+				   fila[i][3] = ven.getCedulaCliente();
+				   fila[i][4] = ven.getNombreEmpleado();
+				   fila[i][5] = ven.getCedulaEmpleado();
+				   fila[i][6] = ven.getPlanVendido().getNombre();
+				   fila[i][7] = ven.getFecha();
+				   i++;
+			   }
+			   break;
+		   case 4:
+			   fila = new Object[1][9];
+			   
+				   fila[i][0] = false;
+				   fila[i][1] = plan.getCodPlan();
+				   fila[i][2] = plan.getNombre();
+				   if(plan.getInternet() != null) //Internet
+					   fila[i][3] = "Si";
+				   else
+					   fila[i][3] = "No";
+				   if(plan.getTelefono() != null)//Telefono
+					   fila[i][4] = "Si";
+				   else
+					   fila[i][4] = "No";
+				   if(plan.getCable() != null)//Cable
+					   fila[i][5] = "Si";
+				   else
+					   fila[i][5] = "No";
+				   
+				   fila[i][6] = String.valueOf(plan.getTarifaMensual());
+				   fila[i][7] = String.valueOf(plan.getImpuestos());
+				   fila[i][8] = String.valueOf(plan.getInstalacion());
+				   i++;
+			   
+			   break;
+		   case 5:
+			   fila = new Object[1][6];
+			 
+				   fila[i][0] = false;
+				   fila[i][1] = ser.getCodServicio();
+				   if(ser instanceof Internet)
+					   fila[i][2] = "Internet";
+				   else if(ser instanceof Telefono)
+					   fila[i][2] = "Telefono";
+				   else if(ser instanceof Cable)
+					   fila[i][2] = "TeleCable";
+				   fila[i][3] = String.valueOf(ser.getTarifa());
+				   fila[i][4] = String.valueOf(ser.getImpuestos());
+				   fila[i][5] = String.valueOf(ser.getPrecioInstalacion());
+				   i++;
+			   
+			   break;
+		   case 6:
+			   String id = txtCedula.getText().toString();
+			   Cliente cliente = Tricom.getInstance().buscarCliente(id);
+			   if(cliente != null)
+			   {
+				   fila = new Object[cliente.getMisFacturas().size()][9];
+				   for (Factura fac: cliente.getMisFacturas()) 
+				   {
+					  fila[i][0] = false;
+					  fila[i][1] = fac.getCodFactura();
+					  fila[i][2] = fac.getPlan().getNombre();
+					  fila[i][3] = fac.getTotalNeto();
+					  fila[i][4] = fac.getPlan().getImpuestos();
+					  fila[i][5] = fac.getMora();
+					  fila[i][6] = fac.getFechaVencimiento();
+					  if(fac.isPagada() == true)
+						  fila[i][7] = "Pagada";
+					  else
+						  fila[i][7] = "Sin pagar";
+					  if(fac.getVencida() == true)
+						  fila[i][8] = "Vencida";
+					  else
+						  fila[i][8] = "En fecha";
+				   	  i++;
+				   }
+			   }
+			   break;
+		   default:
+			   JOptionPane.showMessageDialog(null, "sd");
+		}
+		return fila;
+}
 }
