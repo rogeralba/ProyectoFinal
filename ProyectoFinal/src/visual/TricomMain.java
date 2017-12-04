@@ -60,18 +60,18 @@ public class TricomMain extends JFrame {
 
 	private JPanel contentPane;
 	private Dimension dim;
-	private JTable table;
+	private static JTable table;
 	private static DefaultTableModel model;
 	private JLabel lblTitulo;
 	private JLabel lblReg;
-	private JScrollPane scrollPane;
+	private static JScrollPane scrollPane;
 	private JPanel panelRegistros;
 	private JButton btnNuevo;
 	private JButton btnModificar;
 	private JButton btnEliminar;
-	private int activeButton = 1;
+	private static int activeButton = 1;
 	private JLabel lblNewLabel;
-	private JTextField txtCedula;
+	private static JTextField txtCedula;
 	private JTextField txtNombre;
 	private JTextField txtApellido;
 	private JTextField txtTelefono;
@@ -154,7 +154,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Registros de Clientes");
 				activeButton = 1;
 				camposVisibles(true,false);
-				cargarJtable(columnNames1);
+				cargarJtable(1);
 				
 			}
 		});
@@ -184,7 +184,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Registros de Empleados");
 				activeButton = 2;
 				camposVisibles(true,false);
-				cargarJtable(columnNames2);
+				cargarJtable(2);
 		}else {
 			
 			JOptionPane.showMessageDialog(null, "Usted no cuenta con permiso para accesar", "Error", JOptionPane.INFORMATION_MESSAGE);
@@ -214,7 +214,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Registros de planes vendidos");
 				activeButton = 3;
 				camposVisibles(true,false);
-				cargarJtable(columnNames3);
+				cargarJtable(3);
 			
 			}
 		});
@@ -242,7 +242,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Planes disponibles");
 				activeButton = 4;
 				camposVisibles(true,false);
-				cargarJtable(columnNames4);
+				cargarJtable(4);
 			}
 		});
 		btnPlanes.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -269,7 +269,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Servicios disponibles");
 				activeButton = 5;
 				camposVisibles(true,false);
-				cargarJtable(columnNames5);
+				cargarJtable(5);
 			}
 		});
 		btnServicios.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -296,7 +296,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Realizar pago");
 				activeButton = 6;
 				camposVisibles(false,true);
-				cargarJtable(columnNames6);
+				cargarJtable(6);
 				
 			}
 		});
@@ -380,7 +380,7 @@ public class TricomMain extends JFrame {
 		
 		
 		//Para iniciar el programa
-		cargarJtable(columnNames1);
+		cargarJtable(1);
 		
 		lblReg = new JLabel("Registros de Clientes");
 		lblReg.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -443,7 +443,7 @@ public class TricomMain extends JFrame {
 					while(revisarCheckbox(table, "cliente")!=-1){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
 						Tricom.getInstance().eliminarCliente(codigo);
-						cargarJtable(columnNames1);
+						cargarJtable(1);
 						
 					}
 					break;
@@ -456,7 +456,7 @@ public class TricomMain extends JFrame {
 							salir = true;
 						}else{
 						Tricom.getInstance().eliminarEmpleado(codigo);
-						cargarJtable(columnNames2);
+						cargarJtable(2);
 						}
 					}
 					break;
@@ -464,14 +464,14 @@ public class TricomMain extends JFrame {
 					while(revisarCheckbox(table, "plan")!=-1){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "plan"), 1).toString();
 						Tricom.getInstance().eliminarPlan(codigo);
-						cargarJtable(columnNames4);
+						cargarJtable(4);
 					}
 					break;
 				case 5://Boton de Servicios
 					while(revisarCheckbox(table, "servicio")!=-1){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "servicio"), 1).toString();
 						Tricom.getInstance().eliminarServicio(codigo);
-						cargarJtable(columnNames5);	
+						cargarJtable(5);	
 					}
 					break;
 				default:
@@ -500,13 +500,13 @@ public class TricomMain extends JFrame {
 					{
 						RegistrarCliente rgCli = new RegistrarCliente(null,1);
 						rgCli.setVisible(true);
-						cargarJtable(columnNames1);
+						cargarJtable(1);
 					}
 					break;
 				case 2://Boton de Empleados
 					RegistrarEmpleado regEmp = new RegistrarEmpleado(null,1);
 					regEmp.setVisible(true);
-					cargarJtable(columnNames2);
+					cargarJtable(2);
 					break;
 				case 3://Boton de Ventas
 					if(Tricom.getInstance().getMisServicios().size() == 0)
@@ -517,7 +517,7 @@ public class TricomMain extends JFrame {
 					{
 						VenderPlan venPlan = new VenderPlan(null,2);
 						venPlan.setVisible(true);
-						cargarJtable(columnNames3);
+						cargarJtable(3);
 					}
 					break;	
 				case 4://Boton de Planes
@@ -529,13 +529,13 @@ public class TricomMain extends JFrame {
 					{
 						RegistrarPlan regPlan = new RegistrarPlan(null,1);
 						regPlan.setVisible(true);
-						cargarJtable(columnNames4);
+						cargarJtable(4);
 					}
 					break;
 				case 5://Boton de Servicios
 					RegistrarServicio regSer = new RegistrarServicio(null,1);
 					regSer.setVisible(true);
-					cargarJtable(columnNames5);
+					cargarJtable(5);
 					break;
 				default:
 					break;
@@ -639,7 +639,7 @@ public class TricomMain extends JFrame {
 					txtTelefono.setText(cliente.getTelefono());
 					txtDireccion.setText(cliente.getDireccion());
 					btnPagar.setEnabled(true);
-					cargarJtable(columnNames6);
+					cargarJtable(6);
 				}
 				else
 				{
@@ -800,7 +800,7 @@ public class TricomMain extends JFrame {
 		lblNewLabel.setText(""+Tricom.getInstance().getActual().getNombre()+" "+Tricom.getInstance().getActual().getApellido1());
 	}
 	
-	public Object[][] loadData() {
+	public static Object[][] loadData() {
 		int i = 0;
 		Object[][] fila = null;
 		switch(activeButton)
@@ -965,9 +965,39 @@ public class TricomMain extends JFrame {
 			scrollPane.setBounds(38, 67, 1091, 323);
 	}
 	//
-	private void cargarJtable(String[] columnNames)
+	public static void cargarJtable(int tipo)
 	{
-		model = new DefaultTableModel(loadData(),columnNames);
+		String[] columnNames;
+		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
+		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
+		String[] columnNames3 = {"Seleccionar","Codigo","Cliente","Cedula-Cliente","Empleado","Cedula-Empleado","Nombre del Plan","Fecha"};
+		String[] columnNames4 = {"Seleccionar","Codigo","Nombre","Internet","Telefono","Telecable","Tarifa","Impuestos","Instalacion"};
+		String[] columnNames5 = {"Seleccionar","Codigo","Tipo", "Precio Total", "Impuestos","Instalacion"};
+		String[] columnNames6 = {"Seleccionar","Codigo","Plan", "Precio Total", "Impuestos","Mora","Vencimiento","Estado","Pago"};
+		
+		
+		switch(tipo)
+		{
+			case 1:
+				model = new DefaultTableModel(loadData(),columnNames1);
+				break;
+			case 2:
+				model = new DefaultTableModel(loadData(),columnNames2);
+				break;
+			case 3:
+				model = new DefaultTableModel(loadData(),columnNames3);
+				break;
+			case 4:
+				model = new DefaultTableModel(loadData(),columnNames4);
+				break;
+			case 5:
+				model = new DefaultTableModel(loadData(),columnNames5);
+				break;
+			case 6:
+				model = new DefaultTableModel(loadData(),columnNames6);	
+				break;
+		}
+		
 		table = new JTable(model)
 		{
 	        public Class getColumnClass(int column) 

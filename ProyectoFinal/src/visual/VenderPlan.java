@@ -196,6 +196,7 @@ public class VenderPlan extends JDialog {
 					Tricom.getInstance().getCantRegistros().set(5, (cant+1));
 					
 					JOptionPane.showMessageDialog(null, "Registro satisfactorio");
+					TricomMain.cargarJtable(1);
 					dispose();
 				}else if(accion == 2 && cli != null)
 				{
@@ -245,6 +246,7 @@ public class VenderPlan extends JDialog {
 					Tricom.getInstance().getCantRegistros().set(5, (cant+1));
 					
 					JOptionPane.showMessageDialog(null, "Registro satisfactorio");
+					TricomMain.cargarJtable(3);
 					dispose();
 				}
 				else
