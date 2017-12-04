@@ -385,13 +385,22 @@ public class RegistrarServicio extends JDialog {
 					ArrayList<Paquete> misPaquetes = null;
 					servicio = new Cable(codigo,impuestos,instalacion,tarifa+impuestos,locales+internacionales,locales,internacionales,hd,misPaquetes,false); 
 				}
+				
+				if(accion == 2){
+					Tricom.getInstance().reemplazarServicio(servicio);
+					JOptionPane.showMessageDialog(null, "Modificacion satisfactoria");
+				dispose();
+				}else{
 				Tricom.getInstance().getMisServicios().add(servicio);
 				
 				int cant = Tricom.getInstance().getCantRegistros().get(3);
 				Tricom.getInstance().getCantRegistros().set(3, (cant+1));
 				JOptionPane.showMessageDialog(null, "Registro satisfactorio");
+				}
 				dispose();
-			}
+				
+		}
+			
 		});
 		btnAceptar.setBounds(600, 806, 97, 40);
 		contentPanel.add(btnAceptar);

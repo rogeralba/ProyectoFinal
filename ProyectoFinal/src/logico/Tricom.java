@@ -583,6 +583,19 @@ public class Tricom {
 		misEmpleados.set(index, cl);
 	}
 	
+	public void reemplazarServicio(Servicio cl){
+		int i = 0;
+		int index = 0;
+		while(i < misServicios.size() && index == -1)
+		{
+			if(misServicios.get(i).getCodServicio().equalsIgnoreCase(cl.getCodServicio()))
+			{
+				index = i;
+			}
+			i++;
+		}
+		misServicios.set(index, cl);
+	}
 	public Factura buscarFactura(String cod) {
 		boolean encontrado = false;
 		int i = 0;
