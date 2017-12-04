@@ -395,6 +395,11 @@ public class RegistrarCliente extends JDialog {
 		panel_1.add(lblSexo);
 		
 		JButton btnNewButton = new JButton("Cancelar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnNewButton.setBounds(432, 577, 97, 44);
 		contentPanel.add(btnNewButton);
 		
