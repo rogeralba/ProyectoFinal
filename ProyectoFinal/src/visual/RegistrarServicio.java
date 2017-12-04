@@ -388,7 +388,7 @@ public class RegistrarServicio extends JDialog {
 				Tricom.getInstance().getMisServicios().add(servicio);
 				
 				int cant = Tricom.getInstance().getCantRegistros().get(3);
-				Tricom.getInstance().getCantRegistros().add(3, (cant+1));
+				Tricom.getInstance().getCantRegistros().set(3, (cant+1));
 				JOptionPane.showMessageDialog(null, "Registro satisfactorio");
 				dispose();
 			}

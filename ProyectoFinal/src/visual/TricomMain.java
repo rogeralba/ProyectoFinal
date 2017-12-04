@@ -653,6 +653,13 @@ public class TricomMain extends JFrame {
 		btnBuscar.setBackground(myGreen);
 		
 		btnPagar = new JButton("Pagar");
+		btnPagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String codigo = table.getModel().getValueAt(revisarCheckbox(table, "factura"), 1).toString();
+				Tricom.getInstance().pagarFactura(codigo);
+				
+			}
+		});
 		btnPagar.setEnabled(false);
 		btnPagar.setForeground(Color.WHITE);
 		btnPagar.setBackground(Color.DARK_GRAY);
@@ -917,7 +924,10 @@ public class TricomMain extends JFrame {
 					  fila[i][3] = fac.getTotalNeto();
 					  fila[i][4] = fac.getPlan().getImpuestos();
 					  fila[i][5] = fac.getMora();
-					  fila[i][6] = fac.getVencida();
+					  if(fac.getVencida() == true)
+						  fila[i][6] = "Vencida";
+					  else
+						  fila[i][6] = "En fecha";
 				   	  i++;
 				   }
 			   }
@@ -1009,7 +1019,7 @@ public class TricomMain extends JFrame {
 			}
 		}
 		if(tipo.equalsIgnoreCase("factura")){
-			while(i < Tricom.getInstance().getMisServicios().size()){
+			while(i < Tricom.getInstance().getMisFacturas().size()){
 				if((boolean)table.getModel().getValueAt(i, 0)){
 					row = i;
 				}

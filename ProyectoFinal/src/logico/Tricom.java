@@ -554,7 +554,7 @@ public class Tricom {
 	}
 	
 	
-	private Factura buscarFactura(String cod) {
+	public Factura buscarFactura(String cod) {
 		boolean encontrado = false;
 		int i = 0;
 		Factura f = null;
@@ -568,6 +568,46 @@ public class Tricom {
 		}
 		return f;
 	}
+	
+	public void pagarFactura(String cod) {
+		boolean encontrado = false;
+		boolean encontrado2 = false;
+		Cliente cliente = null;
+		int i = 0;
+		int index;
+		String id = "";
+		int tamano;
+		while(i < misFacturas.size() && encontrado == false)
+		{
+			if(misFacturas.get(i).getCodFactura().equalsIgnoreCase(cod))
+			{
+				misFacturas.get(i).setPagada(true);
+				
+				cliente = misFacturas.get(i).getCliente();
+				if(cliente instanceof ClienteComun)
+					id = new String(((ClienteComun) cliente).getCedula());
+				if(cliente instanceof ClienteEmpresa)
+					id = new String(((ClienteEmpresa) cliente).getRnc());
+				
+				index = indexCLiente(id);
+				misClientes.get(index).getMisFacturas();
+				tamano = misClientes.get(index).getMisFacturas().size();
+				
+				for(int x = 0; x < tamano;x++)
+				{
+					if(misClientes.get(index).getMisFacturas().get(x).getCodFactura().equalsIgnoreCase(cod))
+					{
+						misClientes.get(index).getMisFacturas().get(x).setPagada(true);
+					}
+				}
+				
+			}
+			i++;
+		}
+	}
+	
+
+	
 	
 	//Facturar
 	public void Facturar(String cod){

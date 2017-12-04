@@ -181,19 +181,19 @@ public class VenderPlan extends JDialog {
 					Factura factura = new Factura(codFactura,fecha,fechaVen,cliente,plan,plan.getTarifaMensual(),plan.getTarifaMensual(),false);
 					Tricom.getInstance().getMisFacturas().add(factura);
 					cant = Tricom.getInstance().getCantRegistros().get(4);
-					Tricom.getInstance().getCantRegistros().add(4, (cant+1));
+					Tricom.getInstance().getCantRegistros().set(4, (cant+1));
 					
 					
 					cliente.getMisFacturas().add(factura);
 					cliente.getMisPlanes().add(plan);
 					Tricom.getInstance().getMisClientes().add(cliente);
 					cant = Tricom.getInstance().getCantRegistros().get(0);
-					Tricom.getInstance().getCantRegistros().add(0, (cant+1));
+					Tricom.getInstance().getCantRegistros().set(0, (cant+1));
 					
 					Venta venta = new Venta(codVenta,emp.getCedula(),emp.getNombre(),id,cliente.getNombre(),apellido,fecha,plan);
 					Tricom.getInstance().getMisVentas().add(venta);
 					cant = Tricom.getInstance().getCantRegistros().get(5);
-					Tricom.getInstance().getCantRegistros().add(5, (cant+1));
+					Tricom.getInstance().getCantRegistros().set(5, (cant+1));
 					
 					JOptionPane.showMessageDialog(null, "Registro satisfactorio");
 					dispose();
@@ -236,13 +236,13 @@ public class VenderPlan extends JDialog {
 					else
 						index = Tricom.getInstance().indexCLiente(((ClienteEmpresa) cli).getRnc());
 					
-					Tricom.getInstance().getMisClientes().add(index, cli);
+					Tricom.getInstance().getMisClientes().set(index, cli);
 					
 					
 					Venta venta = new Venta(codVenta,emp.getCedula(),emp.getNombre(),id,cli.getNombre(),apellido,fecha,plan);
 					Tricom.getInstance().getMisVentas().add(venta);
 					cant = Tricom.getInstance().getCantRegistros().get(5);
-					Tricom.getInstance().getCantRegistros().add(5, (cant+1));
+					Tricom.getInstance().getCantRegistros().set(5, (cant+1));
 					
 					JOptionPane.showMessageDialog(null, "Registro satisfactorio");
 					dispose();

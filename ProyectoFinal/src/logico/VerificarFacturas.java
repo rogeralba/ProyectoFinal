@@ -52,6 +52,7 @@ public class VerificarFacturas extends Thread{
 						if(Tricom.getInstance().getMisClientes().get(index).getMisFacturas().get(x).getCodFactura().equalsIgnoreCase(factura.getCodFactura()))
 						{
 							Tricom.getInstance().getMisClientes().get(index).getMisFacturas().get(x).setVencida(true);
+							Tricom.getInstance().getMisClientes().get(index).getMisFacturas().get(x).setMora(200);
 						}
 					}
 					

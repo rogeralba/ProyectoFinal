@@ -310,7 +310,7 @@ public class RegistrarPlan extends JDialog {
 					Plan plan = new Plan(codigo,nombre,0,internet,telefono,cable,descripcion,true,impuestos,instalacion);
 					Tricom.getInstance().getMisPlanes().add(plan);
 					int cant = Tricom.getInstance().getCantRegistros().get(2);
-					Tricom.getInstance().getCantRegistros().add(2, (cant+1));
+					Tricom.getInstance().getCantRegistros().set(2, (cant+1));
 					JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
 					dispose();
 				}

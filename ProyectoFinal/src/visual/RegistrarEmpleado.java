@@ -349,7 +349,7 @@ public class RegistrarEmpleado extends JDialog {
 							dispose();
 						}
 						int cant = Tricom.getInstance().getCantRegistros().get(1);
-						Tricom.getInstance().getCantRegistros().add(1, (cant+1));
+						Tricom.getInstance().getCantRegistros().set(1, (cant+1));
 					} 
 					else 
 					{

@@ -16,6 +16,7 @@ public class Factura implements Serializable{
 	private float mora;
 	private int mesesVencidas;
 	private estadoFactura estado;
+	private boolean pagada;
 	
 	public enum estadoFactura{
 		activa, pagada, vencida, generada;
@@ -34,6 +35,7 @@ public class Factura implements Serializable{
 		this.vencida = vencida;
 		this.mora = 0;
 		this.mesesVencidas = 0;
+		this.pagada = false;
 	}
 
 	public Cliente getCliente() {
@@ -138,6 +140,14 @@ public class Factura implements Serializable{
 
 	public void setMesesVencidas(int mesesVencidas) {
 		this.mesesVencidas = mesesVencidas;
+	}
+
+	public boolean isPagada() {
+		return pagada;
+	}
+
+	public void setPagada(boolean pagada) {
+		this.pagada = pagada;
 	}
 	
 	
