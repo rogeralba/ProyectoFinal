@@ -266,7 +266,12 @@ public class VenderPlan extends JDialog {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(808, 680, 97, 38);
 		getContentPane().add(btnCancelar);
-		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				
+			}
+		});
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(250, 240, 230));
 		panel_1.setForeground(Color.WHITE);
