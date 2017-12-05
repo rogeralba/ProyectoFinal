@@ -18,11 +18,18 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
+import logico.Cable;
 import logico.Cliente;
 import logico.ClienteComun;
 import logico.ClienteEmpresa;
+import logico.Factura;
+import logico.Internet;
+import logico.Plan;
+import logico.Servicio;
+import logico.Telefono;
 import logico.Tricom;
 
 import javax.swing.JFormattedTextField;
@@ -40,11 +47,16 @@ import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class RegistrarCliente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtCodigo;
+	private static JTable table;
+	private static JScrollPane scrollPane;
+	private static DefaultTableModel model;
 	private JTextField txtNombre;
 	private JTextField txtApellido1;
 	private JTextField txtApellido2;
@@ -60,13 +72,14 @@ public class RegistrarCliente extends JDialog {
 	private JLabel lblTelefono;
 	private JLabel lblEmail;
 	private JFormattedTextField txtTelefono;
-	private JLabel label;
+	private JLabel lblDerechos;
 	private JLabel lblFecNac;
 	private JDateChooser dtcFecNac;
 	private JFormattedTextField txtCedula;
 	private JComboBox cbxSexo;
 	private JLabel lblSexo;
 	private JComboBox cbxTipo;
+	private JTable table_1;
 	/*
 	public static void main(String[] args) {
 		try {
@@ -83,7 +96,7 @@ public class RegistrarCliente extends JDialog {
 	{
 		setResizable(false);
 		setTitle("Registrar Cliente");
-		setBounds(100, 100, 667, 669);
+		setBounds(100, 100, 667, 949);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -394,14 +407,16 @@ public class RegistrarCliente extends JDialog {
 		lblSexo.setBounds(364, 368, 57, 14);
 		panel_1.add(lblSexo);
 		
-		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.addActionListener(new ActionListener() {
+		
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(432, 577, 97, 44);
-		contentPanel.add(btnNewButton);
+		btnCancelar.setBounds(432, 847, 97, 44);
+		contentPanel.add(btnCancelar);
 		
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
@@ -451,35 +466,76 @@ public class RegistrarCliente extends JDialog {
 					}
 				}	
 				
-				if(accion == 1){
-				if(valido == true)
+				if(accion == 1)
 				{
-					
-					VenderPlan venPlan = new VenderPlan(cliente,1);
-					venPlan.setVisible(true);
-					dispose();
-				}else
+					if(valido == true)
+					{
+						VenderPlan venPlan = new VenderPlan(cliente,1);
+						venPlan.setVisible(true);
+						dispose();
+					}else
+					{
+						JOptionPane.showMessageDialog(null, "Todos los campos deben ser válidos.");
+					}
+				}else if(accion == 2)
 				{
-					JOptionPane.showMessageDialog(null, "Todos los campos deben ser válidos.");
-				}
-				}else{
-					if(valido == true){
+					if(valido == true)
+					{
 						Tricom.getInstance().reemplazarCliente(cliente);
-					
 						dispose();
 					}
 				}
-				
 			}
 		});
-		btnSiguiente.setBounds(541, 577, 97, 44);
+		btnSiguiente.setBounds(541, 847, 97, 44);
 		contentPanel.add(btnSiguiente);
 		
-		label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
-		label.setBounds(24, 605, 291, 16);
-		contentPanel.add(label);
-		if(accion == 2)
+		lblDerechos = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
+		lblDerechos.setBounds(24, 875, 291, 16);
+		contentPanel.add(lblDerechos);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBackground(Color.WHITE);
+		scrollPane.setBounds(24, 595, 614, 228);
+		contentPanel.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		JLabel lblPlanes = new JLabel("Mis Planes");
+		lblPlanes.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblPlanes.setBounds(24, 566, 122, 29);
+		contentPanel.add(lblPlanes);
+		
+		
+		if(accion == 2 || accion == 1)
+		{
+			setBounds(100, 100, 667, 657);
+			lblPlanes.setVisible(false);
+			lblDerechos.setBounds(24, 575, 291, 16);
+			btnCancelar.setBounds(432, 565, 97, 44);
+			btnSiguiente.setBounds(541, 565, 97, 44);
+			scrollPane.setVisible(false);
+		}
+		
+		if(accion == 3)
+		{
 			loadDatos(cliente);
+			btnSiguiente.setVisible(false);
+			btnCancelar.setBounds(541, 847, 97, 44);
+			btnCancelar.setText("Cerrar");
+			cbxTipo.setEnabled(false);
+			txtNombre.setEnabled(false);
+			txtDireccion.setEnabled(false);
+			txtTelefono.setEnabled(false);
+			txtEmail.setEnabled(false);
+			txtRNC.setEnabled(false);
+			txtApellido1.setEnabled(false);
+			txtApellido2.setEnabled(false);
+			txtCedula.setEnabled(false);
+			dtcFecNac.setEnabled(false);
+			cargarJtable(cliente);
+		}
 	
 			
 	}
@@ -487,23 +543,25 @@ public class RegistrarCliente extends JDialog {
 	public void loadDatos(Cliente cl){
 		cbxTipo.setEnabled(false);
 		txtCodigo.setText(cl.getCodCli());
-		if(cl instanceof ClienteComun){
-		cbxTipo.setSelectedIndex(0);
+		if(cl instanceof ClienteComun)
+		{
+			cbxTipo.setSelectedIndex(0);
 			ClienteComun clc = (ClienteComun)cl;
-		txtNombre.setText(clc.getNombre());
-		txtApellido1.setText(clc.getApellido1());
-		txtApellido2.setText(clc.getApellido2());
-		txtDireccion.setText(clc.getDireccion());
-		 txtTelefono.setText(clc.getTelefono());
-		txtEmail.setText(clc.getEmail());
-		 txtCedula.setText(clc.getCedula());
-		 //txtRNC.getText().toString();
-		 if (clc.getSexo().equalsIgnoreCase("Femenino")) {
-			 cbxSexo.setSelectedIndex(0);
-		}else{
-			 cbxSexo.setSelectedIndex(1);
-
-		}
+			txtNombre.setText(clc.getNombre());
+			txtApellido1.setText(clc.getApellido1());
+			txtApellido2.setText(clc.getApellido2());
+			txtDireccion.setText(clc.getDireccion());
+			txtTelefono.setText(clc.getTelefono());
+			txtEmail.setText(clc.getEmail());
+			txtCedula.setText(clc.getCedula());
+			if (clc.getSexo().equalsIgnoreCase("Femenino")) 
+			{
+				cbxSexo.setSelectedIndex(0);
+			}
+			else
+			{
+				cbxSexo.setSelectedIndex(1);
+			}
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			Date dt;
 			try {
@@ -514,16 +572,60 @@ public class RegistrarCliente extends JDialog {
 		}
 		
 		}
-		if(cl instanceof ClienteEmpresa){
+		if(cl instanceof ClienteEmpresa)
+		{
 			cbxTipo.setSelectedIndex(1);
 			txtNombre.setText(cl.getNombre());
 			txtDireccion.setText(cl.getDireccion());
-			 txtTelefono.setText(cl.getTelefono());
+			txtTelefono.setText(cl.getTelefono());
 			txtEmail.setText(cl.getEmail());
-			 
-			 txtRNC.setText(((ClienteEmpresa) cl).getRnc());
-			
-			
-			}
+			txtRNC.setText(((ClienteEmpresa) cl).getRnc());
+		}
+	}
+	
+	public void cargarJtable(Cliente cliente)
+	{
+		Object[][] fila = null;
+		int i = 0;
+		String[] columnNames = {"Codigo","Nombre","Internet","Telefono","Telecable","Tarifa","Impuestos","Instalacion"};
+		fila = new Object[cliente.getMisPlanes().size()][8];
+		for (Plan plan: cliente.getMisPlanes()) 
+		{
+			fila[i][0] = plan.getCodPlan();
+			fila[i][1] = plan.getNombre();
+			if(plan.getInternet() != null) //Internet
+			    fila[i][2] = "Si";
+			else
+				fila[i][2] = "No";
+			if(plan.getTelefono() != null)//Telefono
+				fila[i][3] = "Si";
+			else
+				fila[i][3] = "No";
+			if(plan.getCable() != null)//Cable
+				fila[i][4] = "Si";
+			else
+				fila[i][4] = "No";
+			   
+			fila[i][5] = String.valueOf(plan.getTarifaMensual());
+			fila[i][6] = String.valueOf(plan.getImpuestos());
+			fila[i][7] = String.valueOf(plan.getInstalacion());
+			i++;
+		  }
+		model = new DefaultTableModel(fila,columnNames);	
+		table = new JTable(model)
+		{
+	        public Class getColumnClass(int column) 
+	        {
+	           switch (column) 
+	           {
+	              case 0:
+	            	  return String.class;
+	              default:
+	            	  return String.class;
+	            }
+	         }
+	      };
+		table.setBackground(SystemColor.window);
+		scrollPane.setViewportView(table);
 	}
 }

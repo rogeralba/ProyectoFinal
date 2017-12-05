@@ -655,6 +655,20 @@ public class TricomMain extends JFrame {
 		btnPagar.setBounds(38, 541, 104, 44);
 		panelRegistros.add(btnPagar);
 		
+		JButton btnPlanes_1 = new JButton("Planes");
+		btnPlanes_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
+				Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
+				RegistrarCliente reg = new RegistrarCliente(cl, 3);
+				reg.setVisible(true);
+			}
+		});
+		btnPlanes_1.setForeground(Color.WHITE);
+		btnPlanes_1.setBackground(Color.DARK_GRAY);
+		btnPlanes_1.setBounds(428, 418, 104, 44);
+		panelRegistros.add(btnPlanes_1);
+		
 		camposVisibles(true,false);
 		
 		lblTitulo = new JLabel("Clientes");
@@ -951,7 +965,6 @@ public class TricomMain extends JFrame {
 	public static void cargarJtable(int tipo)
 	{
 
-		String[] columnNames;
 		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
 		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
 		String[] columnNames3 = {"Seleccionar","Codigo","Cliente","Cedula-Cliente","Empleado","Cedula-Empleado","Nombre del Plan","Fecha"};
