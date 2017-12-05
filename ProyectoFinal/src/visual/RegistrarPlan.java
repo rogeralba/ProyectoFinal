@@ -418,6 +418,7 @@ TricomMain.cargarJtable(3);
 		
 	}
 	public void loadModif(Plan pl){
+		txtCodigo.setText(pl.getCodPlan());
 		txtNombre.setText(pl.getNombre());
 		txtADescripcion.setText(pl.getDescripcion());
 		
