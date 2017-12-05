@@ -386,7 +386,7 @@ public class RegistrarEmpleado extends JDialog {
 					
 				}
 				
-				
+				TricomMain.cargarJtable(2);
 			}
 		});
 		JButton btnCerrar = new JButton("Cerrar");
@@ -424,7 +424,7 @@ public class RegistrarEmpleado extends JDialog {
 		}else{
 			cbxSexo.setSelectedIndex(1);
 		}
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		Date dt;
 		try {
 			dt = formatter.parse(cl.getfNacimiento());
