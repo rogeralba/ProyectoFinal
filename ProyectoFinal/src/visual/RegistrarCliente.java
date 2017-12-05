@@ -504,14 +504,14 @@ public class RegistrarCliente extends JDialog {
 			 cbxSexo.setSelectedIndex(1);
 
 		}
-		    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-Date dt;
-try {
-	dt = formatter.parse(clc.getFecNac());
-	dtcFecNac.setDate(dt);
-} catch (ParseException e) {
-	// TODO Auto-generated catch block
-}
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			Date dt;
+			try {
+				dt = formatter.parse(((ClienteComun) cl).getFecNac());
+				dtcFecNac.setDate(dt);
+				
+			} catch (ParseException e) {
+		}
 		
 		}
 		if(cl instanceof ClienteEmpresa){
