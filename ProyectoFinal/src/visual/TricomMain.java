@@ -410,7 +410,7 @@ public class TricomMain extends JFrame {
 				case 4://Boton de Planes
 						String codigo4 = table.getModel().getValueAt(revisarCheckbox(table, "plan"), 1).toString();
 						Plan cl4 = Tricom.getInstance().buscarPlancode(codigo4);
-						RegistrarPlan reg4 = new RegistrarPlan(cl4, 1);
+						RegistrarPlan reg4 = new RegistrarPlan(cl4, 2);
 						reg4.setVisible(true);
 						break;
 				case 5://Boton de Servicios

@@ -46,7 +46,7 @@ public class RegistrarPlan extends JDialog {
 	private JComboBox cbxTelefono;
 	private JComboBox cbxInternet;
 	private JComboBox cbxCable;
-
+private JTextArea txtADescripcion;
 	/**
 	 * Launch the application.
 	 *//*
@@ -136,7 +136,7 @@ public class RegistrarPlan extends JDialog {
 		lblDescripcin.setBounds(24, 83, 134, 25);
 		panel_1.add(lblDescripcin);
 		
-		JTextArea txtADescripcion = new JTextArea();
+		 txtADescripcion = new JTextArea();
 		txtADescripcion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txtADescripcion.setWrapStyleWord(true);
 		txtADescripcion.setLineWrap(true);
@@ -312,12 +312,24 @@ public class RegistrarPlan extends JDialog {
 				
 				if(nombre.equalsIgnoreCase("")==false && descripcion.equalsIgnoreCase("")==false && (telefono != null || internet != null || cable != null))
 				{
-					Plan plan = new Plan(codigo,nombre,0,internet,telefono,cable,descripcion,true,impuestos,instalacion);
-					Tricom.getInstance().getMisPlanes().add(plan);
-					int cant = Tricom.getInstance().getCantRegistros().get(2);
-					Tricom.getInstance().getCantRegistros().set(2, (cant+1));
-					JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
-					dispose();
+					
+					
+					if(accion == 1){
+						Plan plan = new Plan(codigo,nombre,0,internet,telefono,cable,descripcion,true,impuestos,instalacion);
+						Tricom.getInstance().getMisPlanes().add(plan);
+						int cant = Tricom.getInstance().getCantRegistros().get(2);
+						Tricom.getInstance().getCantRegistros().set(2, (cant+1));
+						JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
+						dispose();
+						}else{
+							Plan plan = new Plan(codigo,nombre,0,internet,telefono,cable,descripcion,true,impuestos,instalacion);
+
+								Tricom.getInstance().reemplazarPlan(plan);
+								JOptionPane.showMessageDialog(null, "Modificacion satisfactoria.");
+
+								dispose();
+							
+						}
 				}
 				else if(telefono == null && internet == null && cable == null)
 				{
@@ -336,6 +348,9 @@ public class RegistrarPlan extends JDialog {
 		JLabel lblNewLabel = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
 		lblNewLabel.setBounds(22, 533, 291, 16);
 		getContentPane().add(lblNewLabel);
+		if(accion == 2){
+			loadModif(plan);
+		}
 
 	}
 	
@@ -400,6 +415,33 @@ public class RegistrarPlan extends JDialog {
 		txtTarifa.setText(String.valueOf(tarifa));
 		txtImpuestos.setText(String.valueOf(impuestos));
 		txtInstalacion.setText(String.valueOf(instalacion));
+		
+	}
+	public void loadModif(Plan pl){
+		txtNombre.setText(pl.getNombre());
+		txtADescripcion.setText(pl.getDescripcion());
+		
+		
+		
+		
+		
+		if(pl.getCable() != null){
+			int indcabl = Tricom.getInstance().indexCable(pl);
+
+			cbxCable.setSelectedIndex(indcabl+1);
+		}
+		if(pl.getInternet() != null){
+			int ind = Tricom.getInstance().indexInter(pl);
+			cbxInternet.setSelectedIndex(ind+1);
+		}
+		if(pl.getTelefono() != null){
+			int indtel = Tricom.getInstance().indexTel(pl);
+			cbxTelefono.setSelectedIndex(indtel+1);
+
+		}
+		
+llenarCostos();
+
 	}
 	
 }

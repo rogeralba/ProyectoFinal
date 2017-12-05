@@ -535,6 +535,64 @@ public class Tricom {
 		}
 		return index;
 	}
+	public int indexInter(Plan pl){
+		int index = -1;
+		int i = 0;
+		int j = 0;
+		while(i < misServicios.size() && index == -1 ){
+			
+			    if(misServicios.get(i).getCodServicio().equalsIgnoreCase(pl.getInternet().getCodServicio())){
+				   index =  j;
+			    }
+			    if(misServicios.get(i) instanceof Internet){
+			    	j++;}
+			i++;
+		}
+		return index;
+	}
+	public int indexCable(Plan pl){
+		int index = -1;
+		int i = 0;
+		int j = 0;
+		while(i < misServicios.size() && index == -1 ){
+			
+		    if(misServicios.get(i).getCodServicio().equalsIgnoreCase(pl.getCable().getCodServicio())){
+			   index =  j;
+		    }
+		    if(misServicios.get(i) instanceof Cable){
+		    	j++;}
+				i++;
+	}
+		return index;
+	}
+	public int indexTel(Plan pl){
+		int index = -1;
+		int i = 0;
+		int j = 0;
+		while(i < misServicios.size() && index == -1 ){
+			
+		    if(misServicios.get(i).getCodServicio().equalsIgnoreCase(pl.getTelefono().getCodServicio())){
+			   index = j;
+		    }
+		    if(misServicios.get(i) instanceof Telefono){
+		    	j++;}
+				i++;
+	}
+		return index;
+	}
+	public int indexPlan(String code){
+		int index = 0;
+		int i = 0;
+		while(i < misPlanes.size() && index == -1 ){
+			
+		    if(misPlanes.get(i).getCodPlan().equalsIgnoreCase(code)){
+			   index = i;
+		    }
+		    
+				i++;
+	}
+		return index;
+	}
 	public int indexCLientecode(String id){
 		int index = 0;
 		int i = 0;
@@ -544,6 +602,7 @@ public class Tricom {
 			    if(misClientes.get(i).getCodCli().equalsIgnoreCase(id)){
 				index = i;
 			    }
+			    
 			i++;
 		}
 		return index;
@@ -551,6 +610,11 @@ public class Tricom {
 	public void reemplazarCliente(Cliente cl){
 		int index = indexCLientecode(cl.getCodCli());
 		misClientes.set(index, cl);
+	}
+	public void reemplazarPlan(Plan cl){
+		
+		int index = indexPlan(cl.getCodPlan());
+		misPlanes.set(index, cl);
 	}
 	
 	public int indexEmpleado(String cedula)
