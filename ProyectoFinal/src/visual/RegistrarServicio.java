@@ -417,5 +417,40 @@ public class RegistrarServicio extends JDialog {
 		String path0 = "./Imagenes/tricom.png";
 		Image icono0 =  Toolkit.getDefaultToolkit().getImage(path0);
 		this.setIconImage(icono0);
+		if(accion  ==2 ){
+			load(servicio);
+		}
+	}
+	
+	public void load(Servicio ser ){
+		txtCodigo.setText(ser.getCodServicio());
+		spnImpuestos.setValue(ser.getImpuestos());
+	spnInstalacion.setValue(ser.getPrecioInstalacion());
+	spnTarifa.setValue(ser.getTarifa());
+	
+	if(ser instanceof Internet){
+	rdbInternet.setSelected(true);
+	
+		 
+		spnVelocidad.setValue(((Internet)ser).getVelocidad());
+		spnSubida.setValue(((Internet)ser).getVelSubida());
+		}
+	if(ser instanceof Telefono){
+		rdbTelefono.setSelected(true);
+		
+			 
+		spnMinutos.setValue(((Telefono)ser).getMinutos());
+			}
+	if(ser instanceof Cable){
+		rdbCable.setSelected(true);
+		
+			 
+		spnLocales.setValue(((Cable)ser).getLocales());
+		spnInter.setValue(((Cable)ser).getInternacionales());
+		spnHD.setValue(((Cable)ser).getCantCanalesHD());
+			}
+	
+	
+		
 	}
 }
