@@ -124,7 +124,8 @@ public class VenderPlan extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				String cedula = txtCedula.getText().toString();
 				Cliente cli = Tricom.getInstance().buscarCliente(cedula);
-				
+				Calendar c1 = new GregorianCalendar();
+				String fecha = c1.get(Calendar.DATE) + "/" + (c1.get(Calendar.MONTH)+1) + "/" + c1.get(Calendar.YEAR);
 				int index = cbxPlanes.getSelectedIndex();
 				Plan plan = Tricom.getInstance().getMisPlanes().get(index);
 				int duracion = Integer.parseInt(cbxDuracion.getSelectedItem().toString());
@@ -143,14 +144,12 @@ public class VenderPlan extends JDialog {
 				}
 				
 				String codVenta = "codVenta-"+(Tricom.getInstance().getCantRegistros().get(5)+1);
-				String codFactura = "codFact-"+(Tricom.getInstance().getCantRegistros().get(4)+1);
+				
 				Empleado emp = Tricom.getInstance().getActual();
 				String id = null;
 				String apellido = null;
 				int cant;
 				
-				Calendar c1 = new GregorianCalendar();
-				String fecha = c1.get(Calendar.DATE) + "/" + (c1.get(Calendar.MONTH)+1) + "/" + c1.get(Calendar.YEAR);
 				
 				if(accion == 1) //Cliente nuevo
 				{
@@ -165,28 +164,10 @@ public class VenderPlan extends JDialog {
 						apellido = new String("N/A");
 					}
 					
-					
-					dia = c1.get(Calendar.DATE);
-					mes = (c1.get(Calendar.MONTH)+1)+1;
-					agno = c1.get(Calendar.YEAR);
-					if(mes == 13)
-					{
-						mes = 1;
-						agno += 1;
-					}
-					if(dia > 28 && mes == 2)
-						dia = 1;
-
-					String fechaVen = dia + "/" + mes + "/" + agno;
-					Factura factura = new Factura(codFactura,fecha,fechaVen,cliente,plan,plan.getTarifaMensual(),plan.getTarifaMensual(),false);
-					Tricom.getInstance().getMisFacturas().add(factura);
-					cant = Tricom.getInstance().getCantRegistros().get(4);
-					Tricom.getInstance().getCantRegistros().set(4, (cant+1));
-					
-					
-					cliente.getMisFacturas().add(factura);
 					cliente.getMisPlanes().add(plan);
 					Tricom.getInstance().getMisClientes().add(cliente);
+					Tricom.getInstance().generarFactura(cliente, plan);
+					
 					cant = Tricom.getInstance().getCantRegistros().get(0);
 					Tricom.getInstance().getCantRegistros().set(0, (cant+1));
 					
@@ -211,34 +192,8 @@ public class VenderPlan extends JDialog {
 						apellido = new String("N/A");
 					}
 					
-					
-					dia = c1.get(Calendar.DATE);
-					mes = (c1.get(Calendar.MONTH)+1)+1;
-					agno = c1.get(Calendar.YEAR);
-					if(mes == 13)
-					{
-						mes = 1;
-						agno += 1;
-					}
-					if(dia > 28 && mes == 2)
-						dia = 1;
-
-					String fechaVen = dia + "/" + mes + "/" + agno;
-					Factura factura = new Factura(codFactura,fecha,fechaVen,cli,plan,plan.getTarifaMensual(),plan.getTarifaMensual(),false);
-					Tricom.getInstance().getMisFacturas().add(factura);
-					cant = Tricom.getInstance().getCantRegistros().get(4);
-					Tricom.getInstance().getCantRegistros().add(4, (cant+1));
-					
-					
-					cli.getMisFacturas().add(factura);
 					cli.getMisPlanes().add(plan);
-					if(cli instanceof ClienteComun)
-						index = Tricom.getInstance().indexCLiente(((ClienteComun) cli).getCedula());
-					else
-						index = Tricom.getInstance().indexCLiente(((ClienteEmpresa) cli).getRnc());
-					
-					Tricom.getInstance().getMisClientes().set(index, cli);
-					
+					Tricom.getInstance().generarFactura(cli, plan);
 					
 					Venta venta = new Venta(codVenta,emp.getCedula(),emp.getNombre(),id,cli.getNombre(),apellido,fecha,plan);
 					Tricom.getInstance().getMisVentas().add(venta);

@@ -36,7 +36,7 @@ import logico.ServicioC;
 import logico.Telefono;
 import logico.Tricom;
 import logico.Venta;
-import logico.VerificarFacturas;
+import logico.ControlarFacturas;
 
 import javax.swing.JInternalFrame;
 import java.awt.Color;
@@ -112,7 +112,7 @@ public class TricomMain extends JFrame {
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 		
-		VerificarFacturas vaFac = new VerificarFacturas();
+		ControlarFacturas vaFac = new ControlarFacturas();
 		vaFac.start();
 		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

@@ -8,6 +8,7 @@ public class Factura implements Serializable{
 	private String codFactura;
 	private String fechaEmision;
 	private String fechaVencimiento;
+	private String fechaBloqueo;
 	private Cliente cliente;
 	private float totalBruto;
 	private float totalNeto;
@@ -17,17 +18,19 @@ public class Factura implements Serializable{
 	private int mesesVencidas;
 	private estadoFactura estado;
 	private boolean pagada;
+	private boolean ultimaFactura;
 	
 	public enum estadoFactura{
 		activa, pagada, vencida, generada;
 	}
 	
 
-	public Factura(String codFactura, String fechaEmision, String fechaVencimiento, Cliente cliente,Plan plan, float totalBruto, float totalNeto, boolean vencida) {
+	public Factura(String codFactura, String fechaEmision, String fechaVencimiento, String fechaBloqueo, Cliente cliente,Plan plan, float totalBruto, float totalNeto, boolean vencida, boolean ultimaFactura) {
 		super();
 		this.codFactura = codFactura;
 		this.fechaEmision = fechaEmision;
 		this.fechaVencimiento = fechaVencimiento;
+		this.fechaBloqueo = fechaBloqueo;
 		this.cliente = cliente;
 		this.plan = plan;
 		this.totalBruto = totalBruto;
@@ -35,6 +38,7 @@ public class Factura implements Serializable{
 		this.vencida = vencida;
 		this.mora = 0;
 		this.mesesVencidas = 0;
+		this.ultimaFactura = ultimaFactura;
 		this.pagada = false;
 	}
 
@@ -148,6 +152,22 @@ public class Factura implements Serializable{
 
 	public void setPagada(boolean pagada) {
 		this.pagada = pagada;
+	}
+
+	public String getFechaBloqueo() {
+		return fechaBloqueo;
+	}
+
+	public void setFechaBloqueo(String fechaBloqueo) {
+		this.fechaBloqueo = fechaBloqueo;
+	}
+
+	public boolean isUltimaFactura() {
+		return ultimaFactura;
+	}
+
+	public void setUltimaFactura(boolean ultimaFactura) {
+		this.ultimaFactura = ultimaFactura;
 	}
 	
 	

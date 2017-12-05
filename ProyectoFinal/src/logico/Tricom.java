@@ -712,6 +712,53 @@ public class Tricom {
 		}
 	}
 	
+	public Factura generarFactura(Cliente cli, Plan plan)
+	{
+		int cant = 0, mes = 0, agno = 0, dia = 0;
+		int index;
+		String codFactura = "codFact-"+(cantRegistros.get(4)+1);
+		Calendar c1 = new GregorianCalendar();
+		String fechaEmision = c1.get(Calendar.DATE) + "/" + (c1.get(Calendar.MONTH)+1) + "/" + c1.get(Calendar.YEAR);
+		
+		dia = c1.get(Calendar.DATE);
+		mes = (c1.get(Calendar.MONTH)+1)+1;
+		agno = c1.get(Calendar.YEAR);
+		if(mes == 13)
+		{
+			mes = 1;
+			agno += 1;
+		}
+		if(dia > 28 && mes == 2)
+			dia = 1;				
+		String fechaVen = dia + "/" + mes + "/" + agno;
+		
+		//Fecha de bloqueo del cliente
+		mes++;
+		if(mes == 13)
+		{
+			mes = 1;
+			agno += 1;
+		}
+		if(dia > 28 && mes == 2)
+			dia = 1;
+		String fechaBloqueo = dia + "/" + mes + "/" + agno;
+		
+		Factura factura = new Factura(codFactura,fechaEmision,fechaVen,fechaBloqueo,cli,plan,plan.getTarifaMensual(),plan.getTarifaMensual(),false,true);
+		Tricom.getInstance().getMisFacturas().add(factura);
+		cant = Tricom.getInstance().getCantRegistros().get(4);
+		Tricom.getInstance().getCantRegistros().add(4, (cant+1));
+		
+		cli.getMisFacturas().add(factura);
+	
+		if(cli instanceof ClienteComun)
+			index = indexCLiente(((ClienteComun) cli).getCedula());
+		else
+			index = indexCLiente(((ClienteEmpresa) cli).getRnc());
+		
+		misClientes.set(index, cli);
+		
+		return factura;
+	}
 
 	
 	
