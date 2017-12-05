@@ -53,7 +53,7 @@ public class PagarFactura extends JDialog {
 
 	/**
 	 * Launch the application.
-	 */
+	 *
 	public static void main(String[] args) {
 		try {
 			PagarFactura dialog = new PagarFactura();
@@ -62,7 +62,7 @@ public class PagarFactura extends JDialog {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Create the dialog.
