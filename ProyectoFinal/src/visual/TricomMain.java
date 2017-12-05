@@ -95,20 +95,15 @@ public class TricomMain extends JFrame {
 
 	public TricomMain() {
 		setResizable(false);
-		Tricom tri = new Tricom();
-		String[] columnNames1 = {"Seleccionar","Codigo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Fecha de Nacimiento","Telefono","Email"};
-		String[] columnNames2 = {"Seleccionar","Codigo","Tipo", "ID", "Nombre","Primer Apellido", "Segundo Apellido", "Telefono","Salario"};
-		String[] columnNames3 = {"Seleccionar","Codigo","Cliente","Cedula-Cliente","Empleado","Cedula-Empleado","Nombre del Plan","Fecha"};
-		String[] columnNames4 = {"Seleccionar","Codigo","Nombre","Internet","Telefono","Telecable","Tarifa","Impuestos","Instalacion"};
-		String[] columnNames5 = {"Seleccionar","Codigo","Tipo", "Precio Total", "Impuestos","Instalacion"};
-		String[] columnNames6 = {"Seleccionar","Codigo","Plan", "Precio Total", "Impuestos","Mora","Vencimiento","Estado","Pago"};
-		
+		Tricom tri = new Tricom();		
 		setTitle("Tricom");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1693, 900);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		//dim = super.getToolkit().getScreenSize();
+		//super.setSize(dim.width, dim.height-50);
 		setLocationRelativeTo(null);
 		contentPane.setLayout(null);
 		
@@ -340,7 +335,7 @@ public class TricomMain extends JFrame {
 		panel_1.setLayout(null);
 		panel_1.setForeground(Color.WHITE);
 		panel_1.setBackground(new Color(255, 102, 51));
-		panel_1.setBounds(118, 0, 1796, 124);
+		panel_1.setBounds(118, 0, 1564, 124);
 		contentPane.add(panel_1);
 		
 		JLabel imgLogo = new JLabel("");
@@ -362,19 +357,19 @@ public class TricomMain extends JFrame {
 		btnSingOut.setFont(new Font("Calibri", Font.BOLD, 17));
 		btnSingOut.setForeground(Color.WHITE);
 		btnSingOut.setBackground(new Color(255, 99, 71));
-		btnSingOut.setBounds(1639, 84, 145, 34);
+		btnSingOut.setBounds(1407, 84, 145, 34);
 		btnSingOut.setFocusable(false);
 		btnSingOut.setBorder(null);
 		panel_1.add(btnSingOut);
 		
 		panelRegistros = new JPanel();
 		panelRegistros.setBackground(SystemColor.text);
-		panelRegistros.setBounds(147, 192, 1179, 668);
+		panelRegistros.setBounds(147, 192, 1119, 558);
 		contentPane.add(panelRegistros);
 		panelRegistros.setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(38, 67, 1091, 323);
+		scrollPane.setBounds(12, 60, 1085, 323);
 		scrollPane.setBackground(SystemColor.text);
 		panelRegistros.add(scrollPane);
 		
@@ -617,7 +612,7 @@ public class TricomMain extends JFrame {
 		txtDireccion.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtDireccion.setEditable(false);
 		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(750, 134, 347, 27);
+		txtDireccion.setBounds(750, 134, 252, 27);
 		panelRegistros.add(txtDireccion);
 		
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
@@ -686,7 +681,7 @@ public class TricomMain extends JFrame {
 		
 		JPanel panelGraficos = new JPanel();
 		panelGraficos.setBackground(SystemColor.text);
-		panelGraficos.setBounds(1376, 192, 469, 668);
+		panelGraficos.setBounds(1309, 192, 354, 558);
 		contentPane.add(panelGraficos);
 		
 		JButton btnNewButton = new JButton("Cerrar");
@@ -782,15 +777,13 @@ public class TricomMain extends JFrame {
 		
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(Color.DARK_GRAY);
-		btnNewButton.setBounds(1741, 909, 104, 44);
+		btnNewButton.setBounds(1559, 791, 104, 44);
 		contentPane.add(btnNewButton);
 		
 		JLabel label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
 		label.setBounds(147, 954, 291, 16);
 		contentPane.add(label);
-		dim = super.getToolkit().getScreenSize();
-		super.setSize(dim.width, dim.height-50);
-		setLocationRelativeTo(null);
+		
 		
 		
 		
@@ -966,9 +959,9 @@ public class TricomMain extends JFrame {
 		btnBuscar.setVisible(visible2);
 		btnPagar.setVisible(visible2);
 		if(visible2)
-			scrollPane.setBounds(42, 189, 1091, 323);
+			scrollPane.setBounds(42, 189, 1000, 323);
 		if(visible1)
-			scrollPane.setBounds(38, 67, 1091, 323);
+			scrollPane.setBounds(38, 67, 1000, 323);
 	}
 	//
 	public static void cargarJtable(int tipo)
