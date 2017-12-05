@@ -389,6 +389,7 @@ public class RegistrarServicio extends JDialog {
 				if(accion == 2){
 					Tricom.getInstance().reemplazarServicio(servicio);	
 					JOptionPane.showMessageDialog(null, "Modificacion satisfactoria");
+					TricomMain.cargarJtable(4);
 				dispose();
 				}else{
 				Tricom.getInstance().getMisServicios().add(servicio);
