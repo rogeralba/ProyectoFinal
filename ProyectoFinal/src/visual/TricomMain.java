@@ -97,7 +97,7 @@ public class TricomMain extends JFrame {
 		setResizable(false);
 		Tricom tri = new Tricom();		
 		setTitle("Tricom");
-		setBounds(100, 100, 1693, 900);
+		setBounds(100, 100, 1360, 768);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -125,7 +125,7 @@ public class TricomMain extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.DARK_GRAY);
-		panel.setBounds(0, 0, 118, 995);
+		panel.setBounds(0, 0, 118, 870);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -311,25 +311,9 @@ public class TricomMain extends JFrame {
 		btnPagos.setHorizontalTextPosition( SwingConstants.CENTER );
 		btnPagos.setVerticalTextPosition( SwingConstants.BOTTOM );
 		panel.add(btnPagos);
-		
-		//
-		JButton btnAcercaDe = new JButton("Acerca de");
-		btnAcercaDe.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnAcercaDe.setVerticalAlignment(SwingConstants.BOTTOM);
-		btnAcercaDe.setMargin(new Insets(0, 0, 10, 0));
-		btnAcercaDe.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnAcercaDe.setForeground(Color.LIGHT_GRAY);
-		btnAcercaDe.setFont(new Font("Arial", Font.PLAIN, 15));
-		btnAcercaDe.setFocusable(false);
-		btnAcercaDe.setBackground(Color.DARK_GRAY);
-		btnAcercaDe.setBounds(0, 675, 118, 91);
 		String path8 = "./Imagenes/Acerca1.png";
 		img = new ImageIcon(path8);
 		icono = new ImageIcon(img.getImage().getScaledInstance(35, 35, Image.SCALE_DEFAULT));
-		btnAcercaDe.setIcon(icono);
-		btnAcercaDe.setHorizontalTextPosition( SwingConstants.CENTER );
-		btnAcercaDe.setVerticalTextPosition( SwingConstants.BOTTOM );
-		panel.add(btnAcercaDe);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -364,12 +348,12 @@ public class TricomMain extends JFrame {
 		
 		panelRegistros = new JPanel();
 		panelRegistros.setBackground(SystemColor.text);
-		panelRegistros.setBounds(147, 192, 1119, 558);
+		panelRegistros.setBounds(147, 192, 877, 514);
 		contentPane.add(panelRegistros);
 		panelRegistros.setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 60, 1085, 323);
+		scrollPane.setBounds(24, 74, 820, 323);
 		scrollPane.setBackground(SystemColor.text);
 		panelRegistros.add(scrollPane);
 		
@@ -570,7 +554,7 @@ public class TricomMain extends JFrame {
 		txtNombre.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtNombre.setEditable(false);
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(42, 134, 224, 27);
+		txtNombre.setBounds(42, 134, 148, 27);
 		panelRegistros.add(txtNombre);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -584,42 +568,42 @@ public class TricomMain extends JFrame {
 		txtApellido.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtApellido.setEditable(false);
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(278, 134, 224, 27);
+		txtApellido.setBounds(224, 134, 155, 27);
 		panelRegistros.add(txtApellido);
 		
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setForeground(Color.DARK_GRAY);
 		lblApellido.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblApellido.setBackground(Color.GRAY);
-		lblApellido.setBounds(278, 110, 71, 25);
+		lblApellido.setBounds(224, 110, 155, 25);
 		panelRegistros.add(lblApellido);
 		
 		txtTelefono = new JTextField();
 		txtTelefono.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtTelefono.setEditable(false);
 		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(514, 134, 224, 27);
+		txtTelefono.setBounds(414, 134, 161, 27);
 		panelRegistros.add(txtTelefono);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono:");
 		lblTelefono.setForeground(Color.DARK_GRAY);
 		lblTelefono.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblTelefono.setBackground(Color.GRAY);
-		lblTelefono.setBounds(514, 110, 71, 25);
+		lblTelefono.setBounds(414, 110, 71, 25);
 		panelRegistros.add(lblTelefono);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtDireccion.setEditable(false);
 		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(750, 134, 252, 27);
+		txtDireccion.setBounds(611, 134, 177, 27);
 		panelRegistros.add(txtDireccion);
 		
 		JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
 		lblDireccion.setForeground(Color.DARK_GRAY);
 		lblDireccion.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblDireccion.setBackground(Color.GRAY);
-		lblDireccion.setBounds(750, 110, 71, 25);
+		lblDireccion.setBounds(611, 110, 71, 25);
 		panelRegistros.add(lblDireccion);
 		
 		
@@ -681,7 +665,7 @@ public class TricomMain extends JFrame {
 		
 		JPanel panelGraficos = new JPanel();
 		panelGraficos.setBackground(SystemColor.text);
-		panelGraficos.setBounds(1309, 192, 354, 558);
+		panelGraficos.setBounds(1046, 192, 296, 460);
 		contentPane.add(panelGraficos);
 		
 		JButton btnNewButton = new JButton("Cerrar");
@@ -777,7 +761,7 @@ public class TricomMain extends JFrame {
 		
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(Color.DARK_GRAY);
-		btnNewButton.setBounds(1559, 791, 104, 44);
+		btnNewButton.setBounds(1238, 662, 104, 44);
 		contentPane.add(btnNewButton);
 		
 		JLabel label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
@@ -959,9 +943,9 @@ public class TricomMain extends JFrame {
 		btnBuscar.setVisible(visible2);
 		btnPagar.setVisible(visible2);
 		if(visible2)
-			scrollPane.setBounds(42, 189, 1000, 323);
+			scrollPane.setBounds(42, 189, 800, 280);
 		if(visible1)
-			scrollPane.setBounds(38, 67, 1000, 323);
+			scrollPane.setBounds(38, 67, 800, 280);
 	}
 	//
 	public static void cargarJtable(int tipo)
