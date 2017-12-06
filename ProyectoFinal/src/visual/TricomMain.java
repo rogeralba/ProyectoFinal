@@ -769,7 +769,7 @@ public class TricomMain extends JFrame {
 		btnPagar.setBackground(Color.DARK_GRAY);
 		btnPagar.setBounds(42, 477, 104, 44);
 		panelRegistros.add(btnPagar);
-		//
+		
 		btnPlanes_1 = new JButton("Planes");
 		btnPlanes_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
