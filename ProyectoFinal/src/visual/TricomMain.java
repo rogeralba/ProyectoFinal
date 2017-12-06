@@ -450,21 +450,15 @@ public class TricomMain extends JFrame {
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
 				//ELIMINAR
-				int i = 0;
-				int cant = 0;
 				switch(activeButton)
 				{
 				
 				case 1: //Boton de Clientes
-					cant = checkboxsActivos(table, "cliente");
-					while(i < cant){
+					while(revisarCheckbox(table, "cliente")!=-1){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
 						Tricom.getInstance().eliminarCliente(codigo);
 						cargarJtable(1);
-						i++;
 					}
 					break;
 				case 2://Boton de Empleados
