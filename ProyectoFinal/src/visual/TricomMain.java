@@ -764,7 +764,7 @@ public class TricomMain extends JFrame {
 		});
 		
 		//Creating piechart
-		if(tri.getActual() instanceof ServicioC){
+		if(Tricom.getInstance().getActual() instanceof ServicioC){
 			DefaultPieDataset data = new DefaultPieDataset();
 			data.setValue(""+((ServicioC)Tricom.getInstance().getActual()).getMisVentas().size()+" Ventas", ((ServicioC)Tricom.getInstance().getActual()).getMisVentas().size());
 			data.setValue(""+((ServicioC)Tricom.getInstance().getActual()).getComisionventas()+" Comisiones",  ((ServicioC)Tricom.getInstance().getActual()).getComisionventas());
