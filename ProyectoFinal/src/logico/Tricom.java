@@ -599,7 +599,7 @@ public class Tricom {
 		return index;
 	}
 	public int indexPlan(String code){
-		int index = 0;
+		int index = -1;
 		int i = 0;
 		while(i < misPlanes.size() && index == -1 ){
 			
@@ -612,7 +612,7 @@ public class Tricom {
 		return index;
 	}
 	public int indexCLientecode(String id){
-		int index = 0;
+		int index = -1;
 		int i = 0;
 		
 		while(i < misClientes.size() && index == -1 ){
@@ -653,7 +653,7 @@ public class Tricom {
 	}
 	public void reemplazarEmpleado(Empleado cl){
 		int i = 0;
-		int index = 0;
+		int index = -1;
 		while(i < misEmpleados.size() && index == -1)
 		{
 			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(cl.getCedula()))
@@ -667,7 +667,7 @@ public class Tricom {
 	
 	public void reemplazarServicio(Servicio cl){
 		int i = 0;
-		int index = 0;
+		int index = -1;
 		while(i < misServicios.size() && index == -1)
 		{
 			if(misServicios.get(i).getCodServicio().equalsIgnoreCase(cl.getCodServicio()))

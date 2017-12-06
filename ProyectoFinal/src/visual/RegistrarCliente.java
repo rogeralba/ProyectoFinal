@@ -421,7 +421,7 @@ public class RegistrarCliente extends JDialog {
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Cliente cliente = null;
+				Cliente cli = null;
 				boolean valido = false;
 				String nombre = txtNombre.getText().toString();
 				String apellido1 = txtApellido1.getText().toString();
@@ -438,6 +438,7 @@ public class RegistrarCliente extends JDialog {
 					codCli = new String("codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1));
 				else
 					codCli = new String(cliente.getCodCli());
+				
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 				String fecNac ="";
 				if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Corriente"))
@@ -456,14 +457,14 @@ public class RegistrarCliente extends JDialog {
 					{
 						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && cedula.equalsIgnoreCase("   -       - ")==false && email.equalsIgnoreCase("")==false && fecNac.equals("") == false)
 						{
-							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,cedula,fecNac,sexo);
+							cli = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,cedula,fecNac,sexo);
 							valido = true;
 						}
 					}else if(rdbPasaporte.isSelected() == true)
 					{
 						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && pasaporte.equalsIgnoreCase("")==false && email.equalsIgnoreCase("")==false && fecNac.equals("") == false)
 						{
-							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,pasaporte,fecNac,sexo);
+							cli = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,pasaporte,fecNac,sexo);
 							valido = true;
 						}
 					}	
@@ -471,7 +472,7 @@ public class RegistrarCliente extends JDialog {
 				{
 					if(nombre.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && rnc.equalsIgnoreCase("   -     - ")==false && email.equalsIgnoreCase("")==false)
 					{
-						cliente = new ClienteEmpresa(codCli,nombre,direccion,telefono,email,rnc);
+						cli = new ClienteEmpresa(codCli,nombre,direccion,telefono,email,rnc);
 						valido = true;
 					}
 				}	
@@ -480,7 +481,7 @@ public class RegistrarCliente extends JDialog {
 				{
 					if(valido == true)
 					{
-						VenderPlan venPlan = new VenderPlan(cliente,1);
+						VenderPlan venPlan = new VenderPlan(cli,1);
 						venPlan.setVisible(true);
 						dispose();
 					}else
@@ -491,7 +492,7 @@ public class RegistrarCliente extends JDialog {
 				{
 					if(valido == true)
 					{
-						Tricom.getInstance().reemplazarCliente(cliente);
+						Tricom.getInstance().reemplazarCliente(cli);
 						TricomMain.cargarJtable(1);
 						dispose();
 					}
