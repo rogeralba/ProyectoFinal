@@ -79,6 +79,7 @@ public class TricomMain extends JFrame {
 	private JButton btnBuscar;
 	private Cliente clienteP = null;
 	private JButton btnPagar;
+	private JButton btnPlanes_1;
 	
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -348,12 +349,12 @@ public class TricomMain extends JFrame {
 		
 		panelRegistros = new JPanel();
 		panelRegistros.setBackground(SystemColor.text);
-		panelRegistros.setBounds(147, 192, 877, 514);
+		panelRegistros.setBounds(147, 192, 877, 528);
 		contentPane.add(panelRegistros);
 		panelRegistros.setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(24, 74, 820, 323);
+		scrollPane.setBounds(42, 115, 820, 323);
 		scrollPane.setBackground(SystemColor.text);
 		panelRegistros.add(scrollPane);
 		
@@ -363,7 +364,7 @@ public class TricomMain extends JFrame {
 		
 		lblReg = new JLabel("Registros de Clientes");
 		lblReg.setFont(new Font("Calibri", Font.BOLD, 20));
-		lblReg.setBounds(42, 38, 269, 27);
+		lblReg.setBounds(42, 27, 269, 27);
 		panelRegistros.add(lblReg);
 		
 		btnModificar = new JButton("Modifcar");
@@ -413,7 +414,7 @@ public class TricomMain extends JFrame {
 		});
 		btnModificar.setForeground(Color.WHITE);
 		btnModificar.setBackground(Color.DARK_GRAY);
-		btnModificar.setBounds(170, 418, 104, 44);
+		btnModificar.setBounds(170, 457, 104, 44);
 		panelRegistros.add(btnModificar);
 		
 		btnEliminar = new JButton("Eliminar");
@@ -468,7 +469,7 @@ public class TricomMain extends JFrame {
 		});
 		btnEliminar.setForeground(Color.WHITE);
 		btnEliminar.setBackground(Color.DARK_GRAY);
-		btnEliminar.setBounds(300, 418, 104, 44);
+		btnEliminar.setBounds(300, 457, 104, 44);
 		panelRegistros.add(btnEliminar);
 		
 		btnNuevo = new JButton("Nuevo");
@@ -530,7 +531,7 @@ public class TricomMain extends JFrame {
 		
 		btnNuevo.setForeground(Color.WHITE);
 		btnNuevo.setBackground(Color.DARK_GRAY);
-		btnNuevo.setBounds(42, 418, 104, 44);
+		btnNuevo.setBounds(42, 457, 104, 44);
 		panelRegistros.add(btnNuevo);
 		
 		Color myGreen = new Color(255, 159, 35);
@@ -612,25 +613,93 @@ public class TricomMain extends JFrame {
 		panelRegistros.add(btnBuscar);
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cedula = txtCedula.getText().toString();
-				Cliente cliente = Tricom.getInstance().buscarCliente(cedula);
-				if(cliente != null)
+				String cod = txtCedula.getText().toString();
+				switch(activeButton)
 				{
-					txtNombre.setText(cliente.getNombre());
-					if(cliente instanceof ClienteEmpresa)
-						txtApellido.setText("N/A");
-					else
-						txtApellido.setText(((ClienteComun)cliente).getApellido1());
-					txtTelefono.setText(cliente.getTelefono());
-					txtDireccion.setText(cliente.getDireccion());
-					btnPagar.setEnabled(true);
-					cargarJtable(6);
+					case 1:
+						Cliente clien = Tricom.getInstance().buscarCliente(cod);
+						if(clien != null)
+						{
+							cargarBusqueda(1,clien,null,null,null,null);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
+							cargarJtable(1);
+						}
+						break;
+					case 2:
+						Empleado emp = Tricom.getInstance().buscarEmpleado(cod);
+						if(emp != null)
+						{
+							cargarBusqueda(2,null,emp,null,null,null);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
+							cargarJtable(2);
+						}
+						break;
+					case 3:
+						Venta ven = Tricom.getInstance().buscarVenta(cod);
+						if(ven != null)
+						{
+							cargarBusqueda(3, null, null,ven, null, null);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
+							cargarJtable(3);
+						}
+						break;
+					//
+					case 4:
+						Plan pla= Tricom.getInstance().buscarPlancode(cod);
+						if(pla != null)
+						{
+							cargarBusqueda(4, null, null,null, pla, null);
+						}
+						else
+						{	
+							JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
+							cargarJtable(4);
+						}
+						break;
+						
+					case 5:
+						Servicio ser = Tricom.getInstance().buscarServcode(cod);
+						if(ser != null)
+						{
+							cargarBusqueda(5, null, null, null,null, ser);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
+							cargarJtable(5);
+						}
+						break;
+					case 6:
+						Cliente clien1 = Tricom.getInstance().buscarCliente(cod);
+						if(clien1 != null)
+						{
+							txtNombre.setText(clien1.getNombre());
+							if(clien1 instanceof ClienteEmpresa)
+								txtApellido.setText("N/A");
+							else
+								txtApellido.setText(((ClienteComun)clien1).getApellido1());
+							txtTelefono.setText(clien1.getTelefono());
+							txtDireccion.setText(clien1.getDireccion());
+						}
+						else
+						{
+							btnPagar.setEnabled(false);
+							JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
+						}
+		
+						
 				}
-				else
-				{
-					btnPagar.setEnabled(false);
-					JOptionPane.showMessageDialog(null, "El ID ingresado no se encuentra registrado.");
-				}
+				
+				
 			}
 		});
 		btnBuscar.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -655,7 +724,7 @@ public class TricomMain extends JFrame {
 		btnPagar.setBounds(38, 541, 104, 44);
 		panelRegistros.add(btnPagar);
 		
-		JButton btnPlanes_1 = new JButton("Planes");
+		btnPlanes_1 = new JButton("Planes");
 		btnPlanes_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
@@ -666,7 +735,7 @@ public class TricomMain extends JFrame {
 		});
 		btnPlanes_1.setForeground(Color.WHITE);
 		btnPlanes_1.setBackground(Color.DARK_GRAY);
-		btnPlanes_1.setBounds(428, 418, 104, 44);
+		btnPlanes_1.setBounds(428, 457, 104, 44);
 		panelRegistros.add(btnPlanes_1);
 		
 		camposVisibles(true,false);
@@ -775,7 +844,7 @@ public class TricomMain extends JFrame {
 		
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(Color.DARK_GRAY);
-		btnNewButton.setBounds(1238, 662, 104, 44);
+		btnNewButton.setBounds(1238, 676, 104, 44);
 		contentPane.add(btnNewButton);
 		
 		JLabel label = new JLabel("\u00A9 2017 Tricom. Todos los derechos reservados.");
@@ -949,17 +1018,18 @@ public class TricomMain extends JFrame {
 		btnNuevo.setVisible(visible1);
 		btnModificar.setVisible(visible1);
 		btnEliminar.setVisible(visible1);
-		txtCedula.setVisible(visible2);
+		//txtCedula.setVisible(visible2);
 		txtNombre.setVisible(visible2);
 		txtApellido.setVisible(visible2);
 		txtTelefono.setVisible(visible2);
 		txtDireccion.setVisible(visible2);
-		btnBuscar.setVisible(visible2);
+		//btnBuscar.setVisible(visible2);
 		btnPagar.setVisible(visible2);
+		btnPlanes_1.setVisible(visible1);
 		if(visible2)
 			scrollPane.setBounds(42, 189, 800, 280);
 		if(visible1)
-			scrollPane.setBounds(38, 67, 800, 280);
+			scrollPane.setBounds(42, 115, 820, 323);
 	}
 	//
 	public static void cargarJtable(int tipo)
@@ -1012,7 +1082,7 @@ public class TricomMain extends JFrame {
 		table.setBackground(SystemColor.window);
 		scrollPane.setViewportView(table);
 	}
-	public static void cargarBusqueda(int tipo,Cliente cl,Empleado emp,Plan plan,Servicio ser)
+	public static void cargarBusqueda(int tipo,Cliente cl,Empleado emp, Venta ven, Plan plan,Servicio ser)
 	{
 
 		String[] columnNames;
@@ -1027,22 +1097,19 @@ public class TricomMain extends JFrame {
 		switch(tipo)
 		{
 			case 1:
-				model = new DefaultTableModel(loadBusqueda(cl, null, null, null),columnNames1);
+				model = new DefaultTableModel(loadBusqueda(cl, null, null, null, null),columnNames1);
 				break;
 			case 2:
-				model = new DefaultTableModel(loadBusqueda(null, emp, null, null),columnNames2);
+				model = new DefaultTableModel(loadBusqueda(null, emp, null, null, null),columnNames2);
 				break;
 			case 3:
-				model = new DefaultTableModel(loadData(),loadBusqueda(null, null, null, plan));
+				model = new DefaultTableModel(loadBusqueda(null, null, ven, null, null),columnNames3);
 				break;
 			case 4:
-				model = new DefaultTableModel(loadBusqueda(null, null, ser, null),columnNames4);
+				model = new DefaultTableModel(loadBusqueda(null, null, null, plan, null),columnNames4);
 				break;
 			case 5:
-				model = new DefaultTableModel(loadData(),columnNames5);
-				break;
-			case 6:
-				model = new DefaultTableModel(loadData(),columnNames6);	
+				model = new DefaultTableModel(loadBusqueda(null, null, null, null, ser),columnNames5);
 				break;
 				
 		}
@@ -1118,34 +1185,7 @@ public class TricomMain extends JFrame {
 		return row;
 	}
 	
-	public void buscar(int tipo,String codigo){
-		
-		//PARA BUSCAR AL HACER CLICK EN EL BOTON LLAMA A ESTA FUNCION EL CODIGO ES EL INTRODUCIDO(DHA), Y EL TIPO, de acuerdo a la tabla abierta
-		
-		if(tipo == 1){
-			//cliente
-			Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
-			cargarBusqueda(1, cl, null, null, null);
-		}
-		if(tipo == 2){
-			//Empleado
-			Empleado cl = Tricom.getInstance().buscarEmpleado(codigo);
-			cargarBusqueda(1, null, cl, null, null);
-		}
-		if(tipo == 3){
-			//Empleado
-			Servicio cl = Tricom.getInstance().buscarServcode(codigo);
-			cargarBusqueda(1, null, null, null, cl);
-		}
-		if(tipo == 3){
-			//Empleado
-			Plan cl = Tricom.getInstance().buscarPlan(codigo);
-			cargarBusqueda(1, null, null, cl, null);
-		}
-		
-		
-	}
-	public static Object[][] loadBusqueda(Cliente cli,Empleado emp,Servicio ser,Plan plan) {
+	public static Object[][] loadBusqueda(Cliente cli,Empleado emp, Venta ven,Plan plan, Servicio ser) {
 		int i = 0;
 		Object[][] fila = null;
 		switch(activeButton)
@@ -1198,9 +1238,7 @@ public class TricomMain extends JFrame {
 			   
 			   break;
 		   case 3:
-			   fila = new Object[Tricom.getInstance().getMisVentas().size()][8];
-			   for (Venta ven: Tricom.getInstance().getMisVentas()) 
-			   {
+			   fila = new Object[1][8];
 				   fila[i][0] = false;
 				   fila[i][1] = ven.getCodVenta();
 				   fila[i][2] = ven.getNombreCliente()+" "+ven.getApellidoCliente();
@@ -1210,7 +1248,6 @@ public class TricomMain extends JFrame {
 				   fila[i][6] = ven.getPlanVendido().getNombre();
 				   fila[i][7] = ven.getFecha();
 				   i++;
-			   }
 			   break;
 		   case 4:
 			   fila = new Object[1][9];
