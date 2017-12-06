@@ -766,8 +766,8 @@ public class TricomMain extends JFrame {
 		//Creating piechart
 		if(tri.getActual() instanceof ServicioC){
 			DefaultPieDataset data = new DefaultPieDataset();
-			data.setValue("# de Ventas", ((ServicioC)tri.getActual()).getMisVentas().size());
-			data.setValue("Comisiones",  ((ServicioC)tri.getActual()).getComisionventas());
+			data.setValue(""+((ServicioC)Tricom.getInstance().getActual()).getMisVentas().size()+" Ventas", ((ServicioC)Tricom.getInstance().getActual()).getMisVentas().size());
+			data.setValue(""+((ServicioC)Tricom.getInstance().getActual()).getComisionventas()+" Comisiones",  ((ServicioC)Tricom.getInstance().getActual()).getComisionventas());
 			JFreeChart chart = ChartFactory.createPieChart(
 					"Resumen ",
 					data,
@@ -777,15 +777,17 @@ public class TricomMain extends JFrame {
 					);
 			// create and display a frame...
 			ChartPanel cp = new ChartPanel(chart);
+		    cp.setPreferredSize(new Dimension(panelGraficos.getBounds().width, panelGraficos.getBounds().height/2));
+
 			panelGraficos.add(cp,BorderLayout.CENTER);
 			
 			
 			
 		}else{
 			DefaultPieDataset data = new DefaultPieDataset();
-			data.setValue("# de Planes", tri.getMisPlanes().size());
-			data.setValue("# de Clientes",  tri.getMisClientes().size());
-			data.setValue("# de Usuarios",  tri.getMisEmpleados().size());
+			data.setValue(""+Tricom.getInstance().getMisPlanes().size()+" Planes", Tricom.getInstance().getMisPlanes().size());
+			data.setValue(""+Tricom.getInstance().getMisClientes().size()+" Clientes",  Tricom.getInstance().getMisClientes().size());
+			data.setValue(""+Tricom.getInstance().getMisEmpleados().size()+" Usuarios",  Tricom.getInstance().getMisEmpleados().size());
 			JFreeChart chart = ChartFactory.createPieChart(
 					"Resumen ",
 					data,
@@ -795,18 +797,21 @@ public class TricomMain extends JFrame {
 					);
 			// create and display a frame...
 			ChartPanel cp = new ChartPanel(chart);
+		    cp.setPreferredSize(new Dimension(panelGraficos.getBounds().width, panelGraficos.getBounds().height/2));
+
 			panelGraficos.add(cp,BorderLayout.CENTER);
+			
 			DefaultPieDataset data2 = new DefaultPieDataset();
 			int per = 0;
 			int empr = 0;
-			for(Cliente emp : tri.getMisClientes()){
+			for(Cliente emp : Tricom.getInstance().getMisClientes()){
 				if (emp instanceof ClienteComun)
 					per++;
 				if (emp instanceof ClienteEmpresa)
 					empr++;
 			}
-			data2.setValue("Clientes personales", per);
-			data2.setValue("Clientes empresariales ",  empr);
+			data2.setValue(""+per+" Clientes personales", per);
+			data2.setValue(""+empr+" Clientes empresariales ",  empr);
 			JFreeChart chart2 = ChartFactory.createPieChart(
 					"Resumen ",
 					data2,
@@ -816,6 +821,8 @@ public class TricomMain extends JFrame {
 					);
 			// create and display a frame...
 			ChartPanel cp2 = new ChartPanel(chart2);
+		    cp2.setPreferredSize(new Dimension(panelGraficos.getBounds().width, panelGraficos.getBounds().height/2));
+
 			panelGraficos.add(cp2,BorderLayout.CENTER);
 			
 			
