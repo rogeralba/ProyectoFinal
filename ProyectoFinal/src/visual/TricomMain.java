@@ -797,7 +797,7 @@ public class TricomMain extends JFrame {
 					);
 			// create and display a frame...
 			ChartPanel cp = new ChartPanel(chart);
-		    cp.setPreferredSize(new Dimension(panelGraficos.getBounds().width, panelGraficos.getBounds().height/2));
+		    cp.setPreferredSize(new Dimension(panelGraficos.getBounds().width-10, panelGraficos.getBounds().height/3-5));
 
 			panelGraficos.add(cp,BorderLayout.CENTER);
 			
@@ -821,7 +821,7 @@ public class TricomMain extends JFrame {
 					);
 			// create and display a frame...
 			ChartPanel cp2 = new ChartPanel(chart2);
-		    cp2.setPreferredSize(new Dimension(panelGraficos.getBounds().width, panelGraficos.getBounds().height/2));
+		    cp2.setPreferredSize(new Dimension(panelGraficos.getBounds().width - 10, panelGraficos.getBounds().height/3-5));
 
 			panelGraficos.add(cp2,BorderLayout.CENTER);
 			
@@ -829,14 +829,14 @@ public class TricomMain extends JFrame {
 			DefaultPieDataset data3 = new DefaultPieDataset();
 			int adm = 0;
 			int serv = 0;
-			for(Empleado emp : tri.getMisEmpleados()){
+			for(Empleado emp : Tricom.getInstance().getMisEmpleados()){
 				if (emp instanceof Administrativo)
 					adm++;
 				if (emp instanceof ServicioC)
 					serv++;
 			}
-			data3.setValue("Administradores", adm);
-			data3.setValue("Vendedores ",  empr);
+			data3.setValue(""+adm+" Administradores", adm);
+			data3.setValue(""+empr+" Vendedores ",  empr);
 			JFreeChart chart3 = ChartFactory.createPieChart(
 					"Resumen ",
 					data3,
@@ -846,6 +846,8 @@ public class TricomMain extends JFrame {
 					);
 			// create and display a frame...
 			ChartPanel cp3 = new ChartPanel(chart3);
+		    cp3.setPreferredSize(new Dimension(panelGraficos.getBounds().width - 10, panelGraficos.getBounds().height/3-5));
+
 			panelGraficos.add(cp3,BorderLayout.CENTER);
 		}
 		
