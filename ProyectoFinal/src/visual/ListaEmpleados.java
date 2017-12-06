@@ -43,7 +43,7 @@ public class ListaEmpleados extends JDialog {
 	private MaskFormatter patron;
 	private MaskFormatter tele;
 	
-	
+	//
 	/**
 	 * Create the dialog.
 	 */
