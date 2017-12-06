@@ -656,7 +656,7 @@ public class Tricom {
 		int index = -1;
 		while(i < misEmpleados.size() && index == -1)
 		{
-			if(misEmpleados.get(i).getCodigo().equalsIgnoreCase(cl.getCedula()))
+			if(misEmpleados.get(i).getCedula().equalsIgnoreCase(cl.getCedula()))
 			{
 				index = i;
 			}

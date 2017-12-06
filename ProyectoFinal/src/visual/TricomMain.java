@@ -153,8 +153,9 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Registros de Clientes");
 				activeButton = 1;
 				camposVisibles(true,false);
+				btnPlanes_1.setVisible(true);
 				cargarJtable(1);
-				
+				btnPlanes_1.setVisible(false);
 			}
 		});
 		btnClientes.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -176,13 +177,14 @@ public class TricomMain extends JFrame {
 		btnEmpleados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//SI EL USUARUI ACTUAL ES ADMIN PUEDE VER LOS EMPLEADOS SI NO SE JODIO.
+				//SI EL USUARIO ACTUAL ES ADMIN PUEDE VER LOS EMPLEADOS
 		if(Tricom.getInstance().getActual() instanceof Administrativo){
 			
 				lblTitulo.setText("Empleados");
 				lblReg.setText("Registros de Empleados");
 				activeButton = 2;
 				camposVisibles(true,false);
+				btnPlanes_1.setVisible(false);
 				cargarJtable(2);
 		}else {
 			
@@ -213,6 +215,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Registros de planes vendidos");
 				activeButton = 3;
 				camposVisibles(true,false);
+				btnPlanes_1.setVisible(false);
 				cargarJtable(3);
 			
 			}
@@ -241,6 +244,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Planes disponibles");
 				activeButton = 4;
 				camposVisibles(true,false);
+				btnPlanes_1.setVisible(false);
 				cargarJtable(4);
 			}
 		});
@@ -268,6 +272,7 @@ public class TricomMain extends JFrame {
 				lblReg.setText("Servicios disponibles");
 				activeButton = 5;
 				camposVisibles(true,false);
+				btnPlanes_1.setVisible(false);
 				cargarJtable(5);
 			}
 		});
