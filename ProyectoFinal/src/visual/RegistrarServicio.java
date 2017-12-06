@@ -72,8 +72,9 @@ public class RegistrarServicio extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegistrarServicio(Servicio servicio, int accion) {//accion: 1-Registrar (El parametro empleado es NULL), 2-Modificar
-		setBounds(100, 100, 738, 912);
+	public RegistrarServicio(Servicio servicio, int accion) {
+		setResizable(false);//accion: 1-Registrar (El parametro empleado es NULL), 2-Modificar
+		setBounds(100, 100, 725, 912);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
