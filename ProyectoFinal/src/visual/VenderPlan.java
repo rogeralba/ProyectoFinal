@@ -214,12 +214,8 @@ public class VenderPlan extends JDialog {
 		btnAceptar.setBounds(1026, 680, 97, 38);
 		getContentPane().add(btnAceptar);
 		
-		JButton btnAtras = new JButton("Atras");
-		btnAtras.setBounds(917, 680, 97, 38);
-		getContentPane().add(btnAtras);
-		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(808, 680, 97, 38);
+		btnCancelar.setBounds(917, 680, 97, 38);
 		getContentPane().add(btnCancelar);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -618,6 +614,7 @@ public class VenderPlan extends JDialog {
 		btnTelfono.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnTelfono.setBackground(new Color(244, 164, 96));
 		btnTelfono.setBounds(216, 220, 91, 40);
+		btnTelfono.setVisible(false);
 		panel.add(btnTelfono);
 		
 		JPanel panel_3 = new JPanel();
@@ -683,12 +680,13 @@ public class VenderPlan extends JDialog {
 		label_7.setBounds(215, 95, 91, 25);
 		panel_3.add(label_7);
 		
-		JButton btnNewButton = new JButton("M\u00F3dem");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(244, 164, 96));
-		btnNewButton.setBounds(215, 218, 91, 40);
-		panel_3.add(btnNewButton);
+		JButton btnModem = new JButton("M\u00F3dem");
+		btnModem.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnModem.setForeground(new Color(255, 255, 255));
+		btnModem.setBackground(new Color(244, 164, 96));
+		btnModem.setBounds(215, 218, 91, 40);
+		btnModem.setVisible(false);
+		panel_3.add(btnModem);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Telecable", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -772,6 +770,7 @@ public class VenderPlan extends JDialog {
 		btnHd.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnHd.setBackground(new Color(244, 164, 96));
 		btnHd.setBounds(219, 220, 91, 40);
+		btnHd.setVisible(false);
 		panel_4.add(btnHd);
 		
 		JLabel lblInstalacion = new JLabel("Instalaci\u00F3n:");

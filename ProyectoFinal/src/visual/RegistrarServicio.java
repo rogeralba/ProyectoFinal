@@ -72,7 +72,7 @@ public class RegistrarServicio extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegistrarServicio(Servicio servicio, int accion) {
+	public RegistrarServicio(Servicio servic, int accion) {
 		setResizable(false);//accion: 1-Registrar (El parametro empleado es NULL), 2-Modificar
 		setBounds(100, 100, 725, 912);
 		getContentPane().setLayout(new BorderLayout());
@@ -388,16 +388,17 @@ public class RegistrarServicio extends JDialog {
 				}
 				
 				if(accion == 2){
+					servicio.setCodServicio(servic.getCodServicio());
 					Tricom.getInstance().reemplazarServicio(servicio);	
 					JOptionPane.showMessageDialog(null, "Modificacion satisfactoria");
-					TricomMain.cargarJtable(4);
+					TricomMain.cargarJtable(5);
 				dispose();
 				}else{
-				Tricom.getInstance().getMisServicios().add(servicio);
+					Tricom.getInstance().getMisServicios().add(servicio);
 				
-				int cant = Tricom.getInstance().getCantRegistros().get(3);
-				Tricom.getInstance().getCantRegistros().set(3, (cant+1));
-				JOptionPane.showMessageDialog(null, "Registro satisfactorio");
+					int cant = Tricom.getInstance().getCantRegistros().get(3);
+					Tricom.getInstance().getCantRegistros().set(3, (cant+1));
+					JOptionPane.showMessageDialog(null, "Registro satisfactorio");
 				}
 				dispose();
 				
@@ -420,7 +421,7 @@ public class RegistrarServicio extends JDialog {
 		Image icono0 =  Toolkit.getDefaultToolkit().getImage(path0);
 		this.setIconImage(icono0);
 		if(accion  ==2 ){
-			load(servicio);
+			load(servic);
 		}
 	}
 	

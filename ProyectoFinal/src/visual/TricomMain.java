@@ -83,6 +83,7 @@ public class TricomMain extends JFrame {
 	private ChartPanel cp3;
 	private ChartPanel cp2;
 	private ChartPanel cp;
+	private Cliente cliFact = null;
 	
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -155,7 +156,6 @@ public class TricomMain extends JFrame {
 				camposVisibles(true,false);
 				btnPlanes_1.setVisible(true);
 				cargarJtable(1);
-				btnPlanes_1.setVisible(false);
 			}
 		});
 		btnClientes.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -301,7 +301,6 @@ public class TricomMain extends JFrame {
 				activeButton = 6;
 				camposVisibles(false,true);
 				cargarJtable(6);
-				
 			}
 		});
 		btnPagos.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -420,7 +419,7 @@ public class TricomMain extends JFrame {
 							Plan cl4 = Tricom.getInstance().buscarPlancode(codigo4);
 							RegistrarPlan reg4 = new RegistrarPlan(cl4, 2);
 							reg4.setVisible(true);
-							cargarJtable(3);
+							cargarJtable(4);
 						}
 						else
 						{
@@ -435,7 +434,7 @@ public class TricomMain extends JFrame {
 							Servicio cl5 = Tricom.getInstance().buscarServcode(codigo5);
 							RegistrarServicio reg5 = new RegistrarServicio(cl5, 2);
 							reg5.setVisible(true);
-							cargarJtable(4);
+							cargarJtable(5);
 						}	
 						else
 						{
@@ -725,6 +724,9 @@ public class TricomMain extends JFrame {
 								txtApellido.setText(((ClienteComun)clien1).getApellido1());
 							txtTelefono.setText(clien1.getTelefono());
 							txtDireccion.setText(clien1.getDireccion());
+							cliFact = clien1;
+							btnPagar.setEnabled(true);
+							cargarJtable(6);
 						}
 						else
 						{
@@ -749,15 +751,23 @@ public class TricomMain extends JFrame {
 		btnPagar = new JButton("Pagar");
 		btnPagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String codigo = table.getModel().getValueAt(revisarCheckbox(table, "factura"), 1).toString();
-				Tricom.getInstance().pagarFactura(codigo);
-				
+				int row = 0;
+				if(cliFact != null)
+				{
+					row = revisarCheckbox(table, "factura");
+				}
+				if(row != -1)
+				{
+					String codigo = table.getModel().getValueAt(row, 1).toString();
+					Tricom.getInstance().pagarFactura(codigo);
+					TricomMain.cargarJtable(6);
+				}
 			}
 		});
 		btnPagar.setEnabled(false);
 		btnPagar.setForeground(Color.WHITE);
 		btnPagar.setBackground(Color.DARK_GRAY);
-		btnPagar.setBounds(38, 541, 104, 44);
+		btnPagar.setBounds(42, 477, 104, 44);
 		panelRegistros.add(btnPagar);
 		
 		btnPlanes_1 = new JButton("Planes");
@@ -1265,48 +1275,7 @@ public class TricomMain extends JFrame {
 		scrollPane.setViewportView(table);
 	}
 	
-	public int checkboxsActivos(JTable table, String tipo)
-	{
-		int i = 0;
-		int cant = 0;
-		if(tipo.equalsIgnoreCase("cliente"))
-		{
-			while(i < Tricom.getInstance().getMisClientes().size())
-			{
-				if((Boolean)table.getModel().getValueAt(i, 0)) //Si el CheckBox se encuentra check
-					cant++;
-				i++;
-			}
-		}
-		if(tipo.equalsIgnoreCase("empleado"))
-		{
-			while(i < Tricom.getInstance().getMisEmpleados().size())
-			{
-				if((Boolean)table.getModel().getValueAt(i, 0)) //Si el CheckBox se encuentra check
-					cant++;
-				i++;
-			}
-		}
-		if(tipo.equalsIgnoreCase("plan"))
-		{
-			while(i < Tricom.getInstance().getMisPlanes().size())
-			{
-				if((Boolean)table.getModel().getValueAt(i, 0)) //Si el CheckBox se encuentra check
-					cant++;
-				i++;
-			}
-		}
-		if(tipo.equalsIgnoreCase("servicio"))
-		{
-			while(i < Tricom.getInstance().getMisEmpleados().size())
-			{
-				if((Boolean)table.getModel().getValueAt(i, 0)) //Si el CheckBox se encuentra check
-					cant++;
-				i++;
-			}
-		}
-		return cant;
-	}
+	
 	
 	public int revisarCheckbox(JTable table,String tipo){
 		int i = 0;
@@ -1352,7 +1321,7 @@ public class TricomMain extends JFrame {
 			}
 		}
 		if(tipo.equalsIgnoreCase("factura")){
-			while(i < Tricom.getInstance().getMisFacturas().size()){
+			while(i < cliFact.getMisFacturas().size()){
 				if((boolean)table.getModel().getValueAt(i, 0)){
 					row = i;
 				}

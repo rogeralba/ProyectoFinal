@@ -606,7 +606,6 @@ public class Tricom {
 		    if(misPlanes.get(i).getCodPlan().equalsIgnoreCase(code)){
 			   index = i;
 		    }
-		    
 				i++;
 	}
 		return index;
@@ -678,6 +677,7 @@ public class Tricom {
 		}
 		misServicios.set(index, cl);
 	}
+	
 	public Factura buscarFactura(String cod) {
 		boolean encontrado = false;
 		int i = 0;

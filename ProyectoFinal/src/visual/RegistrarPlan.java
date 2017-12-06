@@ -67,7 +67,7 @@ private JTextArea txtADescripcion;
 	/**
 	 * Create the dialog.
 	 */
-	public RegistrarPlan(Plan plan, int accion) {//accion: 1-Registrar (El parametro plan es NULL), 2-Modificar
+	public RegistrarPlan(Plan plan1, int accion) {//accion: 1-Registrar (El parametro plan es NULL), 2-Modificar
 		setResizable(false);
 		getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		setBounds(100, 100, 742, 609);
@@ -322,11 +322,11 @@ private JTextArea txtADescripcion;
 						JOptionPane.showMessageDialog(null, "Registro satisfactorio.");
 						dispose();
 						}else{
-							Plan plan = new Plan(codigo,nombre,0,internet,telefono,cable,descripcion,true,impuestos,instalacion);
+							Plan plan = new Plan(plan1.getCodPlan(),nombre,0,internet,telefono,cable,descripcion,true,impuestos,instalacion);
 
 								Tricom.getInstance().reemplazarPlan(plan);
 								JOptionPane.showMessageDialog(null, "Modificacion satisfactoria.");
-								TricomMain.cargarJtable(3);
+								TricomMain.cargarJtable(4);
 								dispose();
 							
 						}
@@ -349,7 +349,7 @@ private JTextArea txtADescripcion;
 		lblNewLabel.setBounds(22, 533, 291, 16);
 		getContentPane().add(lblNewLabel);
 		if(accion == 2){
-			loadModif(plan);
+			loadModif(plan1);
 		}
 
 	}
