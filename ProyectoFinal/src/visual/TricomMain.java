@@ -760,6 +760,7 @@ public class TricomMain extends JFrame {
 				{
 					String codigo = table.getModel().getValueAt(row, 1).toString();
 					Tricom.getInstance().pagarFactura(codigo);
+					Tricom.getInstance().Facturar(codigo);
 					TricomMain.cargarJtable(6);
 				}
 			}

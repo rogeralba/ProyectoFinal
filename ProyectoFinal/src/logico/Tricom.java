@@ -796,8 +796,7 @@ public class Tricom {
 			pw.println("Codigo de la factura: "+f.getCodFactura()+"                        "+"Fecha de Emision: "+fecha.get(Calendar.DATE)+"/"+(fecha.get(Calendar.MONTH)+1)+"/"+fecha.get(Calendar.YEAR)+"                     "+"Fecha de Vencimiento: "+f.getFechaVencimiento());            
 			pw.println("Cliente: "+f.getCliente().getNombre()+"                     "+"Telefono: "+f.getCliente().getTelefono());
 			pw.println("Direccion: "+f.getCliente().getDireccion());
-			pw.println("Estado: "+f.getEstado());
-			pw.println("Total Bruto: "+f.getTotalBruto()+"                          "+"Total Neto: "+f.getTotalNeto());
+			pw.println("Total Bruto: "+f.getTotalBruto()+"                          "+"Total Neto: "+f.getTotalNeto()+f.getMora());
 			
 		}catch (IOException e) {
 			e.printStackTrace();
