@@ -652,7 +652,7 @@ public class TricomMain extends JFrame {
 							cargarJtable(3);
 						}
 						break;
-					
+					//
 					case 4:
 						Plan pla= Tricom.getInstance().buscarPlancode(cod);
 						if(pla != null)
