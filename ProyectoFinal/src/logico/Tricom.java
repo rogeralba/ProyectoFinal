@@ -486,6 +486,24 @@ public class Tricom {
 		return plan;
 	}
 	
+	public Venta buscarVenta(String codVen)
+	{
+		boolean encontrado = false;
+		int i = 0;
+		Venta venta = null;
+		
+		while(i < misVentas.size() && encontrado == false)
+		{
+			if(misVentas.get(i).getCodVenta().equalsIgnoreCase(codVen))
+			{
+				venta = misVentas.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return venta;
+	}
+	
 	public void ingresarCliente(Cliente c){
 		misClientes.add(c);
 	}

@@ -437,21 +437,26 @@ public class RegistrarCliente extends JDialog {
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 				String fecNac ="";
 				if(accion == 1){
-				 fecNac = formatter.format(dtcFecNac.getDate());
+					try{
+						fecNac = new String(formatter.format(dtcFecNac.getDate()));
+					}catch(NullPointerException e)
+					{
+						JOptionPane.showMessageDialog(null, "Debe ingresar una fecha válida.");
+					}
 				}
 				
 				if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Corriente"))
 				{
 					if(rdbCedula.isSelected() == true)
 					{
-						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && cedula.equalsIgnoreCase("   -       - ")==false && email.equalsIgnoreCase("")==false)
+						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && cedula.equalsIgnoreCase("   -       - ")==false && email.equalsIgnoreCase("")==false && fecNac.equals("") == false)
 						{
 							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,cedula,fecNac,sexo);
 							valido = true;
 						}
 					}else if(rdbPasaporte.isSelected() == true)
 					{
-						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && pasaporte.equalsIgnoreCase("")==false && email.equalsIgnoreCase("")==false)
+						if(nombre.equalsIgnoreCase("")==false && apellido1.equalsIgnoreCase("")==false && apellido2.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && pasaporte.equalsIgnoreCase("")==false && email.equalsIgnoreCase("")==false && fecNac.equals("") == false)
 						{
 							cliente = new ClienteComun(codCli,nombre,apellido1,apellido2,direccion,telefono,email,pasaporte,fecNac,sexo);
 							valido = true;
@@ -459,7 +464,7 @@ public class RegistrarCliente extends JDialog {
 					}	
 				}else if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Empresa"))
 				{
-					if(nombre.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && rnc.equalsIgnoreCase("   -     - ")==false && email.equalsIgnoreCase("")==false)
+					if(nombre.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && rnc.equalsIgnoreCase("   -     - ")==false && email.equalsIgnoreCase("")==false && fecNac.equals("") == false)
 					{
 						cliente = new ClienteEmpresa(codCli,nombre,direccion,telefono,email,rnc);
 						valido = true;
