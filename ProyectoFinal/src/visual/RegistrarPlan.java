@@ -46,8 +46,9 @@ public class RegistrarPlan extends JDialog {
 	private JComboBox cbxTelefono;
 	private JComboBox cbxInternet;
 	private JComboBox cbxCable;
-private JTextArea txtADescripcion;
-	/**
+    private JTextArea txtADescripcion;
+	private JLabel lblRegistrarNuevoPlan;
+    /**
 	 * Launch the application.
 	 *//*
 	public static void main(String[] args) {
@@ -68,7 +69,14 @@ private JTextArea txtADescripcion;
 	 * Create the dialog.
 	 */
 	public RegistrarPlan(Plan plan1, int accion) {//accion: 1-Registrar (El parametro plan es NULL), 2-Modificar
+		
 		setResizable(false);
+		if(accion == 2){
+			setTitle("Modificar Plan");
+		}
+		else{
+			setTitle("Registrar Plan");
+		}
 		getContentPane().setBackground(SystemColor.inactiveCaptionBorder);
 		setBounds(100, 100, 742, 609);
 		getContentPane().setLayout(null);
@@ -93,10 +101,18 @@ private JTextArea txtADescripcion;
 		imgLogo.setIcon(icono1);
 		panel.add(imgLogo);
 		
-		JLabel lblRegistrarNuevoPlan = new JLabel("Registrar Plan");
-		lblRegistrarNuevoPlan.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblRegistrarNuevoPlan.setBounds(142, 13, 389, 56);
-		panel.add(lblRegistrarNuevoPlan);
+		if(accion==2){
+			lblRegistrarNuevoPlan = new JLabel("Modificar Plan");
+			lblRegistrarNuevoPlan.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblRegistrarNuevoPlan.setBounds(142, 13, 389, 56);
+			panel.add(lblRegistrarNuevoPlan);
+			}
+			else {
+				lblRegistrarNuevoPlan = new JLabel("Registrar Plan");
+				lblRegistrarNuevoPlan.setFont(new Font("Tahoma", Font.BOLD, 22));
+				lblRegistrarNuevoPlan.setBounds(142, 13, 389, 56);
+				panel.add(lblRegistrarNuevoPlan);
+			}
 		
 		JLabel userImg = new JLabel("");
 		userImg.setBounds(630, 13, 45, 42);

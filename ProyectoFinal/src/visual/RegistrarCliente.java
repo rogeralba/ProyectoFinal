@@ -63,6 +63,7 @@ public class RegistrarCliente extends JDialog {
 	private JTextField txtPasaporte;
 	private JTextField txtDireccion;
 	private JTextField txtEmail;
+	private JLabel lblRegistrarCliente;
 	private JLabel lblApellido1;
 	private JLabel lblApellido2;
 	private JRadioButton rdbCedula;
@@ -95,7 +96,12 @@ public class RegistrarCliente extends JDialog {
 	public RegistrarCliente(Cliente cliente, int accion) //accion: 1-Registrar (El parametro cliente es NULL), 2-Modificar
 	{
 		setResizable(false);
-		setTitle("Registrar Cliente");
+		if(accion == 2){
+			setTitle("Modificar Cliente");
+		}
+		else{
+			setTitle("Registrar Cliente");
+		}
 		setBounds(100, 100, 667, 949);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
@@ -124,11 +130,18 @@ public class RegistrarCliente extends JDialog {
 		imgLogo.setIcon(icono1);
 		panel.add(imgLogo);
 		
-		JLabel lblRegistrarCliente = new JLabel("Registrar Cliente");
-		lblRegistrarCliente.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblRegistrarCliente.setBounds(142, 13, 389, 56);
-		panel.add(lblRegistrarCliente);
-		
+		if(accion==2){
+		  lblRegistrarCliente = new JLabel("Modificar Cliente");
+		  lblRegistrarCliente.setFont(new Font("Tahoma", Font.BOLD, 22));
+		  lblRegistrarCliente.setBounds(142, 13, 389, 56);
+		  panel.add(lblRegistrarCliente);
+		}
+		else {
+		   lblRegistrarCliente = new JLabel("Registrar Cliente");
+		   lblRegistrarCliente.setFont(new Font("Tahoma", Font.BOLD, 22));
+		   lblRegistrarCliente.setBounds(142, 13, 389, 56);
+		   panel.add(lblRegistrarCliente);
+		}
 		JLabel userImg = new JLabel("");
 		userImg.setBounds(575, 13, 45, 42);
 		String path2 = "./Imagenes/user.png";
@@ -534,6 +547,7 @@ public class RegistrarCliente extends JDialog {
 		{
 			loadDatos(cliente);
 			btnSiguiente.setText("Aceptar");
+			
 		}
 		
 		if(accion == 3)

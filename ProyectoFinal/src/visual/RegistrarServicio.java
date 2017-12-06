@@ -52,9 +52,10 @@ public class RegistrarServicio extends JDialog {
 	private JSpinner spnLocales;
 	private JSpinner spnInter;
 	private JSpinner spnHD;
-	JRadioButton rdbCable;
-	JRadioButton rdbInternet;
-	JRadioButton rdbTelefono;
+	private JRadioButton rdbCable;
+	private JRadioButton rdbInternet;
+	private JRadioButton rdbTelefono;
+	private JLabel lblRegistrarServicio;
 
 	/**
 	 * Launch the application.
@@ -74,6 +75,12 @@ public class RegistrarServicio extends JDialog {
 	 */
 	public RegistrarServicio(Servicio servic, int accion) {
 		setResizable(false);//accion: 1-Registrar (El parametro empleado es NULL), 2-Modificar
+		if(accion == 2){
+			setTitle("Modificar Servicio");
+		}
+		else{
+			setTitle("Registrar Servicio");
+		}
 		setBounds(100, 100, 725, 912);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
@@ -96,11 +103,19 @@ public class RegistrarServicio extends JDialog {
 		imgLogo.setIcon(icono1);
 		panel.add(imgLogo);
 		
-		JLabel lblRegistrarServicio = new JLabel("Registro de Servicio");
-		lblRegistrarServicio.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblRegistrarServicio.setBounds(142, 13, 389, 56);
-		panel.add(lblRegistrarServicio);
 		
+		if(accion==2){
+			lblRegistrarServicio = new JLabel("Modificar Servicio");
+			lblRegistrarServicio.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblRegistrarServicio.setBounds(142, 13, 389, 56);
+			panel.add(lblRegistrarServicio);
+			}
+			else {
+				lblRegistrarServicio = new JLabel("Registro de Servicio");
+				lblRegistrarServicio.setFont(new Font("Tahoma", Font.BOLD, 22));
+				lblRegistrarServicio.setBounds(142, 13, 389, 56);
+				panel.add(lblRegistrarServicio);
+			}
 		JLabel userImg = new JLabel("");
 		userImg.setBounds(626, 13, 45, 42);
 		String path2 = "./Imagenes/user.png";

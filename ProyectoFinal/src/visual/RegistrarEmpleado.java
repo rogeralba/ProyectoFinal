@@ -73,6 +73,7 @@ public class RegistrarEmpleado extends JDialog {
 	private JTextField txtCodigo;
 	private JTextArea txtANota;
 	private JComboBox cbxCargo;
+	private JLabel lblRegistrarEmpleado;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -91,7 +92,13 @@ public class RegistrarEmpleado extends JDialog {
 	}
 
 	public RegistrarEmpleado(Empleado empleado, int accion) { //accion: 1-Registrar (El parametro empleado es NULL), 2-Modificar
-		setTitle("Registrar Empleado\r\n");
+		
+		if(accion == 2){
+			setTitle("Modificar Empleado\r\n");
+		}
+		else{
+			setTitle("Registrar Empleado\r\n");
+		}
 		setBounds(100, 100, 693, 776);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -190,7 +197,7 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(txtDireccion);
 		txtDireccion.setColumns(10);
 
-		JLabel lblTelefono = new JLabel("Telefono:");
+		JLabel lblTelefono = new JLabel("Tel\u00E9fono:");
 		lblTelefono.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblTelefono.setBounds(375, 123, 91, 14);
 		panel.add(lblTelefono);
@@ -213,7 +220,7 @@ public class RegistrarEmpleado extends JDialog {
 		panel.add(txtContrasena);
 		txtContrasena.setColumns(10);
 
-		lblNotaMedica = new JLabel("Nota Medica:\r\n");
+		lblNotaMedica = new JLabel("Nota M\u00E9dica:\r\n");
 		lblNotaMedica.setFont(new Font("Arial", Font.PLAIN, 16));
 		lblNotaMedica.setBounds(31, 438, 132, 17);
 		panel.add(lblNotaMedica);
@@ -307,11 +314,19 @@ public class RegistrarEmpleado extends JDialog {
 		imgLogo.setIcon(icono1);
 		panel_1.add(imgLogo);
 
-		JLabel lblRegistrarEmpleado = new JLabel("Registrar Empleado");
-		lblRegistrarEmpleado.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblRegistrarEmpleado.setBounds(142, 13, 389, 56);
-		panel_1.add(lblRegistrarEmpleado);
-
+		
+		if(accion==2){
+			lblRegistrarEmpleado = new JLabel("modificar Empleado");
+			lblRegistrarEmpleado.setFont(new Font("Tahoma", Font.BOLD, 22));
+			lblRegistrarEmpleado.setBounds(142, 13, 389, 56);
+			panel_1.add(lblRegistrarEmpleado);
+			}
+		else {
+				lblRegistrarEmpleado = new JLabel("Registrar Empleado");
+				lblRegistrarEmpleado.setFont(new Font("Tahoma", Font.BOLD, 22));
+				lblRegistrarEmpleado.setBounds(142, 13, 389, 56);
+				panel_1.add(lblRegistrarEmpleado);
+			}
 		JLabel userImg = new JLabel("");
 		userImg.setBounds(575, 13, 45, 42);
 		String path2 = "./Imagenes/user.png";
