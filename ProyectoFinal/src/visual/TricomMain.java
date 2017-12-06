@@ -371,38 +371,68 @@ public class TricomMain extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//MODIFICAR
+				int row;
 				switch(activeButton)
 				{
 				case 1: //Boton de Clientes
-						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
-						Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
-						RegistrarCliente reg = new RegistrarCliente(cl, 2);
-						reg.setVisible(true);
-						cargarJtable(1);
-
+						row = revisarCheckbox(table, "cliente");
+						if(row != -1)
+						{
+							String codigo = table.getModel().getValueAt(row, 1).toString();
+							Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
+							RegistrarCliente reg = new RegistrarCliente(cl, 2);
+							reg.setVisible(true);
+							cargarJtable(1);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "No se han seleccionado registros");
+						}
 					break;
 				case 2://Boton de Empleados
-						String codigo2 = table.getModel().getValueAt(revisarCheckbox(table, "empleado"), 1).toString();
-						Empleado cl2 = Tricom.getInstance().buscarEmpcode(codigo2);
-						RegistrarEmpleado reg2 = new RegistrarEmpleado(cl2, 2);
-						reg2.setVisible(true);
-						cargarJtable(2);
-
+						row = revisarCheckbox(table, "empleado");
+						if(row != -1)
+						{
+							String codigo2 = table.getModel().getValueAt(row, 1).toString();
+							Empleado cl2 = Tricom.getInstance().buscarEmpcode(codigo2);
+							RegistrarEmpleado reg2 = new RegistrarEmpleado(cl2, 2);
+							reg2.setVisible(true);
+							cargarJtable(2);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "No se han seleccionado registros");
+						}	
 					break;
 				case 4://Boton de Planes
-						String codigo4 = table.getModel().getValueAt(revisarCheckbox(table, "plan"), 1).toString();
-						Plan cl4 = Tricom.getInstance().buscarPlancode(codigo4);
-						RegistrarPlan reg4 = new RegistrarPlan(cl4, 2);
-						reg4.setVisible(true);
-						cargarJtable(3);
-
+						row = revisarCheckbox(table, "plan");
+						if(row != -1)
+						{
+							String codigo4 = table.getModel().getValueAt(row, 1).toString();
+							Plan cl4 = Tricom.getInstance().buscarPlancode(codigo4);
+							RegistrarPlan reg4 = new RegistrarPlan(cl4, 2);
+							reg4.setVisible(true);
+							cargarJtable(3);
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "No se han seleccionado registros");
+						}
 						break;
 				case 5://Boton de Servicios
-						String codigo5 = table.getModel().getValueAt(revisarCheckbox(table, "servicio"), 1).toString();
-						Servicio cl5 = Tricom.getInstance().buscarServcode(codigo5);
-						RegistrarServicio reg5 = new RegistrarServicio(cl5, 2);
-						reg5.setVisible(true);
-						cargarJtable(4);
+						row = revisarCheckbox(table, "servicio");
+						if(row != -1)
+						{
+							String codigo5 = table.getModel().getValueAt(row, 1).toString();
+							Servicio cl5 = Tricom.getInstance().buscarServcode(codigo5);
+							RegistrarServicio reg5 = new RegistrarServicio(cl5, 2);
+							reg5.setVisible(true);
+							cargarJtable(4);
+						}	
+						else
+						{
+							JOptionPane.showMessageDialog(null, "No se han seleccionado registros");
+						}
 
 					break;
 				default:
@@ -423,14 +453,18 @@ public class TricomMain extends JFrame {
 				
 				
 				//ELIMINAR
+				int i = 0;
+				int cant = 0;
 				switch(activeButton)
 				{
+				
 				case 1: //Boton de Clientes
-					while(revisarCheckbox(table, "cliente")!=-1){
+					cant = checkboxsActivos(table, "cliente");
+					while(i < cant){
 						String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
 						Tricom.getInstance().eliminarCliente(codigo);
 						cargarJtable(1);
-						
+						i++;
 					}
 					break;
 				case 2://Boton de Empleados
@@ -1146,6 +1180,50 @@ public class TricomMain extends JFrame {
 		table.setBackground(SystemColor.window);
 		scrollPane.setViewportView(table);
 	}
+	
+	public int checkboxsActivos(JTable table, String tipo)
+	{
+		int i = 0;
+		int cant = 0;
+		if(tipo.equalsIgnoreCase("cliente"))
+		{
+			while(i < Tricom.getInstance().getMisClientes().size())
+			{
+				if((Boolean)table.getModel().getValueAt(i, 0)) //Si el CheckBox se encuentra check
+					cant++;
+				i++;
+			}
+		}
+		if(tipo.equalsIgnoreCase("empleado"))
+		{
+			while(i < Tricom.getInstance().getMisEmpleados().size())
+			{
+				if((Boolean)table.getModel().getValueAt(i, 0)) //Si el CheckBox se encuentra check
+					cant++;
+				i++;
+			}
+		}
+		if(tipo.equalsIgnoreCase("plan"))
+		{
+			while(i < Tricom.getInstance().getMisPlanes().size())
+			{
+				if((Boolean)table.getModel().getValueAt(i, 0)) //Si el CheckBox se encuentra check
+					cant++;
+				i++;
+			}
+		}
+		if(tipo.equalsIgnoreCase("servicio"))
+		{
+			while(i < Tricom.getInstance().getMisEmpleados().size())
+			{
+				if((Boolean)table.getModel().getValueAt(i, 0)) //Si el CheckBox se encuentra check
+					cant++;
+				i++;
+			}
+		}
+		return cant;
+	}
+	
 	public int revisarCheckbox(JTable table,String tipo){
 		int i = 0;
 		int row= -1;
@@ -1339,4 +1417,6 @@ public class TricomMain extends JFrame {
 		}
 		return fila;
 }
+	
+	
 }
