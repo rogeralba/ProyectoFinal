@@ -575,6 +575,9 @@ public class RegistrarCliente extends JDialog {
 			txtDireccion.setText(clc.getDireccion());
 			txtTelefono.setText(clc.getTelefono());
 			txtEmail.setText(clc.getEmail());
+			txtCedula.setEditable(false);
+			txtRNC.setEditable(false);
+			txtPasaporte.setEditable(false);
 			if(clc.getCedula().equalsIgnoreCase("   -       - ")); //Si no hay cedula es porque hay pasaporte
 			{
 				rdbPasaporte.setSelected(true);
@@ -582,7 +585,6 @@ public class RegistrarCliente extends JDialog {
 				txtPasaporte.setVisible(true);
 				txtPasaporte.setText(clc.getCedula());
 				txtCedula.setVisible(false);
-				
 			}
 			if (clc.getSexo().equalsIgnoreCase("Femenino")) 
 				cbxSexo.setSelectedIndex(0);

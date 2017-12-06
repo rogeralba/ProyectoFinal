@@ -340,7 +340,6 @@ public class RegistrarEmpleado extends JDialog {
 			{
 				fechanac = new String("");
 			}
-
 				String codigo = "codEmp-"+(Tricom.getInstance().getCantRegistros().get(1)+1);
 				if(accion == 1)
 				{
