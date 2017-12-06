@@ -1037,6 +1037,13 @@ public class TricomMain extends JFrame {
 			scrollPane.setBounds(42, 189, 800, 280);
 		if(visible1)
 			scrollPane.setBounds(42, 115, 820, 323);
+		
+		if(activeButton != 3){ 
+			btnModificar.setEnabled(true);
+		}else{			
+			btnModificar.setEnabled(false);
+		}
+
 	}
 	//
 	public static void cargarJtable(int tipo)
