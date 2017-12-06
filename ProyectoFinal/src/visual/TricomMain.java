@@ -80,6 +80,9 @@ public class TricomMain extends JFrame {
 	private Cliente clienteP = null;
 	private JButton btnPagar;
 	private JButton btnPlanes_1;
+	private ChartPanel cp3;
+	private ChartPanel cp2;
+	private ChartPanel cp;
 	
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -804,7 +807,7 @@ public class TricomMain extends JFrame {
 					false //
 					);
 			// create and display a frame...
-			ChartPanel cp = new ChartPanel(chart);
+			 cp = new ChartPanel(chart);
 		    cp.setPreferredSize(new Dimension(panelGraficos.getBounds().width, panelGraficos.getBounds().height/2));
 
 			panelGraficos.add(cp,BorderLayout.CENTER);
@@ -824,7 +827,7 @@ public class TricomMain extends JFrame {
 					false // URLs?
 					);
 			// create and display a frame...
-			ChartPanel cp = new ChartPanel(chart);
+			 cp = new ChartPanel(chart);
 		    cp.setPreferredSize(new Dimension(panelGraficos.getBounds().width-10, panelGraficos.getBounds().height/3-5));
 
 			panelGraficos.add(cp,BorderLayout.CENTER);
@@ -848,7 +851,7 @@ public class TricomMain extends JFrame {
 					false //
 					);
 			// create and display a frame...
-			ChartPanel cp2 = new ChartPanel(chart2);
+			 cp2 = new ChartPanel(chart2);
 		    cp2.setPreferredSize(new Dimension(panelGraficos.getBounds().width - 10, panelGraficos.getBounds().height/3-5));
 
 			panelGraficos.add(cp2,BorderLayout.CENTER);
@@ -873,7 +876,7 @@ public class TricomMain extends JFrame {
 					false //
 					);
 			// create and display a frame...
-			ChartPanel cp3 = new ChartPanel(chart3);
+			 cp3 = new ChartPanel(chart3);
 		    cp3.setPreferredSize(new Dimension(panelGraficos.getBounds().width - 10, panelGraficos.getBounds().height/3-5));
 
 			panelGraficos.add(cp3,BorderLayout.CENTER);
@@ -1048,8 +1051,88 @@ public class TricomMain extends JFrame {
 			   JOptionPane.showMessageDialog(null, "sd");
 		}
 		return fila;
+		
 }
 	//
+	private  void reloadGraficos(){
+		
+		
+		if(Tricom.getInstance().getActual() instanceof ServicioC){
+			DefaultPieDataset data = new DefaultPieDataset();
+			data.setValue(""+((ServicioC)Tricom.getInstance().getActual()).getMisVentas().size()+" Ventas", ((ServicioC)Tricom.getInstance().getActual()).getMisVentas().size());
+			data.setValue(""+((ServicioC)Tricom.getInstance().getActual()).getComisionventas()+" Comisiones",  ((ServicioC)Tricom.getInstance().getActual()).getComisionventas());
+			JFreeChart chart = ChartFactory.createPieChart(
+					"Resumen ",
+					data,
+					true, // legend?
+					true, // tooltips?
+					false //
+					);
+			// create and display a frame...
+			cp = new ChartPanel(chart);
+
+			
+			
+		}else{
+			DefaultPieDataset data = new DefaultPieDataset();
+			data.setValue(""+Tricom.getInstance().getMisPlanes().size()+" Planes", Tricom.getInstance().getMisPlanes().size());
+			data.setValue(""+Tricom.getInstance().getMisClientes().size()+" Clientes",  Tricom.getInstance().getMisClientes().size());
+			data.setValue(""+Tricom.getInstance().getMisEmpleados().size()+" Usuarios",  Tricom.getInstance().getMisEmpleados().size());
+			JFreeChart chart = ChartFactory.createPieChart(
+					"Resumen ",
+					data,
+					true, // legend?
+					true, // tooltips?
+					false // URLs?
+					);
+			// create and display a frame...
+			cp = new ChartPanel(chart);
+
+			DefaultPieDataset data2 = new DefaultPieDataset();
+			int per = 0;
+			int empr = 0;
+			for(Cliente emp : Tricom.getInstance().getMisClientes()){
+				if (emp instanceof ClienteComun)
+					per++;
+				if (emp instanceof ClienteEmpresa)
+					empr++;
+			}
+			data2.setValue(""+per+" Clientes personales", per);
+			data2.setValue(""+empr+" Clientes empresariales ",  empr);
+			JFreeChart chart2 = ChartFactory.createPieChart(
+					"Resumen ",
+					data2,
+					true, // legend?
+					true, // tooltips?
+					false //
+					);
+			// create and display a frame...
+	cp2 = new ChartPanel(chart2);
+			
+			
+			DefaultPieDataset data3 = new DefaultPieDataset();
+			int adm = 0;
+			int serv = 0;
+			for(Empleado emp : Tricom.getInstance().getMisEmpleados()){
+				if (emp instanceof Administrativo)
+					adm++;
+				if (emp instanceof ServicioC)
+					serv++;
+			}
+			data3.setValue(""+adm+" Administradores", adm);
+			data3.setValue(""+empr+" Vendedores ",  empr);
+			JFreeChart chart3 = ChartFactory.createPieChart(
+					"Resumen ",
+					data3,
+					true, // legend?
+					true, // tooltips?
+					false //
+					);
+			// create and display a frame...
+			cp3 = new ChartPanel(chart3);
+		  
+		}
+	}
 	private void camposVisibles(boolean visible1, boolean visible2)
 	{
 		btnNuevo.setVisible(visible1);
@@ -1125,6 +1208,8 @@ public class TricomMain extends JFrame {
 	      };
 		table.setBackground(SystemColor.window);
 		scrollPane.setViewportView(table);
+		
+	
 	}
 	public static void cargarBusqueda(int tipo,Cliente cl,Empleado emp, Venta ven, Plan plan,Servicio ser)
 	{

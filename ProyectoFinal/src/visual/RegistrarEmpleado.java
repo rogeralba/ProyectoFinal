@@ -330,7 +330,11 @@ public class RegistrarEmpleado extends JDialog {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-			
+
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fechanac ="";
+			fechanac =  new String(formatter.format(dtcFecNac.getDate()));
+
 				String codigo = "codEmp-"+(Tricom.getInstance().getCantRegistros().get(1)+1);
 				if(accion == 1)
 				{
@@ -338,14 +342,15 @@ public class RegistrarEmpleado extends JDialog {
 					{
 						if (cbxCargo.getSelectedIndex() == 0) 
 						{
-							ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
+							
+							ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),fechanac,cbxSexo.getSelectedItem().toString(),txtEmail.getText());
 							Tricom.getInstance().getMisEmpleados().add(vend);
 							JOptionPane.showMessageDialog(null, "Empleado registrado.", null, JOptionPane.INFORMATION_MESSAGE,null);
 							dispose();
 						}
 						if (cbxCargo.getSelectedIndex() == 1) 
 						{
-							Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
+							Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),fechanac,cbxSexo.getSelectedItem().toString(),txtEmail.getText());
 							Tricom.getInstance().getMisEmpleados().add(vend);
 							JOptionPane.showMessageDialog(null, "Empleado registrado.", null, JOptionPane.INFORMATION_MESSAGE,null);
 							dispose();
@@ -363,14 +368,14 @@ public class RegistrarEmpleado extends JDialog {
 					{
 						if (cbxCargo.getSelectedIndex() == 0) 
 						{
-							ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
+							ServicioC vend = new ServicioC(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(),txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),fechanac,cbxSexo.getSelectedItem().toString(),txtEmail.getText());
 							Tricom.getInstance().reemplazarEmpleado(vend);
 							JOptionPane.showMessageDialog(null, "Empleado Modificado.", null, JOptionPane.INFORMATION_MESSAGE,null);
 							dispose();
 						}
 						if (cbxCargo.getSelectedIndex() == 1) 
 						{
-							Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),dtcFecNac.getDateFormatString(),cbxSexo.getSelectedItem().toString(),txtEmail.getText());
+							Administrativo vend = new Administrativo(codigo,txtNombre.getText(), txtApellido1.getText(),txtApellido2.getText(), txtCedula.getText(), txtDireccion.getText(), txtTelefono.getText(), txtANota.getText(), (float)spnSalario.getValue(),txtContrasena.getText(),fechanac,cbxSexo.getSelectedItem().toString(),txtEmail.getText());
 							//Tricom.getInstance().getMisEmpleados().add(vend);
 							Tricom.getInstance().reemplazarEmpleado(vend);
 							JOptionPane.showMessageDialog(null, "Empleado Modificado.", null, JOptionPane.INFORMATION_MESSAGE,null);
