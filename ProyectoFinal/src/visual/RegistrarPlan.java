@@ -326,7 +326,7 @@ private JTextArea txtADescripcion;
 
 								Tricom.getInstance().reemplazarPlan(plan);
 								JOptionPane.showMessageDialog(null, "Modificacion satisfactoria.");
-TricomMain.cargarJtable(3);
+								TricomMain.cargarJtable(3);
 								dispose();
 							
 						}

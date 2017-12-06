@@ -433,10 +433,15 @@ public class RegistrarCliente extends JDialog {
 				String pasaporte = txtPasaporte.getText().toString();
 				String rnc = txtRNC.getText().toString();
 				String sexo = cbxSexo.getSelectedItem().toString();
-				String codCli = "codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1);
+				String codCli = "";
+				if(accion == 1)
+					codCli = new String("codCli-"+(Tricom.getInstance().getCantRegistros().get(0)+1));
+				else
+					codCli = new String(cliente.getCodCli());
 				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 				String fecNac ="";
-				if(accion == 1){
+				if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Corriente"))
+				{
 					try{
 						fecNac = new String(formatter.format(dtcFecNac.getDate()));
 					}catch(NullPointerException e)
@@ -464,7 +469,7 @@ public class RegistrarCliente extends JDialog {
 					}	
 				}else if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Empresa"))
 				{
-					if(nombre.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && rnc.equalsIgnoreCase("   -     - ")==false && email.equalsIgnoreCase("")==false && fecNac.equals("") == false)
+					if(nombre.equalsIgnoreCase("")==false && direccion.equalsIgnoreCase("")==false && telefono.equalsIgnoreCase("   -   -    ")==false && rnc.equalsIgnoreCase("   -     - ")==false && email.equalsIgnoreCase("")==false)
 					{
 						cliente = new ClienteEmpresa(codCli,nombre,direccion,telefono,email,rnc);
 						valido = true;
@@ -487,7 +492,12 @@ public class RegistrarCliente extends JDialog {
 					if(valido == true)
 					{
 						Tricom.getInstance().reemplazarCliente(cliente);
+						TricomMain.cargarJtable(1);
 						dispose();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Todos los campos deben ser válidos.");
 					}
 				}
 			}
@@ -513,7 +523,7 @@ public class RegistrarCliente extends JDialog {
 		contentPanel.add(lblPlanes);
 		
 		
-		if(accion == 2 || accion == 1)
+		if(accion == 1 || accion == 2)
 		{
 			setBounds(100, 100, 667, 657);
 			lblPlanes.setVisible(false);
@@ -521,6 +531,12 @@ public class RegistrarCliente extends JDialog {
 			btnCancelar.setBounds(432, 565, 97, 44);
 			btnSiguiente.setBounds(541, 565, 97, 44);
 			scrollPane.setVisible(false);
+		}
+		
+		if(accion == 2)
+		{
+			loadDatos(cliente);
+			btnSiguiente.setText("Aceptar");
 		}
 		
 		if(accion == 3)
@@ -558,15 +574,19 @@ public class RegistrarCliente extends JDialog {
 			txtDireccion.setText(clc.getDireccion());
 			txtTelefono.setText(clc.getTelefono());
 			txtEmail.setText(clc.getEmail());
-			txtCedula.setText(clc.getCedula());
+			if(clc.getCedula().equalsIgnoreCase("   -       - ")); //Si no hay cedula es porque hay pasaporte
+			{
+				rdbPasaporte.setSelected(true);
+				rdbCedula.setSelected(false);
+				txtPasaporte.setVisible(true);
+				txtPasaporte.setText(clc.getCedula());
+				txtCedula.setVisible(false);
+				
+			}
 			if (clc.getSexo().equalsIgnoreCase("Femenino")) 
-			{
 				cbxSexo.setSelectedIndex(0);
-			}
 			else
-			{
 				cbxSexo.setSelectedIndex(1);
-			}
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			Date dt;
 			try {
