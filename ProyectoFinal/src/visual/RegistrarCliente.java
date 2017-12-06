@@ -444,7 +444,7 @@ public class RegistrarCliente extends JDialog {
 				if(cbxTipo.getSelectedItem().toString().equalsIgnoreCase("Corriente"))
 				{
 					try{
-						fecNac = new String(formatter.format(dtcFecNac.getDate()));
+						fecNac = new String(formatter.format(dtcFecNac.getDate())); 
 					}catch(NullPointerException e)
 					{
 						JOptionPane.showMessageDialog(null, "Debe ingresar una fecha válida.");
