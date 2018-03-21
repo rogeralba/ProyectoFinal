@@ -773,10 +773,18 @@ public class TricomMain extends JFrame {
 		btnPlanes_1 = new JButton("Planes");
 		btnPlanes_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String codigo = table.getModel().getValueAt(revisarCheckbox(table, "cliente"), 1).toString();
-				Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
-				RegistrarCliente reg = new RegistrarCliente(cl, 3);
-				reg.setVisible(true);
+				int row = revisarCheckbox(table, "cliente");
+				if(row != -1)
+				{
+					String codigo = table.getModel().getValueAt(row, 1).toString();
+					Cliente cl = Tricom.getInstance().buscarClientecode(codigo);
+					RegistrarCliente reg = new RegistrarCliente(cl, 3);
+					reg.setVisible(true);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un registro.");
+				}
 			}
 		});
 		btnPlanes_1.setForeground(Color.WHITE);

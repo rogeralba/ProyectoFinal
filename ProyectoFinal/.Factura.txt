@@ -1,0 +1,5 @@
+Codigo de la factura: codFact-20                        Fecha de Emision: 21/3/2018                     Fecha de Vencimiento: 21/4/2018
+Cliente: Josué                     Telefono: 829-949-8321
+Direccion: Villa Olímpica
+Estado: null
+Total Bruto: 4838.0                          Total Neto: 4838.0
