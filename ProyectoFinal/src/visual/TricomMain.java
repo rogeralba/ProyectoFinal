@@ -327,7 +327,7 @@ public class TricomMain extends JFrame {
 		panel_1.setLayout(null);
 		panel_1.setForeground(Color.WHITE);
 		panel_1.setBackground(new Color(255, 102, 51));
-		panel_1.setBounds(118, 0, 1564, 124);
+		panel_1.setBounds(118, 0, 1236, 124);
 		contentPane.add(panel_1);
 		
 		JLabel imgLogo = new JLabel("");
@@ -940,7 +940,7 @@ public class TricomMain extends JFrame {
 					   fila[i][5] = ((ClienteComun)(cli)).getApellido2();
 					   fila[i][6] = ((ClienteComun)(cli)).getFecNac();
 					   fila[i][7] = cli.getTelefono();
-					   fila[i][8] = cli.getEmail();	
+					   fila[i][8] = cli.isEstado();
 				   }
 				   else
 				   {
@@ -952,7 +952,7 @@ public class TricomMain extends JFrame {
 					   fila[i][5] = "N/A";
 					   fila[i][6] = "N/A";
 					   fila[i][7] = cli.getTelefono();
-					   fila[i][8] = cli.getEmail();
+					   fila[i][8] = cli.isEstado();
 				   }
 				   i++;
 			   }

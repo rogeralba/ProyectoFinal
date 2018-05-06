@@ -721,6 +721,7 @@ public class Tricom {
 				{
 					if(misClientes.get(index).getMisFacturas().get(x).getCodFactura().equalsIgnoreCase(cod))
 					{
+						misClientes.get(index).setEstado(true);
 						misClientes.get(index).getMisFacturas().get(x).setPagada(true);
 					}
 				}

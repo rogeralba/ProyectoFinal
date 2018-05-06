@@ -181,6 +181,8 @@ public class VenderPlan extends JDialog {
 					dispose();
 				}else if(accion == 2 && cli != null)
 				{
+					if(cli.isEstado() == true)
+					{
 					if(cli instanceof ClienteComun)
 					{
 						id = new String(((ClienteComun)cli).getCedula());
@@ -203,6 +205,11 @@ public class VenderPlan extends JDialog {
 					JOptionPane.showMessageDialog(null, "Registro satisfactorio");
 					TricomMain.cargarJtable(3);
 					dispose();
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Esta cuenta se encuentra bloqueada");
+					}
 				}
 				else
 				{

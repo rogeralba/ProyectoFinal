@@ -86,7 +86,9 @@ public class Login extends JDialog {
 		//Creacion de usuario inicial.
 		if(Tricom.getInstance().getMisEmpleados().size() == 0)
 		{
-			Administrativo adm = new Administrativo("cod","admin", "el", "boss", "000-0000000-0", "Tricom SA HQ", "111", "Fallecido", 10, "000","00/00/0000","Masculino","gg");
+			Administrativo adm = new Administrativo("codEmp-1","Julio", "Estevez", "Gonzales", "000-0000000-0", "La Esmeralda c/15 #11", "809-745-3545", "Sin problemas", 50000, "000","02/07/1980","Masculino","julioE@hotmail.com");
+			int cant = Tricom.getInstance().getCantRegistros().get(1);
+			Tricom.getInstance().getCantRegistros().set(1, (cant+1));
 			Tricom.getInstance().getMisEmpleados().add(adm);
 		}
 		

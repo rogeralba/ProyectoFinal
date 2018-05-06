@@ -25,6 +25,7 @@ public class Cliente implements Serializable{
 		this.email = email;
 		misPlanes = new ArrayList<Plan>();
 		misFacturas = new ArrayList<Factura>();
+		this.estado = true;
 	}
 	
 	public void insertarPlan(Plan p){
