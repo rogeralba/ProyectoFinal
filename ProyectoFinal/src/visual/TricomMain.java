@@ -144,7 +144,7 @@ public class TricomMain extends JFrame {
 		
 	 lblNewLabel = new JLabel("Juan Lopez");
 		lblNewLabel.setForeground(Color.LIGHT_GRAY);
-		lblNewLabel.setBounds(25, 108, 118, 16);
+		lblNewLabel.setBounds(19, 108, 118, 16);
 		panel.add(lblNewLabel);
 	
 		JButton btnClientes = new JButton("Clientes");

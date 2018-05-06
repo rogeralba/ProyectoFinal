@@ -25,6 +25,9 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.SystemColor;
 
 public class Login extends JDialog {
 
@@ -94,31 +97,35 @@ public class Login extends JDialog {
 		
 		setTitle("Tricom SA");
 		setResizable(false);
-		setBounds(100, 100, 303, 179);
+		setBounds(100, 100, 544, 270);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		setLocationRelativeTo(null);
 		JLabel lblBienvenidoAlSistema = new JLabel("Bienvenido al sistema de gestion de Tricom SA");
-		lblBienvenidoAlSistema.setBounds(12, 13, 279, 16);
+		lblBienvenidoAlSistema.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblBienvenidoAlSistema.setBounds(110, 28, 344, 27);
 		contentPanel.add(lblBienvenidoAlSistema);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
-		lblUsuario.setBounds(22, 42, 56, 16);
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblUsuario.setBounds(242, 68, 86, 16);
 		contentPanel.add(lblUsuario);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
-		lblContrasea.setBounds(12, 71, 66, 16);
+		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblContrasea.setBounds(232, 132, 86, 16);
 		contentPanel.add(lblContrasea);
 		
 		txtUsuario = new JFormattedTextField(patron);
-		txtUsuario.setBounds(90, 42, 116, 22);
+		txtUsuario.setBounds(193, 85, 156, 27);
 		contentPanel.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		txtContrasena = new JPasswordField();
-		txtContrasena.setBounds(90, 68, 116, 22);
+		txtContrasena.setBounds(193, 152, 156, 27);
 		contentPanel.add(txtContrasena);
 		txtContrasena.setColumns(10);
 		{

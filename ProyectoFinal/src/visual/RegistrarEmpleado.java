@@ -320,10 +320,6 @@ public class RegistrarEmpleado extends JDialog {
 				userLogo.getImage().getScaledInstance(userImg.getWidth(), userImg.getHeight(), Image.SCALE_DEFAULT));
 		userImg.setIcon(icono2);
 		panel_1.add(userImg);
-
-		JLabel lblUserName = new JLabel("Juan Lopez");
-		lblUserName.setBounds(567, 53, 68, 16);
-		panel_1.add(lblUserName);
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(472, 684, 89, 43);
 		contentPanel.add(btnAceptar);

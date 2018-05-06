@@ -775,7 +775,7 @@ public class Tricom {
 			index = indexCLiente(((ClienteEmpresa) cli).getRnc());
 		
 		misClientes.set(index, cli);
-		
+		Facturar(factura.getCodFactura());
 		return factura;
 	}
 
@@ -785,7 +785,7 @@ public class Tricom {
 	public void Facturar(String cod){
 		Factura f = buscarFactura(cod);
 		Calendar fecha = new GregorianCalendar();
-		String dir = "./Data/Factura.txt";
+		String dir = ".Factura.txt";
 		FileWriter file = null;
 		PrintWriter pw = null;
 		

@@ -101,14 +101,10 @@ private JTextArea txtADescripcion;
 		JLabel userImg = new JLabel("");
 		userImg.setBounds(630, 13, 45, 42);
 		panel.add(userImg);
-		
-		JLabel label_3 = new JLabel("Juan Lopez");
-		label_3.setBounds(622, 53, 68, 16);
 		String path2 = "./Imagenes/user.png";
 		ImageIcon userLogo = new ImageIcon(path2);
 		ImageIcon icono2 = new ImageIcon(userLogo.getImage().getScaledInstance(userImg.getWidth(), userImg.getHeight(), Image.SCALE_DEFAULT));
 		userImg.setIcon(icono2);
-		panel.add(label_3);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.text);

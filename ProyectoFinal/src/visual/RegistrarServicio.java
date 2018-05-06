@@ -109,10 +109,6 @@ public class RegistrarServicio extends JDialog {
 		userImg.setIcon(icono2);
 		panel.add(userImg);
 		
-		JLabel label_3 = new JLabel("Juan Lopez");
-		label_3.setBounds(618, 53, 68, 16);
-		panel.add(label_3);
-		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.WHITE);
