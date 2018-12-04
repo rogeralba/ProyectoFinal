@@ -36,7 +36,7 @@ public class VerificarFacturas extends Thread{
 				fechaFactura = new String(Tricom.getInstance().getMisFacturas().get(i).getFechaVencimiento());
 				fecha1 = sdf.parse(fechaActual, new ParsePosition(0));
 				fecha2 = sdf.parse(fechaFactura, new ParsePosition(0));
-				if(fecha1.before(fecha2) && Tricom.getInstance().getMisFacturas().get(i).getVencida()==false)
+				if(fecha2.before(fecha1) && Tricom.getInstance().getMisFacturas().get(i).getVencida()==false)
 				{
 					Tricom.getInstance().getMisFacturas().get(i).setVencida(true);			
 					cliente = Tricom.getInstance().getMisFacturas().get(i).getCliente();

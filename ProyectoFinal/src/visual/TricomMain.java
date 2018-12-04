@@ -101,7 +101,7 @@ public class TricomMain extends JFrame {
 		String[] columnNames3 = {"Seleccionar","Codigo","Cliente","Cedula-Cliente","Empleado","Cedula-Empleado","Nombre del Plan","Fecha"};
 		String[] columnNames4 = {"Seleccionar","Codigo","Nombre","Internet","Telefono","Telecable","Tarifa","Impuestos","Instalacion"};
 		String[] columnNames5 = {"Seleccionar","Codigo","Tipo", "Precio Total", "Impuestos","Instalacion"};
-		String[] columnNames6 = {"Seleccionar","Codigo","Plan", "Precio Total", "Impuestos","Mora","Estado"};
+		String[] columnNames6 = {"Seleccionar","Codigo","Plan", "Precio Total", "Impuestos","Mora","Vencimiento","Estado","Pago"};
 		
 		setTitle("Tricom");
 		setBounds(100, 100, 450, 300);
@@ -566,6 +566,7 @@ public class TricomMain extends JFrame {
 		ImageIcon icono11 = new ImageIcon(lupa.getImage().getScaledInstance(37, 20, Image.SCALE_DEFAULT));
 		
 		txtNombre = new JTextField();
+		txtNombre.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtNombre.setEditable(false);
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(42, 134, 224, 27);
@@ -579,6 +580,7 @@ public class TricomMain extends JFrame {
 		panelRegistros.add(lblNombre);
 		
 		txtApellido = new JTextField();
+		txtApellido.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtApellido.setEditable(false);
 		txtApellido.setColumns(10);
 		txtApellido.setBounds(278, 134, 224, 27);
@@ -592,6 +594,7 @@ public class TricomMain extends JFrame {
 		panelRegistros.add(lblApellido);
 		
 		txtTelefono = new JTextField();
+		txtTelefono.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtTelefono.setEditable(false);
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(514, 134, 224, 27);
@@ -605,6 +608,7 @@ public class TricomMain extends JFrame {
 		panelRegistros.add(lblTelefono);
 		
 		txtDireccion = new JTextField();
+		txtDireccion.setFont(new Font("Arial", Font.PLAIN, 15));
 		txtDireccion.setEditable(false);
 		txtDireccion.setColumns(10);
 		txtDireccion.setBounds(750, 134, 347, 27);
@@ -644,7 +648,7 @@ public class TricomMain extends JFrame {
 				}
 			}
 		});
-		btnBuscar.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
+		btnBuscar.setFont(new Font("Arial", Font.PLAIN, 15));
 		btnBuscar.setForeground(Color.WHITE);
 		btnBuscar.setBackground(new Color(0, 128, 0));
 		btnBuscar.setMargin(new Insets(0, 0, 0, 0));
@@ -915,7 +919,7 @@ public class TricomMain extends JFrame {
 			   Cliente cliente = Tricom.getInstance().buscarCliente(id);
 			   if(cliente != null)
 			   {
-				   fila = new Object[cliente.getMisFacturas().size()][7];
+				   fila = new Object[cliente.getMisFacturas().size()][9];
 				   for (Factura fac: cliente.getMisFacturas()) 
 				   {
 					  fila[i][0] = false;
@@ -924,10 +928,15 @@ public class TricomMain extends JFrame {
 					  fila[i][3] = fac.getTotalNeto();
 					  fila[i][4] = fac.getPlan().getImpuestos();
 					  fila[i][5] = fac.getMora();
-					  if(fac.getVencida() == true)
-						  fila[i][6] = "Vencida";
+					  fila[i][6] = fac.getFechaVencimiento();
+					  if(fac.isPagada() == true)
+						  fila[i][7] = "Pagada";
 					  else
-						  fila[i][6] = "En fecha";
+						  fila[i][7] = "Sin pagar";
+					  if(fac.getVencida() == true)
+						  fila[i][8] = "Vencida";
+					  else
+						  fila[i][8] = "En fecha";
 				   	  i++;
 				   }
 			   }

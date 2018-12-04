@@ -167,7 +167,7 @@ public class VenderPlan extends JDialog {
 					
 					
 					dia = c1.get(Calendar.DATE);
-					mes = (c1.get(Calendar.YEAR)+1);
+					mes = (c1.get(Calendar.MONTH)+1)+1;
 					agno = c1.get(Calendar.YEAR);
 					if(mes == 13)
 					{
@@ -177,7 +177,7 @@ public class VenderPlan extends JDialog {
 					if(dia > 28 && mes == 2)
 						dia = 1;
 
-					String fechaVen = dia + "/" + mes + "/" + fecha;
+					String fechaVen = dia + "/" + mes + "/" + agno;
 					Factura factura = new Factura(codFactura,fecha,fechaVen,cliente,plan,plan.getTarifaMensual(),plan.getTarifaMensual(),false);
 					Tricom.getInstance().getMisFacturas().add(factura);
 					cant = Tricom.getInstance().getCantRegistros().get(4);
@@ -212,7 +212,7 @@ public class VenderPlan extends JDialog {
 					
 					
 					dia = c1.get(Calendar.DATE);
-					mes = (c1.get(Calendar.YEAR)+1);
+					mes = (c1.get(Calendar.MONTH)+1)+1;
 					agno = c1.get(Calendar.YEAR);
 					if(mes == 13)
 					{
@@ -222,7 +222,7 @@ public class VenderPlan extends JDialog {
 					if(dia > 28 && mes == 2)
 						dia = 1;
 
-					String fechaVen = dia + "/" + mes + "/" + fecha;
+					String fechaVen = dia + "/" + mes + "/" + agno;
 					Factura factura = new Factura(codFactura,fecha,fechaVen,cli,plan,plan.getTarifaMensual(),plan.getTarifaMensual(),false);
 					Tricom.getInstance().getMisFacturas().add(factura);
 					cant = Tricom.getInstance().getCantRegistros().get(4);
